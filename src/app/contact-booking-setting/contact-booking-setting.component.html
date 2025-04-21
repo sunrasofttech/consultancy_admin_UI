@@ -1,0 +1,89 @@
+<div class="feature-settings-container" *ngIf="contactData">
+    <h2>Contact Page Settings</h2>
+    <p>Manage the contact page heading, subheading, button, and image.</p>
+
+    <div class="feature-item">
+        <h3 style="color: #e0d6f5;">Booking Info</h3>
+
+        <div class="row">
+            <div class="column center">
+                <img [src]="imageUrl + contactData.image_url"
+                    alt="Contact Image" class="feature-icon" />
+
+                <!-- Image Upload Section -->
+                <input type="file" (change)="onImageSelected($event)" />
+                <button class="edit-btn" (click)="uploadImage()"
+                    [disabled]="!selectedImage">
+                    Upload New Image
+                </button>
+            </div>
+
+            <div class="column" style="flex: 1;">
+                <!-- Heading -->
+                <div class="row space-between">
+                    <span class="title">Heading:</span>
+                    <ng-container
+                        *ngIf="editingField === 'heading'; else headingView">
+                        <input class="input" [(ngModel)]="editable.heading" />
+                        <button class="icon-btn"
+                            (click)="saveField('heading')"><i
+                                class="fas fa-check"></i></button>
+                        <button class="icon-btn cancel"
+                            (click)="cancelEdit()"><i
+                                class="fas fa-times"></i></button>
+                    </ng-container>
+                    <ng-template #headingView>
+                        <span class="text">{{ contactData.heading }}</span>
+                        <button class="icon-btn"
+                            (click)="editField('heading')"><i
+                                class="fas fa-pen"></i></button>
+                    </ng-template>
+                </div>
+
+                <!-- Subheading -->
+                <div class="row space-between">
+                    <span class="title">Subheading:</span>
+                    <ng-container
+                        *ngIf="editingField === 'subheading'; else subheadingView">
+                        <input class="input"
+                            [(ngModel)]="editable.subheading" />
+                        <button class="icon-btn"
+                            (click)="saveField('subheading')"><i
+                                class="fas fa-check"></i></button>
+                        <button class="icon-btn cancel"
+                            (click)="cancelEdit()"><i
+                                class="fas fa-times"></i></button>
+                    </ng-container>
+                    <ng-template #subheadingView>
+                        <span class="text">{{ contactData.subheading }}</span>
+                        <button class="icon-btn"
+                            (click)="editField('subheading')"><i
+                                class="fas fa-pen"></i></button>
+                    </ng-template>
+                </div>
+
+                <!-- Button Text -->
+                <div class="row space-between">
+                    <span class="title">Button Text:</span>
+                    <ng-container
+                        *ngIf="editingField === 'button_text'; else buttonTextView">
+                        <input class="input"
+                            [(ngModel)]="editable.button_text" />
+                        <button class="icon-btn"
+                            (click)="saveField('button_text')"><i
+                                class="fas fa-check"></i></button>
+                        <button class="icon-btn cancel"
+                            (click)="cancelEdit()"><i
+                                class="fas fa-times"></i></button>
+                    </ng-container>
+                    <ng-template #buttonTextView>
+                        <span class="text">{{ contactData.button_text }}</span>
+                        <button class="icon-btn"
+                            (click)="editField('button_text')"><i
+                                class="fas fa-pen"></i></button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

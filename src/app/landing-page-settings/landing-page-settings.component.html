@@ -1,0 +1,156 @@
+<div class="landing-settings-container">
+    <h2>Landing Page Management Panel</h2>
+    <p>Here you can manage the elements on the landing page.</p>
+
+    <!-- Color Picker for Table Background -->
+    <div class="color-picker">
+        <label for="tableColor">Here You Can Change Table Background
+            Color:</label>
+        <input type="color" id="tableColor" (change)="changeTableColor($event)">
+    </div>
+
+    <div class="landing-section">
+        <div class="landing-row">
+            <div class="landing-column">
+                <strong>Icon_1:</strong>
+            </div>
+            <div class="landing-column">
+                <img [src]="landingData.icon_1 || 'default-logo.png'"
+                    alt="Landing Logo" class="landing-logo-preview">
+            </div>
+            <div class="landing-column actions">
+                <input type="file" accept="image/*"
+                    (change)="onFileSelected($event, 'icon_1')">
+                <button (click)="uploadIcon('icon_1')">Update</button>
+
+            </div>
+        </div>
+
+        <div class="landing-row">
+            <div class="landing-column">
+                <strong>Icon_2:</strong>
+            </div>
+            <div class="landing-column">
+                <img [src]="landingData.icon_2 || 'default-logo.png'"
+                    alt="Landing Logo" class="landing-logo-preview">
+            </div>
+            <div class="landing-column actions">
+                <input type="file" accept="image/*"
+                    (change)="onFileSelected($event, 'icon_2')">
+                <button (click)="uploadIcon('icon_2')">Update</button>
+            </div>
+        </div>
+
+        <div class="landing-row">
+            <div class="landing-column">
+                <strong>Icon_3:</strong>
+            </div>
+            <div class="landing-column">
+                <img [src]="landingData.icon_3 || 'default-logo.png'"
+                    alt="Landing Logo" class="landing-logo-preview">
+            </div>
+            <div class="landing-column actions">
+                <input type="file" accept="image/*"
+                    (change)="onFileSelected($event, 'icon_3')">
+                <button (click)="uploadIcon('icon_3')">Update</button>
+            </div>
+        </div>
+
+        <div class="landing-row">
+            <div class="landing-column">
+                <strong>Icon_4:</strong>
+            </div>
+            <div class="landing-column">
+                <img [src]="landingData.icon_4 || 'default-logo.png'"
+                    alt="Landing Logo" class="landing-logo-preview">
+            </div>
+            <div class="landing-column actions">
+                <input type="file" accept="image/*"
+                    (change)="onFileSelected($event, 'icon_4')">
+                <button (click)="uploadIcon('icon_4')">Update</button>
+            </div>
+        </div>
+
+        <!-- Heading Section -->
+        <div class="landing-row">
+            <div class="landing-column">
+                <strong>Heading:</strong>
+            </div>
+            <div class="landing-column">
+                <ng-container
+                    *ngIf="editingField === 'heading'; else showHeading">
+                    <textarea
+                        [(ngModel)]="landingData.heading"
+                        rows="3"
+                        cols="60"
+                        class="large-textarea"></textarea>
+                </ng-container>
+                <ng-template #showHeading>{{ landingData.heading
+                    }}</ng-template>
+            </div>
+            <div class="landing-column actions">
+                <button *ngIf="editingField !== 'heading'"
+                    (click)="editField('heading')">Edit</button>
+                <button *ngIf="editingField === 'heading'"
+                    (click)="saveField('heading')">Save</button>
+                <button class="btn-danger"
+                    (click)="deleteField('heading')">Delete</button>
+            </div>
+        </div>
+
+        <!-- Subheading Section -->
+        <div class="landing-row">
+            <div class="landing-column">
+                <strong>Sub Heading:</strong>
+            </div>
+            <div class="landing-column">
+                <ng-container
+                    *ngIf="editingField === 'subheading'; else showSubHeading">
+                    <textarea
+                        [(ngModel)]="landingData.subheading"
+                        rows="3"
+                        cols="60"
+                        class="large-textarea"></textarea>
+                </ng-container>
+                <ng-template #showSubHeading>{{ landingData.subheading
+                    }}</ng-template>
+            </div>
+            <div class="landing-column actions">
+                <button *ngIf="editingField !== 'subheading'"
+                    (click)="editField('subheading')">Edit</button>
+                <button *ngIf="editingField === 'subheading'"
+                    (click)="saveField('subheading')">Save</button>
+                <button class="btn-danger"
+                    (click)="deleteField('subheading')">Delete</button>
+            </div>
+        </div>
+
+        <!-- Banner Section -->
+        <div class="banner-section">
+            <h3>Landing Page Banners</h3>
+            <div class="banner-grid">
+                <div *ngFor="let banner of bannerImages" class="banner-item">
+                    <ng-container [ngSwitch]="banner.type">
+                        <!-- If it's an image -->
+                        <img *ngSwitchCase="'image'" [src]="banner.file_url"
+                            alt="Banner Image" class="banner-preview" />
+
+                        <!-- If it's a video -->
+                        <video *ngSwitchCase="'video'" [src]="banner.file_url"
+                            controls class="banner-preview"></video>
+                    </ng-container>
+
+                    <div class="banner-actions">
+                        <input type="file" accept="image/*,video/*"
+                            (change)="onBannerFileSelected($event, banner.id)" />
+                        <button
+                            (click)="updateBanner(banner.id)">Update</button>
+                        <button
+                            (click)="deleteBanner(banner.id)" style="background-color: red;">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,58 @@
+
+ /* Sidebar styles */
+.sidebar {
+  width: 50px;
+  /* background: radial-gradient(37.94% 37.94% at 50% 50.06%, #5250A0 0%, #1F1D78 100%) warning: gradient uses a rotation that is not supported by CSS and may not behave as expected; */
+  background: radial-gradient(37.94% 37.94% at 50% 50.06%, #0b0a1d 0%, #0a0216 100%);
+
+  height: calc(100vh - 4rem);
+  margin-top: 4.5rem;
+  transition: width 0.1s ease;
+  overflow: hidden;
+  position: fixed;
+}
+
+.sidebar.expanded {
+  width: 250px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 1rem 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white; /* Default link color */
+  display: flex;
+  align-items: center;
+}
+
+.sidebar ul li a .icon {
+  margin-right: 10px;
+  font-size: 1.5rem;
+}
+
+.sidebar ul li span {
+  white-space: nowrap;
+}
+
+/* Active link color */
+.active-link {
+  color: #c903e4 !important; /* Ensure it has high priority */
+}
+
+@media screen and (max-width: 480px) {
+  .sidebar.expanded {
+    width: 150px;
+  }
+
+  .sidebar {
+    height: calc(100vh - 0rm);
+    margin-top: 4.0rem;
+  }
+}

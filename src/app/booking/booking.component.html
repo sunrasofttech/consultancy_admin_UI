@@ -1,0 +1,109 @@
+
+<div class="container">
+  <h2 class="booking-header">Bookings</h2>
+
+  <!-- Filter buttons -->
+<div class="filters">
+  <button (click)="applyFilter('today')">Today</button>
+  <button (click)="applyFilter('yesterday')">Yesterday</button>
+  <button (click)="applyFilter('tomorrow')">Tomorrow</button>
+  <button (click)="applyFilter('pending')">Pending</button>
+  
+  <!-- Reset Filter Button -->
+  <button (click)="resetFilters()">
+    <i class="fa fa-refresh"></i> Reset Filters
+  </button>
+</div>
+
+<!-- Date range -->
+<div class="date-range">
+  <label>From: <input type="date" [(ngModel)]="fromDate"></label>
+  <label>To: <input type="date" [(ngModel)]="toDate"></label>
+  <button (click)="applyDateRange()">Apply</button>
+</div>
+
+<!-- Search bar -->
+<div class="search-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Search by name or email"
+    (input)="searchBookings()" />
+</div>
+
+
+
+  <!-- Booking table -->
+  <div class="table-container" *ngIf="bookings.length > 0; else noBookings">
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings; let i = index">
+          <td>{{ i + 1 + (currentPage - 1) * perPage }}</td>
+          <td>{{ booking.name }}</td>
+          <td>{{ booking.email }}</td>
+          <td>{{ booking.phone }}</td>
+          <td>{{ booking.date | date: 'shortDate' }}</td>
+          <td>{{ formatTime(booking.time) }}</td>
+
+          <!-- <td>{{ booking.status }}</td> -->
+
+          <td>
+            <select 
+              [(ngModel)]="booking.status" 
+              (change)="onStatusChange(booking)"
+              [ngClass]="{
+                'status-dropdown': true,
+                'status-pending': booking.status === 'pending',
+                'status-completed': booking.status === 'completed',
+                'status-cancelled': booking.status === 'cancelled'
+              }"
+            >
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </td>
+          
+          
+          
+          <td>{{ booking.message }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="fullscreen-loader" *ngIf="isLoading">
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <p>Updating booking status...</p>
+    </div>
+  </div>
+  
+
+  <!-- No bookings fallback -->
+  <ng-template #noBookings>
+    <p class="no-bookings">No bookings found.</p>
+  </ng-template>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>

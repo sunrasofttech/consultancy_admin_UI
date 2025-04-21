@@ -1,0 +1,74 @@
+<div class="feature-settings-container">
+    <h2>Client Page Management</h2>
+    <p>Manage and update the client page content displayed on the website.</p>
+
+    <div *ngIf="clientData" class="feature-item">
+        <!-- Heading -->
+        <div class="row">
+            <span class="title">Heading:</span>
+            <ng-container
+                *ngIf="editingField?.id === clientData.id && editingField?.field === 'heading'; else headingView">
+                <textarea [(ngModel)]="editableValue"></textarea>
+                <button class="edit-btn"
+                    (click)="saveEdit(clientData, 'heading')">Save</button>
+            </ng-container>
+            <ng-template #headingView>
+                <span class="text">{{ clientData?.heading || 'N/A' }}</span>
+                <button class="edit-btn"
+                    (click)="editClientContent(clientData, 'heading')">Edit</button>
+            </ng-template>
+        </div>
+
+        <!-- Subheading -->
+        <div class="row">
+            <span class="title">Subheading:</span>
+            <ng-container
+                *ngIf="editingField?.id === clientData.id && editingField?.field === 'subheading'; else subheadingView">
+                <textarea [(ngModel)]="editableValue"></textarea>
+                <button class="edit-btn"
+                    (click)="saveEdit(clientData, 'subheading')">Save</button>
+            </ng-container>
+            <ng-template #subheadingView>
+                <span class="text">{{ clientData?.subheading || 'N/A' }}</span>
+                <button class="edit-btn"
+                    (click)="editClientContent(clientData, 'subheading')">Edit</button>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- Add Logo Section -->
+    <div class="feature-item">
+        <h3 style="color: #e0d6f5;">Add Client Logo</h3>
+        <input type="file" (change)="onLogoSelected($event)" />
+        <button class="edit-btn" (click)="uploadClientLogo()"
+            [disabled]="!selectedLogo">Upload</button>
+    </div>
+
+    <!-- View Logos Section -->
+    <!-- View Logos Section -->
+    <div class="feature-item">
+        <h3 style="color: #e0d6f5;">Client Logos</h3>
+        <div class="row" style="flex-wrap: wrap; gap: 20px;">
+            <div *ngFor="let logo of logoList"
+                style="display: flex; flex-direction: column; align-items: center;">
+                <img
+                    [src]="getFullLogoUrl(logo.logo_url)"
+                    alt="Client Logo"
+                    class="feature-icon" />
+                    <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 10px;">
+                        <input type="file" (change)="onLogoFileSelected($event, logo.id)" />
+                        <button
+                          class="edit-btn"
+                          *ngIf="pendingLogoUpdateId === logo.id && selectedUpdateLogo"
+                          (click)="updateClientLogo(logo.id)"
+                        >
+                          Update
+                        </button>
+                        <button class="edit-btn delete-btn" (click)="onDeleteLogo(logo.id)">Delete</button>
+                      </div>
+                      
+            </div>
+        </div>
+    </div>
+
+</div>

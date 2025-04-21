@@ -1,0 +1,123 @@
+<div class="feature-settings-container">
+    <h2>Tech Page Management</h2>
+    <p>Manage the tech items and update their name or image as needed.</p>
+
+    <!-- Tech Main Section -->
+    <div class="feature-item" style="margin-bottom: 40px;">
+        <h3 style="color: #e0d6f5;">Tech Main Section</h3>
+        <div class="row">
+            <input type="text" placeholder="Enter Main Text"
+                [(ngModel)]="mainText" class="input" />
+            <input type="file" (change)="onMainImageSelected($event)" />
+            <button class="edit-btn" (click)="createMainTechSection()"
+                [disabled]="!mainText || !mainImage">Create Main
+                Section</button>
+        </div>
+    </div>
+
+    <!-- Fetched Main Tech Section Display -->
+    <!-- Fetched Main Tech Section Display -->
+<div class="feature-item card-style" *ngIf="fetchedMainTechData">
+    <h3 style="color: #e0d6f5;">Saved Main Section</h3>
+  
+    <div class="row" style="align-items: center;">
+      <!-- IMAGE BLOCK -->
+      <div class="column center">
+        <img
+          [src]="mainImageToUpdate ? previewMainImage : getFullImageUrl(fetchedMainTechData.main_image_url)"
+          alt="Main Tech Image"
+          class="main-tech-image"
+        />
+  
+        <!-- Image Upload + Update Button (always visible) -->
+        <div style="margin-top: 10px;">
+            <input
+            type="file"
+            (change)="onUpdateMainImageSelected($event, fetchedMainTechData.id)"
+            [id]="'main-img-input-' + fetchedMainTechData.id"
+          />
+          
+          <button
+            class="edit-btn small"
+            (click)="updateMainImageOnly()"
+            [disabled]="!mainImageToUpdate"
+          >
+            Update Image
+          </button>
+        </div>
+      </div>
+  
+      <!-- TEXT BLOCK -->
+      <div class="column" style="flex: 1; padding-left: 20px;">
+        <span class="title">Main Text:</span>
+  
+        <!-- View Mode -->
+        <div *ngIf="!editingMainSection" class="row space-between" style="align-items: center;">
+          <p class="text" style="margin-right: 10px;">{{ fetchedMainTechData.main_text }}</p>
+          <button class="icon-btn" (click)="editMainSection()">
+            <i class="fas fa-pen"></i>
+          </button>
+        </div>
+  
+        <!-- Edit Mode -->
+        <div *ngIf="editingMainSection" class="row" style="margin-top: 10px;">
+          <input type="text" [(ngModel)]="editableMainText" class="input" style="margin-right: 10px;" />
+          <button class="edit-btn" (click)="updateMainTextOnly()">Update</button>
+          <button class="icon-btn cancel" (click)="cancelMainEdit()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+      
+    <!-- Create New Tech -->
+    <div class="feature-item">
+        <h3 style="color: #e0d6f5;">Create New Tech</h3>
+        <div class="row">
+            <input type="text" placeholder="Enter Tech Name"
+                [(ngModel)]="newTechName" class="input" />
+            <input type="file" (change)="onImageSelected($event)" />
+            <button class="edit-btn" (click)="createTech()"
+                [disabled]="!newTechName || !selectedImage">Create</button>
+        </div>
+    </div>
+
+    <!-- Tech List -->
+    <div *ngFor="let tech of techList" class="feature-item">
+        <div class="row">
+            <div class="column center">
+                <img [src]="getFullImageUrl(tech.tech_image)" alt="Tech Icon"
+                    class="feature-icon" />
+
+                <input type="file" class="icon-upload-input"
+                    (change)="onTechImageSelected(tech.id, $event)" />
+                <button class="edit-btn small" (click)="updateTechImage(tech)"
+                    [disabled]="!techImageMap[tech.id]">Update Icon</button>
+            </div>
+
+            <div class="column" style="flex: 1;">
+                <div class="row space-between">
+                    <span class="title">Tech Name:</span>
+                    <ng-container
+                        *ngIf="editingTechId === tech.id; else nameView">
+                        <input type="text" [(ngModel)]="editableTechName" />
+                        <button class="edit-btn"
+                            (click)="saveTechEdit(tech)">Update</button>
+                        <button class="icon-btn cancel"
+                            (click)="cancelEdit()"><i
+                                class="fas fa-times"></i></button>
+                    </ng-container>
+                    <ng-template #nameView>
+                        <span class="text">{{ tech.tech_name }}</span>
+                        <button class="icon-btn" (click)="editTech(tech)">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

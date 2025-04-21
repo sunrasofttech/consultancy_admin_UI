@@ -1,0 +1,131 @@
+.feature-settings-container {
+    padding: 30px;
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 30px;
+    color: white;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+.feature-settings-container h2 {
+    margin-bottom: 10px;
+    color: #e0d6f5;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.feature-settings-container p {
+    color: #c5b3e6;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.feature-item {
+    background: #2e1d4d; /* Updated from rgba to solid background */
+    border: 1px solid #5a2d85;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-3px);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.title {
+    width: 150px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #e0d6f5;
+}
+
+.text {
+    flex: 1;
+    font-size: 15px;
+    color: #d3c0f2;
+}
+
+.edit-btn {
+    background-color: #5a2d85;
+    color: white;
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 12px;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #7743b2;
+}
+
+input[type="text"], input[type="file"] {
+    background-color: #3d2a5d;
+    border: 1px solid #7743b2;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #c77dff;
+}
+
+.feature-icon {
+    width: 350px;
+    height: 350px;
+    object-fit: cover; /* or "contain", depending on your layout */
+    margin: 10px;
+    border: 2px solid #7743b2;
+    border-radius: 12px;
+}
+
+
+hr {
+    border: none;
+    height: 1px;
+    background: #5a2d85;
+    margin-top: 20px;
+}
+
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+
+.image-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .custom-snackbar {
+    background-color: #5a2d85;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+  

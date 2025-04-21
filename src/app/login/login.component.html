@@ -1,0 +1,41 @@
+<div class="full-screen-background">
+  <div class="login-container">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.671); z-index: -1;"></div>
+    <h2>Booking Admin Login</h2>
+    <form (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="usernameOrMobile">Email or Mobile:</label>
+        <input
+          type="text"
+          id="usernameOrMobile"
+          name="usernameOrMobile"
+          [(ngModel)]="usernameOrMobile"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <div class="password-input-container">
+          <input
+            [type]="passwordFieldType"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+          />
+          <i
+            class="toggle-password fas"
+            [class.fa-eye]="passwordFieldType === 'password'"
+            [class.fa-eye-slash]="passwordFieldType === 'text'"
+            (click)="togglePasswordVisibility()"
+          ></i>
+        </div>
+      </div>
+      <button type="submit" class="login-button">Login</button>
+      <div class="footer-links">
+        <a href="#">Forgot Password?</a>
+      </div>
+    </form>
+  </div>
+</div>
+

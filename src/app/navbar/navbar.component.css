@@ -1,0 +1,38 @@
+
+  .navbar {
+    background: radial-gradient(37.94% 37.94% at 50% 50.06%, #0b0a1d 0%, #0a0216 100%);
+    padding: 1rem;
+    color: white; /* Light text color */
+    position: fixed; /* Make the navbar sticky */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex; /* Use flex to align items */
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Align vertically */
+    
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center; /* Vertically align logo and text */
+  }
+  
+  .navbar-logo {
+    height: 40px; /* Adjust logo size */
+    margin-right: 1rem; /* Space between logo and text */
+  }
+  
+  h1 {
+    margin: 0; /* Remove default margin */
+  }
+  
+  button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  

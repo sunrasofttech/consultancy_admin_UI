@@ -1,0 +1,79 @@
+<div class="feature-settings-container">
+    <h2>About Page Management</h2>
+    <p>Manage the About section displayed on the homepage.</p>
+  
+    <div *ngIf="aboutData" class="feature-item">
+  
+      <!-- Heading -->
+      <div class="row">
+        <span class="title">Heading:</span>
+        <ng-container *ngIf="editingField === 'heading'; else showHeading">
+          <input [(ngModel)]="editableValue" />
+          <button class="edit-btn" (click)="saveEdit('heading')">Save</button>
+        </ng-container>
+        <ng-template #showHeading>
+          <span class="text">{{ aboutData.heading || 'N/A' }}</span>
+          <button class="edit-btn" (click)="editField('heading', aboutData.heading)">Edit</button>
+        </ng-template>
+      </div>
+  
+      <hr />
+  
+      <!-- Description -->
+      <div class="row">
+        <span class="title">Description:</span>
+        <ng-container *ngIf="editingField === 'description'; else showDescription">
+          <textarea [(ngModel)]="editableValue"></textarea>
+          <button class="edit-btn" (click)="saveEdit('description')">Save</button>
+        </ng-container>
+        <ng-template #showDescription>
+          <span class="text">{{ aboutData.description || 'N/A' }}</span>
+          <button class="edit-btn" (click)="editField('description', aboutData.description)">Edit</button>
+        </ng-template>
+      </div>
+  
+      <hr />
+  
+      <!-- Experience Count -->
+      <div class="row">
+        <span class="title">Experience Count:</span>
+        <ng-container *ngIf="editingField === 'experience_count'; else showCount">
+          <input type="number" [(ngModel)]="editableValue" />
+          <button class="edit-btn" (click)="saveEdit('experience_count')">Save</button>
+        </ng-container>
+        <ng-template #showCount>
+          <span class="text">{{ aboutData.experience_count || 'N/A' }}</span>
+          <button class="edit-btn" (click)="editField('experience_count', aboutData.experience_count)">Edit</button>
+        </ng-template>
+      </div>
+  
+      <hr />
+  
+      <!-- Experience Label -->
+      <div class="row">
+        <span class="title">Experience Label:</span>
+        <ng-container *ngIf="editingField === 'experience_label'; else showLabel">
+          <input [(ngModel)]="editableValue" />
+          <button class="edit-btn" (click)="saveEdit('experience_label')">Save</button>
+        </ng-container>
+        <ng-template #showLabel>
+          <span class="text">{{ aboutData.experience_label || 'N/A' }}</span>
+          <button class="edit-btn" (click)="editField('experience_label', aboutData.experience_label)">Edit</button>
+        </ng-template>
+      </div>
+  
+      <hr />
+  
+      <!-- Image -->
+      <div class="row">
+        <span class="title">Current Image:</span>
+        <div style="flex: 1;">
+          <img *ngIf="aboutData.image_url" [src]="baseUrl + aboutData.image_url" class="feature-icon" />
+          <input type="file" (change)="onImageSelected($event)" />
+          <button class="edit-btn" (click)="updateImage()">Update</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

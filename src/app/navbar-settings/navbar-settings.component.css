@@ -1,0 +1,209 @@
+/* General Styles */
+body {
+    background-color: #f1f3f6;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Settings Container */
+.navbar-settings-container {
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    padding: 20px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .navbar-settings-container {
+        padding: 15px;
+    }
+}
+
+/* Table Container */
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    background: #25133b; /* Dark background to match navbar */
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #5a2d85; /* Outer border */
+}
+
+/* Table Header */
+thead {
+    background: #4a1f6b; /* Dark purple header */
+}
+
+thead th {
+    padding: 12px;
+    color: #fff;
+    font-weight: 600;
+    text-transform: capitalize; /* Title Case */
+    border-bottom: 3px solid #5a2d85; /* Border below header */
+    border-right: 2px solid #5a2d85; /* Vertical partition lines */
+}
+
+/* Remove border for last header column */
+thead th:last-child {
+    border-right: none;
+}
+
+/* Table Body */
+tbody tr {
+    border-bottom: 1px solid #5a2d85;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #2e1d4d; /* Darker row background */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #3a255a; /* Slightly lighter row background */
+}
+
+tbody tr:hover {
+    background-color: #542b7a; /* Highlighted row on hover */
+}
+
+/* Table Data Cells */
+td {
+    padding: 12px;
+    color: #e0d6f5; /* Light text */
+    border-right: 2px solid #5a2d85; /* Vertical partition lines */
+}
+
+/* Remove border for last column */
+tbody td:last-child {
+    border-right: none;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.pagination button {
+    background-color: #4a1f6b;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.pagination button:hover {
+    background-color: #5a2d85;
+}
+
+.pagination button:disabled {
+    background-color: #2e1d4d;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+    .search-bar input {
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Brand Settings */
+.brand-settings {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/* Brand Item */
+.brand-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Brand Logo */
+.brand-logo-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid white;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* File Input */
+.brand-item input[type="file"] {
+    display: block;
+    margin: 10px auto;
+    background: none;
+    color: white;
+    border: none;
+}
+
+/* Brand Name Input */
+.brand-item input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Update Button */
+.brand-item button {
+    margin-top: 10px;
+    background: #5a2d85;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.brand-item button:hover {
+    background: #7743b2;
+}
+
+.custom-snackbar {
+    background-color: #5a2d85;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .success-snackbar {
+    background-color: #4caf50; /* Green */
+    color: white;
+  }
+  
+  .error-snackbar {
+    background-color: #f44336; /* Red */
+    color: white;
+  }

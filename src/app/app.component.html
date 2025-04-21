@@ -1,0 +1,13 @@
+
+<app-navbar *ngIf="!isLoginPage()" (toggleSidebarEvent)="toggleSidebar()"></app-navbar>
+<div class="main-layout" *ngIf="!isLoginPage()">
+  <app-sidebar
+    [isCollapsed]="isCollapsed"
+    (mouseenter)="expandSidebar()"
+    (mouseleave)="collapseSidebar()">
+  </app-sidebar>
+  <div class="content-area" [ngClass]="{ 'collapsed-content': isCollapsed, 'expanded-content': !isCollapsed }">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<router-outlet *ngIf="isLoginPage()"></router-outlet>

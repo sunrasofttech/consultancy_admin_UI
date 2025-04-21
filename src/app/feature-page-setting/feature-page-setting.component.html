@@ -1,0 +1,59 @@
+<div class="feature-settings-container">
+    <h2>Feature Page Management</h2>
+    <p>Manage and update the feature highlights displayed on the homepage.</p>
+  
+    <div *ngIf="featureData.length > 0" class="feature-item">
+      <!-- Heading -->
+      <div class="row">
+        <span class="title">Heading</span>
+        <ng-container *ngIf="editingField?.id === featureData[0].id && editingField?.field === 'heading'; else showHeading">
+          <input [(ngModel)]="editableValue" />
+          <button class="edit-btn" (click)="saveEdit(featureData[0], 'heading')">Save</button>
+        </ng-container>
+        <ng-template #showHeading>
+          <span class="text">{{ featureData[0]?.heading || 'N/A' }}</span>
+          <button class="edit-btn" (click)="editFeature(featureData[0], 'heading')">Edit</button>
+        </ng-template>
+      </div>
+  
+      <!-- Subheading -->
+      <div class="row">
+        <span class="title">Sub Heading</span>
+        <ng-container *ngIf="editingField?.id === featureData[0].id && editingField?.field === 'subheading'; else showSubheading">
+          <input [(ngModel)]="editableValue" />
+          <button class="edit-btn" (click)="saveEdit(featureData[0], 'subheading')">Save</button>
+        </ng-container>
+        <ng-template #showSubheading>
+          <span class="text">{{ featureData[0]?.subheading || 'N/A' }}</span>
+          <button class="edit-btn" (click)="editFeature(featureData[0], 'subheading')">Edit</button>
+        </ng-template>
+      </div>
+    </div>
+  
+    <!-- Loop for label & icon -->
+    <div class="feature-item" *ngFor="let feature of featureData">
+      <!-- Label -->
+      <div class="row">
+        <span class="title">Label</span>
+        <ng-container *ngIf="editingField?.id === feature.id && editingField?.field === 'label'; else showLabel">
+          <input [(ngModel)]="editableValue" />
+          <button class="edit-btn" (click)="saveEdit(feature, 'label')">Save</button>
+        </ng-container>
+        <ng-template #showLabel>
+          <span class="text">{{ feature.label || 'N/A' }}</span>
+          <button class="edit-btn" (click)="editFeature(feature, 'label')">Edit</button>
+        </ng-template>
+      </div>
+  
+      <!-- Icon -->
+      <div class="row">
+        <span class="title">Icon</span>
+        <img [src]="baseUrl + feature.icon_url" class="feature-icon" alt="Icon">
+        <input type="file" (change)="updateIcon(feature, $event)">
+        <button class="edit-btn">Update</button>
+      </div>
+  
+      <hr />
+    </div>
+  </div>
+  

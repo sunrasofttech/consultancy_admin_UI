@@ -1,0 +1,190 @@
+/* Container */
+.landing-settings-container {
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    padding: 25px;
+    border-radius: 20px;
+    color: #e0d6f5;
+    margin: 20px;
+}
+
+/* Header */
+.landing-settings-container h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Description */
+.landing-settings-container p {
+    margin-bottom: 20px;
+    color: #cbbcea;
+}
+
+/* Section */
+.landing-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Row */
+.landing-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2e1d4d;
+    border: 1px solid #5a2d85;
+    padding: 15px;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.landing-row:hover {
+    background-color: #2f115f;
+}
+
+/* Columns */
+.landing-column {
+    flex: 1;
+    padding: 5px 10px;
+}
+
+/* Image */
+.landing-logo-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #5a2d85;
+}
+
+/* Buttons */
+button {
+    background-color: #5a2d85;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #7743b2;
+}
+
+.btn-danger {
+    background-color: #a83232;
+}
+
+.btn-danger:hover {
+    background-color: #c14444;
+}
+
+/* File Input */
+input[type="file"] {
+    color: white;
+    margin-right: 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .landing-row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .landing-column {
+        width: 100%;
+    }
+
+    .landing-logo-preview {
+        margin: 10px auto;
+    }
+}
+
+/* Define a CSS variable for table background color */
+:root {
+    --table-bg-color: #2e1d4d; /* Default color */
+}
+
+/* Update .landing-row to use the new dynamic background color */
+.landing-row {
+    background-color: var(--table-bg-color);
+    transition: background 0.1s ease;
+}
+
+/* Color Picker Styling */
+.color-picker {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.color-picker label {
+    font-size: 14px;
+    color: #e0d6f5;
+    margin-right: 10px;
+}
+
+.color-picker input[type="color"] {
+    border: none;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    background: none;
+}
+
+
+.banner-section {
+    margin-top: 30px;
+  }
+  
+  .banner-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .banner-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    width: 210px;
+    text-align: center;
+  }
+  
+  .banner-preview {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .banner-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+
+  .custom-snackbar {
+    background-color: #5a2d85;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .success-snackbar {
+    background-color: #4caf50; /* Green */
+    color: white;
+  }
+  
+  .error-snackbar {
+    background-color: #f44336; /* Red */
+    color: white;
+  }

@@ -1,0 +1,136 @@
+.feature-settings-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .feature-settings-container h2 {
+    margin-bottom: 5px;
+    color: #e0d6f5;
+  }
+  
+  .feature-settings-container p {
+    color: #c5b3e6;
+  }
+  
+  .feature-item {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .title {
+    width: 150px;
+    font-weight: bold;
+    color: #e0d6f5;
+    margin-bottom: 6px;
+  }
+  
+  .text {
+    flex: 1;
+    color: #d3c0f2;
+    margin-bottom: 6px;
+  }
+  
+  .edit-btn {
+    background-color: #5a2d85;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 14px;
+    height: 35px;
+  }
+  
+  .edit-btn:hover {
+    background-color: #7743b2;
+  }
+  
+  .feature-icon {
+    width: 250px;
+    height: auto;
+    object-fit: cover;
+    margin: 10px 0;
+    border: 3px solid #7743b2;
+    border-radius: 12px;
+  }
+  
+  
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    color: #d3c0f2;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    flex: 1;
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  input[type="file"] {
+    color: white;
+    background: none;
+    border: 1px dashed #7743b2;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+  
+  hr {
+    border: 0;
+    height: 1px;
+    background: #5a2d85;
+    margin-top: 15px;
+  }
+  
+
+  @media screen and (max-width: 600px) {
+    .feature-icon {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .feature-item .row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .edit-btn {
+      align-self: flex-end;
+    }
+  }
+  
+
+  .custom-snackbar {
+    background-color: #5a2d85;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+  

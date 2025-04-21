@@ -1,0 +1,93 @@
+.feature-settings-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.feature-settings-container h2 {
+    margin-bottom: 5px;
+    color: #e0d6f5;
+}
+
+.feature-settings-container p {
+    color: #c5b3e6;
+}
+
+.feature-item {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.title {
+    width: 150px;
+    font-weight: bold;
+    color: #e0d6f5;
+}
+
+.text {
+    flex: 1;
+    color: #d3c0f2;
+}
+
+.edit-btn {
+    background-color: #5a2d85;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.edit-btn:hover {
+    background-color: #7743b2;
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-left: 15px;
+    margin-right: 10px;
+    border: 2px solid #7743b2;
+    border-radius: 8px;
+}
+
+input[type="file"] {
+    color: white;
+    background: none;
+    border: 1px dashed #7743b2;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #5a2d85;
+    margin-top: 15px;
+}
+
+.custom-snackbar {
+    background-color: #5a2d85;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }

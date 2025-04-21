@@ -1,0 +1,89 @@
+<div
+  class="sidebar"
+  [ngClass]="{ 'expanded': !isCollapsed }"
+  (mouseenter)="expandSidebar()"
+  (mouseleave)="collapseSidebar()">
+  <ul>
+    <li><a routerLink="/dashboard" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">🏠</span><span
+          *ngIf="!isCollapsed">Dashboard</span></a></li>
+
+    <li><a routerLink="/booking" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">📅</span><span *ngIf="!isCollapsed">Bookings
+        </span></a></li>
+
+    <li><a routerLink="/navbarSetting" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">⚙️</span><span *ngIf="!isCollapsed">Navbar Settings
+        </span></a></li>
+
+    <li><a routerLink="/landing-page" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">🏠</span><span *ngIf="!isCollapsed">Landing Page
+        </span></a></li>
+
+    <li><a routerLink="/feature-page" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">🏆</span><span *ngIf="!isCollapsed">Features Page
+        </span></a></li>
+
+    <li><a routerLink="/about-page" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">📖</span><span
+          *ngIf="!isCollapsed">About Page </span></a></li>
+
+    <li>
+      <a routerLink="/client-page" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()">
+        <span class="icon">👥</span>
+        <span *ngIf="!isCollapsed">Clients Page</span>
+      </a>
+    </li>
+
+    <li><a routerLink="/process-page" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">🔁</span><span *ngIf="!isCollapsed"
+          (click)="collapseSidebarOnLinkClick()">Process</span></a></li>
+
+    <li><a routerLink="/case-study" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">📖</span><span *ngIf="!isCollapsed"
+          (click)="collapseSidebarOnLinkClick()">Case Study</span></a></li>
+
+    <!-- <li><a routerLink="/reports" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">📊</span><span
+          *ngIf="!isCollapsed">Profit/Loss Reports</span></a></li>
+    <li><a routerLink="/bets" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">💰</span><span
+          *ngIf="!isCollapsed">Winning History</span></a></li> -->
+
+    <li>
+      <a routerLink="/contact-booking" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()">
+        <span class="icon" style="margin-left: 5px;">📞</span>
+        <span *ngIf="!isCollapsed">Contact Page</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/tech-page" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()">
+        <span class="icon" style="margin-left: 5px;">💻</span>
+        <span *ngIf="!isCollapsed">Tech Page</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/faqs-page" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()">
+        <span class="icon" style="margin-left: 5px;">❓</span>
+        <span *ngIf="!isCollapsed">FAQs Page</span>
+      </a>
+    </li>
+
+  </ul>
+</div>

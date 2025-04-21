@@ -1,0 +1,156 @@
+.full-screen-background {
+    background: #1a0022;
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the login card both vertically and horizontally */
+    padding: 20px; /* Padding to allow spacing on smaller screens */
+}
+
+.login-container {
+    max-width: 450px;
+    width: 100%; /* Make the container responsive */
+    padding: 40px;
+    border: 2px solid #1F1D78; /* White border */
+    border-radius: 12px;
+    /* background: rgba(36, 34, 34, 0.9);  */
+    /* background: #E70BFE; */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3); /* Strong shadow for depth */
+    background: #2201767D;
+
+}
+
+h2 {
+    text-align: center;
+    color: #1F1D78 ; /* Title color */
+    margin-bottom: 30px;
+    font-weight: bold; /* Bold title */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4); /* Shadow effect for depth */
+    background: linear-gradient(90deg, #FF0022 0%, #FF00E1 50%, #07A8FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    
+}
+
+label {
+    font-weight: bold;
+    color: #fff;
+    
+
+}
+
+input {
+    width: 92%;
+    padding: 15px;
+    border: 2px solid #1F1D78; /* Border color */
+    border-radius: 8px;
+    transition: all 0.3s;
+    /* background-color: #f9f9f9; Light background for inputs */
+    font-size: 16px; /* Larger font size */
+    background: transparent;
+}
+
+input:focus {
+    border-color: #1F1D78; /* Bright color on focus */
+    outline: none;
+    box-shadow: 0 0 8px rgba(241, 196, 15, 0.6); /* Glow effect */
+}
+
+.login-button {
+    width: 99%; /* Make button full width on small screens */
+    background-color: #1F1D78; /* Button color */
+    color: #fff; /* Text color */
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold; /* Bold button text */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    margin-top: 20px; /* Space above the button */
+}
+
+.login-button:hover {
+    background-color: #12105c; /* Change on hover */
+    color: white;
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.footer-links {
+    text-align: center;
+    margin-top: 20px; /* Space above links */
+}
+
+.footer-links a {
+    color: #1F1D78; /* Link color */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Bold link */
+    transition: color 0.3s; /* Smooth transition */
+}
+
+.footer-links a:hover {
+    color: #12105c; /* Change color on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive media queries */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 30px 20px; /* Adjust padding for smaller screens */
+    }
+
+    .login-button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    input {
+        padding: 12px; /* Adjust input padding for mobile */
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 18px;
+    }
+
+    .login-container {
+        max-width: 100%; /* Make it use the full width on very small screens */
+        padding: 30px;
+    }
+
+    .login-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+.password-input-container {
+    position: relative;
+    width: 96%;
+  }
+
+  .password-input-container input {
+    width: 96%
+    /* padding-right: 40px;  */
+  }
+  
+  .password-input-container .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 5px; /* Adjust the spacing as needed */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+  }
+  
+  .password-input-container .toggle-password:hover {
+    color: #333;
+  }
+  

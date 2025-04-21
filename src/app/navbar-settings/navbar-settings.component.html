@@ -1,0 +1,74 @@
+<div class="navbar-settings-container">
+    <h2>Navbar Management Panel</h2>
+    <p>Welcome to the Booking Admin Panel. Here you can edit the Navbar.</p>
+
+    <!-- Brand Settings -->
+    <div class="brand-settings">
+        <!-- <div class="brand-item">
+            <label>Brand Logo:</label>
+            <img [src]="brandLogo || 'default-logo.png'" alt="Brand Logo" class="brand-logo-preview">
+            <input type="file" accept="image/*">
+            <button>Update</button>
+        </div> -->
+
+        <div class="brand-item">
+            <label>Brand Logo:</label>
+            <img [src]="brandLogo || 'default-logo.png'" alt="Brand Logo" class="brand-logo-preview">
+        
+            <!-- File Input -->
+            <input type="file" accept="image/*" (change)="onFileSelected($event)">
+        
+            <!-- Update Button -->
+            <button (click)="uploadBrandLogo(navbarOptions[0].id)">Update</button>
+        </div>
+        
+
+        <div class="brand-item">
+            <label>Brand Name:</label>
+            <span style="margin-left: 10px; font-weight: bold;">{{ brandName }}</span>
+            <br>
+            <input style="margin-top: 10px;" type="text" [(ngModel)]="brandName" placeholder="Enter brand name">
+            <button (click)="updateBrandName()">Update</button>
+        </div>
+        
+    </div>
+
+    <!-- Navbar Items Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <!-- <th>URL</th> -->
+                    <!-- <th>Visibility</th> -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of navbarOptions">
+                  <td>
+                    <span *ngIf="editingRow !== item.id">{{ item.name }}</span>
+                    <input *ngIf="editingRow === item.id" type="text" [(ngModel)]="item.name">
+                  </td>
+                  
+                  <td>
+                    <span *ngIf="editingRow !== item.id">{{ item.type }}</span>
+                    <select *ngIf="editingRow === item.id" [(ngModel)]="item.type">
+                      <option value="link">Link</option>
+                      <option value="button">Button</option>
+                    </select>
+                  </td>
+              
+                  <td>
+                    <button *ngIf="editingRow !== item.id" (click)="editRow(item.id)"><i class="fas fa-edit"></i></button>
+                    <button *ngIf="editingRow === item.id" (click)="saveRow(item.id)"><i class="fas fa-save"></i></button>
+                    <button *ngIf="editingRow === item.id" (click)="cancelEdit()"><i class="fas fa-times"></i></button>
+                    <button (click)="deleteRow(item.id)"><i class="fas fa-trash-alt"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+              
+        </table>
+    </div>
+</div>

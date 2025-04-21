@@ -1,0 +1,36 @@
+<div class="feature-settings-container">
+    <h2>Case Study Page Management</h2>
+    <p>Manage and update the case studies displayed on the website.</p>
+
+    <div *ngFor="let caseStudy of caseStudies" class="feature-item">
+        <div class="row">
+            <span class="title">Title</span>
+            <ng-container
+                *ngIf="editingCaseStudy?.id === caseStudy.id; else showTitle">
+                <input [(ngModel)]="editableTitle" />
+                <button class="edit-btn"
+                    (click)="saveEdit(caseStudy)">Update</button>
+            </ng-container>
+            <ng-template #showTitle>
+                <span class="text">{{ caseStudy.title }}</span>
+                <button class="edit-btn"
+                    (click)="editCaseStudy(caseStudy)">Edit</button>
+            </ng-template>
+        </div>
+    </div>
+
+    <hr />
+
+    <h2>Uploaded Case Study Images</h2>
+    <div class="image-gallery">
+        <div class="image-card" *ngFor="let image of caseStudyImages">
+            <img [src]="baseUrl + image.image_url" alt="Case Study Image"
+                class="feature-icon" />
+
+            <input type="file" (change)="onFileSelected($event, image.id)" />
+            <button class="edit-btn"
+                (click)="updateImage(image.id)">Update</button>
+        </div>
+    </div>
+
+</div>

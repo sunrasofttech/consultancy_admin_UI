@@ -1,0 +1,55 @@
+<div
+    style="background: linear-gradient(135deg, #1e0627, #33093b); padding: 10px; border-radius: 25px;">
+
+    <h2>Dashboard</h2>
+    <p style="color: white;">Welcome to the Ludo Game Admin Panel. Here you can
+        view statistics about
+        the game.</p>
+
+    <div class="dashboard-container">
+        <div class="dashboard-card" [routerLink]="['/player-list']">
+            <i class="fas fa-book-open dashboard-icon"></i>
+            <h3>Total Booking</h3>
+            <p>{{totalBookings}}</p>
+        </div>
+
+
+        <div class="dashboard-card" [routerLink]="['/contest-list']">
+            <i class="fas fa-hourglass-half dashboard-icon"></i>
+            <h3>Total Pending Bookings</h3>
+            <p>{{totalPendingBookings}}</p>
+        </div>
+
+        <div class="dashboard-card" [routerLink]="['/running-game']">
+            <i class="fas fa-check-circle dashboard-icon"></i>
+            <h3>Total Completed Bookings</h3>
+            <p>{{ totalCompletedBookings }}</p>
+        </div>
+       
+        <div class="dashboard-card">
+            <i class="fas fa-times-circle dashboard-icon"></i>
+            <h3>Total Canceled Bookings</h3>
+            <p>₹ {{ totalCanceledBookings }} </p>
+        </div>
+
+        <div class="dashboard-card">
+            <i class="fas fa-clipboard-list dashboard-icon"></i>
+            <h3>Today's Total Bookings</h3>
+            <p>₹ {{todayTotalBookings}}</p>
+        </div>
+
+        <!-- <div class="dashboard-card">
+            <i class="fas fa-money-check-alt dashboard-icon"></i>
+            <h3>Total Profit/Loss</h3>
+            <p>₹ {{totalProfit}} </p>
+        </div>
+
+        <div class="dashboard-card" [routerLink]="['/reports']">
+            <i class="fas fa-rupee-sign dashboard-icon"></i>
+            <h3>Today's Total Profit/Loss</h3>
+            <p>₹ {{todayProfit}}</p>
+        </div> -->
+
+    </div>
+
+</div>

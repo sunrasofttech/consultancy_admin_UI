@@ -1,0 +1,77 @@
+<div class="feature-settings-container">
+    <h2>FAQs Page Management</h2>
+    <p>Manage the main title, subheading, and list of FAQs.</p>
+  
+    <!-- Update FAQs Page Content -->
+    <div class="feature-item">
+      <h3 style="color: #e0d6f5;">Update FAQs Page Content</h3>
+  
+      <div class="row">
+        <label class="title">Title:</label>
+        <input type="text" placeholder="Enter FAQ Title" [(ngModel)]="title" class="input" />
+      </div>
+  
+      <div class="row">
+        <label class="title">Subheading:</label>
+        <textarea rows="3" [(ngModel)]="subheading" class="input" placeholder="Enter FAQ Subheading" style="width: 100%; max-width: 600px;"></textarea>
+      </div>
+  
+      <div class="row" style="justify-content: flex-end;">
+        <button class="edit-btn" (click)="updateFaqPage()" [disabled]="!title || !subheading || isSubmitting">
+          {{ isSubmitting ? 'Updating...' : 'Update Content' }}
+        </button>
+      </div>
+    </div>
+
+
+    <!-- Add New FAQ Qns & Ans -->
+<div class="feature-item">
+    <h3 style="color: #e0d6f5;">Add New FAQ</h3>
+  
+    <div class="row">
+      <label class="title">New Question:</label>
+      <textarea rows="3" [(ngModel)]="newQuestion" class="input" placeholder="Enter new FAQ question"
+        style="width: 100%; max-width: 600px;"></textarea>
+    </div>
+  
+    <div class="row">
+      <label class="title">New Answer:</label>
+      <textarea rows="3" [(ngModel)]="newAnswer" class="input" placeholder="Enter new FAQ answer"
+        style="width: 100%; max-width: 600px;"></textarea>
+    </div>
+  
+    <div class="row" style="justify-content: flex-end;">
+      <button class="edit-btn" (click)="createFaqQnsAns()" [disabled]="!newQuestion || !newAnswer || isCreatingFaq">
+        {{ isCreatingFaq ? 'Creating...' : 'Add FAQ' }}
+      </button>
+    </div>
+  </div>
+  
+
+
+
+  
+    <!-- Update FAQ Qns & Ans -->
+    <div class="feature-item" *ngFor="let faq of faqList">
+      <h3 style="color: #e0d6f5;">Update FAQ (ID: {{ faq.id }})</h3>
+  
+      <div class="row">
+        <label class="title">Question:</label>
+        <!-- <input type="text" [(ngModel)]="faq.question" class="input" placeholder="Enter FAQ Question" /> -->
+        <textarea rows="3" [(ngModel)]="faq.question" class="input" placeholder="Enter FAQ Question" style="width: 100%; max-width: 600px;"></textarea>
+
+      </div>
+  
+      <div class="row">
+        <label class="title">Answer:</label>
+        <textarea rows="3" [(ngModel)]="faq.answer" class="input" placeholder="Enter FAQ Answer" style="width: 100%; max-width: 600px;"></textarea>
+      </div>
+  
+      <div class="row" style="justify-content: flex-end;">
+        <button class="edit-btn" (click)="updateFaqQnsAnsPage(faq)" [disabled]="isQnsAnsSubmitting">
+          {{ isQnsAnsSubmitting ? 'Updating...' : 'Update FAQ' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,98 @@
+.feature-settings-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+  }
+  
+  .feature-settings-container h2 {
+    margin-bottom: 5px;
+    color: #e0d6f5;
+  }
+  
+  .feature-settings-container p {
+    color: #c5b3e6;
+  }
+  
+  .feature-item {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .space-between {
+    justify-content: space-between;
+  }
+  
+  .title {
+    width: 150px;
+    font-weight: bold;
+    color: #e0d6f5;
+  }
+  
+  .text {
+    flex: 1;
+    color: #d3c0f2;
+  }
+  
+  .input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #7743b2;
+    background-color: #1c0c2e;
+    color: #fff;
+    width: 250px;
+  }
+  
+  textarea.input {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .edit-btn {
+    background-color: #5a2d85;
+    color: white;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-btn:disabled {
+    background-color: #3f2c56;
+    cursor: not-allowed;
+  }
+  
+  .edit-btn:hover:not(:disabled) {
+    background-color: #7743b2;
+  }
+  
+  .custom-snackbar {
+    background-color: #5a2d85;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }

@@ -1,0 +1,105 @@
+<div class="feature-settings-container">
+  <h2>Process Page Management</h2>
+  <p>Manage the process steps and update their title or points as needed.</p>
+
+  <!-- Create New Step -->
+  <div class="feature-item">
+    <h3 style="color: #e0d6f5;">Create New Process Step</h3>
+    <div class="row">
+      <input
+        type="text"
+        placeholder="Enter Step Title"
+        [(ngModel)]="newStepTitle"
+        class="input" />
+      <input type="file" (change)="onIconSelected($event)" />
+      <button
+        class="edit-btn"
+        (click)="createProcessStep()"
+        [disabled]="!newStepTitle || !selectedIcon">
+        Create
+      </button>
+    </div>
+  </div>
+
+  <!-- Step List -->
+  <div *ngFor="let step of processSteps" class="feature-item">
+    <div class="row">
+      <div class="column center">
+        <img [src]="getFullIconUrl(step.icon_url)" alt="Step Icon"
+          class="feature-icon" />
+
+        <!-- Icon Update -->
+        <input
+          type="file"
+          class="icon-upload-input"
+          (change)="onStepIconSelected(step.id, $event)" />
+        <button
+          class="edit-btn small"
+          (click)="updateStepIcon(step)"
+          [disabled]="!stepIcons[step.id]">
+          Update Icon
+        </button>
+
+      </div>
+
+      <div class="column" style="flex: 1;">
+        <!-- Title Editing -->
+        <div class="row space-between">
+          <span class="title">Step Title:</span>
+          <ng-container *ngIf="editingStep?.id === step.id; else titleView">
+            <input type="text" [(ngModel)]="editableTitle" />
+            <button class="edit-btn" (click)="saveTitleEdit(step)">Update</button>
+          </ng-container>
+          <ng-template #titleView>
+            <span class="text">{{ step.title }}</span>
+            <button class="edit-btn" (click)="editTitle(step)">Edit</button>
+          </ng-template>
+        </div>
+
+        <!-- Step Points -->
+        <div class="points-section">
+          <h4>Points:</h4>
+          <ul>
+            <li *ngFor="let point of step.points">
+              <ng-container
+                *ngIf="editingPoint?.id === point.id; else pointView">
+                <input
+                  type="text"
+                  [(ngModel)]="editablePointText"
+                  class="input"
+                  style="margin-right: 10px;" />
+                <button class="icon-btn" (click)="savePointEdit(point)">
+                  <i class="fas fa-check"></i>
+                </button>
+                <button class="icon-btn cancel" (click)="cancelPointEdit()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </ng-container>
+              <ng-template #pointView>
+                {{ point.point_text }}
+                <button class="icon-btn" (click)="editPoint(point)">
+                  <i class="fas fa-pen"></i>
+                </button>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Add New Point -->
+        <div class="row" style="margin-top: 10px;">
+          <input
+            type="text"
+            placeholder="Enter new point"
+            [(ngModel)]="newPoints[step.id]"
+            class="input" />
+          <button
+            class="edit-btn"
+            (click)="addPoint(step.id)"
+            [disabled]="!newPoints[step.id]">
+            Add Point
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
