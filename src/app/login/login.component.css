@@ -52,6 +52,7 @@ input {
     /* background-color: #f9f9f9; Light background for inputs */
     font-size: 16px; /* Larger font size */
     background: transparent;
+    color: white;
 }
 
 input:focus {
