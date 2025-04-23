@@ -90,29 +90,59 @@ export class CaseStudySettingComponent implements OnInit {
     }
   }
   
+  // updateImage(id: number) {
+  //   const file = this.selectedImages[id];
+  //   if (!file) {
+  //     this.showSnackbar('No image selected to upload.');
+  //     return;
+  //   }
+  
+  //   const formData = new FormData();
+  //   formData.append('image', file);
+  
+  //   this.caseStudyService.updateCaseStudyImage(id, formData).subscribe({
+  //     next: (res) => {
+  //       if (res.status) {
+  //         this.fetchCaseStudyImages(); // Refresh list after update
+  //         this.showSnackbar('Image updated successfully!');
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error('Error updating image:', err);
+  //       this.showSnackbar('Something went wrong while updating image.');
+  //     }
+  //   });
+  // }
+
+
+
   updateImage(id: number) {
     const file = this.selectedImages[id];
-    if (!file) {
-      this.showSnackbar('No image selected to upload.');
-      return;
-    }
+    const imageData = this.caseStudyImages.find(img => img.id === id);
+    if (!imageData) return;
   
     const formData = new FormData();
-    formData.append('image', file);
+    if (file) {
+      formData.append('image', file);
+    }
+    formData.append('title', imageData.title || '');
+    formData.append('subTitle', imageData.subTitle || '');
+    formData.append('paragraph', imageData.paragraph || '');
   
     this.caseStudyService.updateCaseStudyImage(id, formData).subscribe({
       next: (res) => {
         if (res.status) {
-          this.fetchCaseStudyImages(); // Refresh list after update
-          this.showSnackbar('Image updated successfully!');
+          this.fetchCaseStudyImages(); // Refresh
+          this.showSnackbar('Case study image updated successfully!');
         }
       },
       error: (err) => {
-        console.error('Error updating image:', err);
-        this.showSnackbar('Something went wrong while updating image.');
+        console.error('Error updating case study image:', err);
+        this.showSnackbar('Something went wrong while updating the image.');
       }
     });
   }
+  
 
 
 }

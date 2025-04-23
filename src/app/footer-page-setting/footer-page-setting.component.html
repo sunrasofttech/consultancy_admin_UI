@@ -1,0 +1,239 @@
+<div class="feature-settings-container">
+    <h2>Footer Content Management</h2>
+    <p>Manage the footer content displayed on the website.</p>
+
+    <div *ngIf="footerContent" class="feature-item">
+
+        <!-- About Text -->
+        <div class="row">
+            <span class="title">About Text:</span>
+            <ng-container
+                *ngIf="editingField === 'about_text'; else showAboutText">
+                <textarea [(ngModel)]="footerContent.about_text"></textarea>
+                <button class="edit-btn"
+                    (click)="saveEdit('about_text')">Save</button>
+            </ng-container>
+            <ng-template #showAboutText>
+                <span class="text">{{ footerContent.about_text || 'N/A'
+                    }}</span>
+                <button class="edit-btn"
+                    (click)="editField('about_text', footerContent.about_text)">Edit</button>
+            </ng-template>
+        </div>
+
+        <hr />
+
+        <!-- Legal Title -->
+        <div class="row">
+            <span class="title">Legal Title:</span>
+            <ng-container
+                *ngIf="editingField === 'legal_title'; else showLegalTitle">
+                <input [(ngModel)]="footerContent.legal_title" />
+                <button class="edit-btn"
+                    (click)="saveEdit('legal_title')">Save</button>
+            </ng-container>
+            <ng-template #showLegalTitle>
+                <span class="text">{{ footerContent.legal_title || 'N/A'
+                    }}</span>
+                <button class="edit-btn"
+                    (click)="editField('legal_title', footerContent.legal_title)">Edit</button>
+            </ng-template>
+        </div>
+
+        <hr />
+
+        <!-- Privacy Policy Text -->
+        <div class="row">
+            <span class="title">Privacy Policy Text:</span>
+            <ng-container
+                *ngIf="editingField === 'privacy_policy_text'; else showPrivacyPolicyText">
+                <textarea
+                    [(ngModel)]="footerContent.privacy_policy_text"></textarea>
+                <button class="edit-btn"
+                    (click)="saveEdit('privacy_policy_text')">Save</button>
+            </ng-container>
+            <ng-template #showPrivacyPolicyText>
+                <span class="text">{{ footerContent.privacy_policy_text || 'N/A'
+                    }}</span>
+                <button class="edit-btn"
+                    (click)="editField('privacy_policy_text', footerContent.privacy_policy_text)">Edit</button>
+            </ng-template>
+        </div>
+
+        <hr />
+
+        <!-- Terms & Conditions Text -->
+        <div class="row">
+            <span class="title">Terms & Conditions Text:</span>
+            <ng-container
+                *ngIf="editingField === 'terms_conditions_text'; else showTermsConditionsText">
+                <textarea
+                    [(ngModel)]="footerContent.terms_conditions_text"></textarea>
+                <button class="edit-btn"
+                    (click)="saveEdit('terms_conditions_text')">Save</button>
+            </ng-container>
+            <ng-template #showTermsConditionsText>
+                <span class="text">{{ footerContent.terms_conditions_text ||
+                    'N/A' }}</span>
+                <button class="edit-btn"
+                    (click)="editField('terms_conditions_text', footerContent.terms_conditions_text)">Edit</button>
+            </ng-template>
+        </div>
+
+        <hr />
+
+        <!-- Contact Title -->
+        <div class="row">
+            <span class="title">Contact Title:</span>
+            <ng-container
+                *ngIf="editingField === 'contact_title'; else showContactTitle">
+                <input [(ngModel)]="footerContent.contact_title" />
+                <button class="edit-btn"
+                    (click)="saveEdit('contact_title')">Save</button>
+            </ng-container>
+            <ng-template #showContactTitle>
+                <span class="text">{{ footerContent.contact_title || 'N/A'
+                    }}</span>
+                <button class="edit-btn"
+                    (click)="editField('contact_title', footerContent.contact_title)">Edit</button>
+            </ng-template>
+        </div>
+
+        <hr />
+
+        <!-- Contact Address -->
+        <div class="row">
+            <span class="title">Contact Address:</span>
+            <ng-container
+                *ngIf="editingField === 'contact_address'; else showContactAddress">
+                <input [(ngModel)]="footerContent.contact_address" />
+                <button class="edit-btn"
+                    (click)="saveEdit('contact_address')">Save</button>
+            </ng-container>
+            <ng-template #showContactAddress>
+                <span class="text">{{ footerContent.contact_address || 'N/A'
+                    }}</span>
+                <button class="edit-btn"
+                    (click)="editField('contact_address', footerContent.contact_address)">Edit</button>
+            </ng-template>
+        </div>
+
+        <hr />
+
+        <!-- Contact Phone -->
+        <div class="row">
+            <span class="title">Contact Phone:</span>
+            <ng-container
+                *ngIf="editingField === 'contact_phone'; else showContactPhone">
+                <input [(ngModel)]="footerContent.contact_phone" />
+                <button class="edit-btn"
+                    (click)="saveEdit('contact_phone')">Save</button>
+            </ng-container>
+            <ng-template #showContactPhone>
+                <span class="text">{{ footerContent.contact_phone || 'N/A'
+                    }}</span>
+                <button class="edit-btn"
+                    (click)="editField('contact_phone', footerContent.contact_phone)">Edit</button>
+            </ng-template>
+        </div>
+
+        <hr />
+
+        <!-- Contact Email -->
+        <div class="row">
+            <span class="title">Contact Email:</span>
+            <ng-container
+                *ngIf="editingField === 'contact_email'; else showContactEmail">
+                <input [(ngModel)]="footerContent.contact_email" />
+                <button class="edit-btn"
+                    (click)="saveEdit('contact_email')">Save</button>
+            </ng-container>
+            <ng-template #showContactEmail>
+                <span class="text">{{ footerContent.contact_email || 'N/A'
+                    }}</span>
+                <button class="edit-btn"
+                    (click)="editField('contact_email', footerContent.contact_email)">Edit</button>
+            </ng-template>
+        </div>
+
+    </div>
+
+    <div class="create-footer-social-icon">
+        <h3>Create New Footer Social Icon</h3>
+
+        <form (ngSubmit)="createFooterSocialIcon()">
+            <div class="row">
+                <label for="platform_name">Platform Name:</label>
+                <input type="text" id="platform_name"
+                    [(ngModel)]="newFooterSocialIcon.platform_name"
+                    name="platform_name" required />
+            </div>
+
+            <div class="row">
+                <label for="link_url">Link URL:</label>
+                <input type="text" id="link_url"
+                    [(ngModel)]="newFooterSocialIcon.link_url" name="link_url"
+                    required />
+            </div>
+
+            <div class="row">
+                <label for="icon">Icon (image):</label>
+                <input type="file" id="icon" (change)="onFileChange($event)"
+                    name="icon" required />
+            </div>
+
+            <button type="submit" class="btn-submit">Create</button>
+        </form>
+
+        <div class="social-icons-table-container">
+            <h2>Footer Social Icons</h2>
+
+            <table class="social-icons-table">
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Platform</th>
+                        <th>Link URL</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let icon of footerSocialIcons">
+                        <ng-container
+                            *ngIf="editingIconId === icon.id; else showIcon">
+                           
+                            <td>
+                                <input type="file"
+                                    (change)="onUpdateFileChange($event)" />
+                            </td>
+
+                            <td><input type="text"
+                                [(ngModel)]="updatedFooterSocialIcon.platform_name" /></td>
+                        <td><input type="text"
+                                [(ngModel)]="updatedFooterSocialIcon.link_url" /></td>
+
+                            <td>
+                                <button (click)="saveIconEdit()">Save</button>
+                                <button
+                                    (click)="editingIconId = null">Cancel</button>
+                            </td>
+                        </ng-container>
+                        <ng-template #showIcon>
+                            <td><img [src]="baseImageUrl + icon.icon_url"
+                                    alt="{{ icon.platform_name }}" width="32"
+                                    height="32"></td>
+                            <td>{{ icon.platform_name }}</td>
+                            <td><a [href]="icon.link_url" target="_blank">{{
+                                    icon.link_url }}</a></td>
+                            <td>
+                                <button class="edit-btn"
+                                    (click)="editIcon(icon)">Edit</button>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

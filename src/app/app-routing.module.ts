@@ -14,6 +14,8 @@ import { ContactBookingSettingComponent } from './contact-booking-setting/contac
 import { TechPageSettingComponent } from './tech-page-setting/tech-page-setting.component';
 import { FaqsPageSettingComponent } from './faqs-page-setting/faqs-page-setting.component';
 import { BookingComponent } from './booking/booking.component';
+import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
+
 
 
 const routes: Routes = [
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: 'faqs-page', component: FaqsPageSettingComponent }, // Dashboard route
   { path: 'booking', component: BookingComponent }, // Dashboard route
 
+  { path: 'footer-page', component: FooterPageSettingComponent }, // Dashboard route
 
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to login by default
   { path: '**', redirectTo: '/login' } // Handle undefined routes

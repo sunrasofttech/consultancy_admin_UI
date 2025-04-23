@@ -27,6 +27,19 @@
             <img [src]="baseUrl + image.image_url" alt="Case Study Image"
                 class="feature-icon" />
 
+            <div class="input-group">
+                <label>Title:</label>
+                <input [(ngModel)]="image.title" />
+            </div>
+            <div class="input-group">
+                <label>Sub Title:</label>
+                <textarea [(ngModel)]="image.subTitle"></textarea>
+            </div>
+            <div class="input-group">
+                <label>Paragraph:</label>
+                <textarea [(ngModel)]="image.paragraph"></textarea>
+            </div>
+
             <input type="file" (change)="onFileSelected($event, image.id)" />
             <button class="edit-btn"
                 (click)="updateImage(image.id)">Update</button>

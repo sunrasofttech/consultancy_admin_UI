@@ -23,6 +23,7 @@ import { ContactBookingSettingComponent } from './contact-booking-setting/contac
 import { TechPageSettingComponent } from './tech-page-setting/tech-page-setting.component';
 import { FaqsPageSettingComponent } from './faqs-page-setting/faqs-page-setting.component';
 import { BookingComponent } from './booking/booking.component';
+import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { BookingComponent } from './booking/booking.component';
     ContactBookingSettingComponent,
     TechPageSettingComponent,
     FaqsPageSettingComponent,
-    BookingComponent
+    BookingComponent,
+    FooterPageSettingComponent
   ],
   imports: [
     BrowserModule,
