@@ -1,0 +1,246 @@
+.feature-settings-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.feature-settings-container h2 {
+    margin-bottom: 10px;
+    color: #e0d6f5;
+    font-size: 24px;
+}
+
+.feature-settings-container p {
+    color: #c5b3e6;
+    font-size: 16px;
+}
+
+.feature-item {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.title {
+    width: 150px;
+    font-weight: bold;
+    color: #e0d6f5;
+    margin-bottom: 6px;
+}
+
+.text {
+    flex: 1;
+    color: #d3c0f2;
+    margin-bottom: 6px;
+}
+
+.edit-btn {
+    background-color: #5a2d85;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 14px;
+    height: 35px;
+}
+
+.edit-btn:hover {
+    background-color: #7743b2;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    color: #d3c0f2;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    flex: 1;
+    width: 100%;
+    margin-top: 5px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+input[type="file"] {
+    color: white;
+    background: none;
+    border: 1px dashed #7743b2;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #5a2d85;
+    margin-top: 15px;
+}
+
+/* Styling for footer social icon form */
+.create-footer-social-icon {
+    background: #2e1d4d;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.create-footer-social-icon h3 {
+    color: #e0d6f5;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.create-footer-social-icon label {
+    color: #e0d6f5;
+    font-weight: bold;
+}
+
+.create-footer-social-icon input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 5px;
+    background-color: #2e1d4d;
+    border: 1px solid #5a2d85;
+    color: #d3c0f2;
+    border-radius: 6px;
+}
+
+.create-footer-social-icon button {
+    background-color: #5a2d85;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.create-footer-social-icon button:hover {
+    background-color: #7743b2;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+    .feature-item .row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .edit-btn {
+        align-self: flex-start;
+        margin-top: 10px;
+    }
+
+    .create-footer-social-icon {
+        margin-top: 15px;
+    }
+
+    .create-footer-social-icon input {
+        width: 100%;
+    }
+}
+
+
+/* .social-icons-table-container {
+    padding: 20px;
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  } */
+  
+  .social-icons-table-container h2 {
+    color: #e0d6f5;
+    margin-bottom: 20px;
+  }
+  
+  .social-icons-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2e1d4d;
+    border: 1px solid #5a2d85;
+    border-radius: 12px;
+  }
+  
+  .social-icons-table th, .social-icons-table td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .social-icons-table th {
+    background-color: #5a2d85;
+    color: white;
+  }
+  
+  .social-icons-table td {
+    color: #d3c0f2;
+  }
+  
+  .edit-btn {
+    background-color: #5a2d85;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover {
+    background-color: #7743b2;
+  }
+  
+  input[type="text"],
+  input[type="file"] {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    color: #d3c0f2;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  input[type="file"] {
+    background: none;
+    border: 1px dashed #7743b2;
+    padding: 6px;
+  }
+  
+  button {
+    margin-top: 5px;
+    padding: 6px 12px;
+    background-color: #7743b2;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #5a2d85;
+  }
+  

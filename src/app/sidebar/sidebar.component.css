@@ -1,15 +1,12 @@
-
- /* Sidebar styles */
 .sidebar {
   width: 50px;
-  /* background: radial-gradient(37.94% 37.94% at 50% 50.06%, #5250A0 0%, #1F1D78 100%) warning: gradient uses a rotation that is not supported by CSS and may not behave as expected; */
   background: radial-gradient(37.94% 37.94% at 50% 50.06%, #0b0a1d 0%, #0a0216 100%);
-
   height: calc(100vh - 4rem);
   margin-top: 4.5rem;
   transition: width 0.1s ease;
-  overflow: hidden;
+  overflow-y: auto; /* Make sidebar vertically scrollable */
   position: fixed;
+  padding-right: 10px; /* Optional: Add some padding to prevent content from touching the scrollbar */
 }
 
 .sidebar.expanded {
@@ -46,13 +43,28 @@
   color: #c903e4 !important; /* Ensure it has high priority */
 }
 
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color when hovering */
+}
+
+/* Media Query for smaller screens */
 @media screen and (max-width: 480px) {
   .sidebar.expanded {
     width: 150px;
   }
 
   .sidebar {
-    height: calc(100vh - 0rm);
+    height: calc(100vh - 0rem);
     margin-top: 4.0rem;
   }
 }
