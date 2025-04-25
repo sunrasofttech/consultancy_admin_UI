@@ -24,6 +24,7 @@ import { TechPageSettingComponent } from './tech-page-setting/tech-page-setting.
 import { FaqsPageSettingComponent } from './faqs-page-setting/faqs-page-setting.component';
 import { BookingComponent } from './booking/booking.component';
 import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
+import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { FooterPageSettingComponent } from './footer-page-setting/footer-page-se
     TechPageSettingComponent,
     FaqsPageSettingComponent,
     BookingComponent,
-    FooterPageSettingComponent
+    FooterPageSettingComponent,
+    SupportSubscriptionSettingsComponent
   ],
   imports: [
     BrowserModule,

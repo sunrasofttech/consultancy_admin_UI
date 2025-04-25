@@ -1,0 +1,31 @@
+<div class="feature-settings-container">
+    <h2>Subscription Settings</h2>
+    <p>Manage the subscription plans and their amounts.</p>
+
+    <div *ngIf="subscriptionPlans && subscriptionPlans.length > 0"
+        class="feature-item">
+
+        <!-- Amount -->
+        <div class="row" *ngFor="let plan of subscriptionPlans">
+            <span class="title">Amount:</span>
+            <ng-container
+                *ngIf="editingField === 'amount' + plan.id; else showAmount">
+                <input type="number" [(ngModel)]="editableValue" />
+                <button class="edit-btn"
+                    (click)="saveEdit('amount', plan.id)">Save</button>
+            </ng-container>
+            <ng-template #showAmount>
+                <span class="text">{{ plan.amount || 'N/A' }}</span>
+                <button class="edit-btn"
+                    (click)="editField('amount', plan.id, plan.amount)">Edit</button>
+            </ng-template>
+        </div>
+
+        <!-- <div class="row">
+            <button class="edit-btn" (click)="cancelEdit()">Cancel</button>
+        </div> -->
+
+        <hr />
+
+    </div>
+</div>

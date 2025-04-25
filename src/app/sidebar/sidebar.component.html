@@ -14,6 +14,11 @@
           class="icon">📅</span><span *ngIf="!isCollapsed">Bookings
         </span></a></li>
 
+    <li><a routerLink="/supportSetting" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">⚙️</span><span *ngIf="!isCollapsed">Plan Settings
+        </span></a></li>
+
     <li><a routerLink="/navbarSetting" routerLinkActive="active-link"
         (click)="collapseSidebarOnLinkClick()"><span
           class="icon">⚙️</span><span *ngIf="!isCollapsed">Navbar Settings
@@ -51,7 +56,6 @@
         (click)="collapseSidebarOnLinkClick()"><span
           class="icon">📖</span><span *ngIf="!isCollapsed"
           (click)="collapseSidebarOnLinkClick()">Case Study</span></a></li>
-
 
     <li>
       <a routerLink="/contact-booking" routerLinkActive="active-link"

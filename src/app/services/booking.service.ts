@@ -41,8 +41,32 @@ export class BookingService {
       headers: this.getHeaders()
     });
   }
+
+  // Fetch available slots from the backend
+  getAvailableSlots(): Observable<any[]> {
+    return this.http.post<any[]>(`${this.baseUrl}/admin/getSlotsTime`,{});
+  }
+
+
+  updateSlotStatus(slotId: number, isActive: boolean, time?: string): Observable<any> {
+    // Prepare the request body with 'is_active' as a boolean and 'time' as a string
+    const payload = { is_active: isActive, time };  // Ensure 'is_active' is sent as a boolean (flat structure)
+  
+    console.log('Payload being sent:', payload);  // Log the payload to ensure it's correct
+  
+    return this.http.post(`${this.baseUrl}/admin/updateSlotTime/${slotId}`, payload);
+  }
   
 
+
+
+
+
+
+  // Save changes to multiple slots at once
+  updateMultipleSlots(slots: any[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}/updateMultipleSlots`, { slots });
+  }
 
 
 
