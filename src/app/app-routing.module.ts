@@ -15,7 +15,7 @@ import { TechPageSettingComponent } from './tech-page-setting/tech-page-setting.
 import { FaqsPageSettingComponent } from './faqs-page-setting/faqs-page-setting.component';
 import { BookingComponent } from './booking/booking.component';
 import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
-
+import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
 
 
 const routes: Routes = [
@@ -32,6 +32,8 @@ const routes: Routes = [
   { path: 'tech-page', component: TechPageSettingComponent }, // Dashboard route
   { path: 'faqs-page', component: FaqsPageSettingComponent }, // Dashboard route
   { path: 'booking', component: BookingComponent }, // Dashboard route
+  { path: 'supportSetting', component: SupportSubscriptionSettingsComponent }, // Dashboard route
+
 
   { path: 'footer-page', component: FooterPageSettingComponent }, // Dashboard route
 

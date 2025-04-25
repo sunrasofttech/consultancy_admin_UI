@@ -22,11 +22,16 @@ export class BookingComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  isSlotManagementPopupOpen: boolean = false;  // Controls the visibility of the popup
+  availableSlots: any[] = [];  // Use a simple array here
+
+  editedSlotIndex: number | null = null;
 
   constructor(private bookingService: BookingService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.fetchBookings();
+    this.loadAvailableSlots();
   }
 
   showSnackbar(message: string, duration: number = 3000): void {
@@ -79,8 +84,8 @@ export class BookingComponent implements OnInit {
     this.fetchBookings();
   }
 
-   // Reset all filters and show all bookings
-   resetFilters(): void {
+  // Reset all filters and show all bookings
+  resetFilters(): void {
     this.filter = '';
     this.searchQuery = '';
     this.fromDate = '';
@@ -100,7 +105,7 @@ export class BookingComponent implements OnInit {
   onStatusChange(booking: any): void {
     // const confirmed = confirm(`Are you sure you want to update the status to "${booking.status}"?`);
     // if (!confirmed) return;
-  
+
     this.isLoading = true;
 
     this.bookingService.updateBookingStatus(booking.id, booking.status).subscribe(
@@ -120,5 +125,104 @@ export class BookingComponent implements OnInit {
       }
     );
   }
+
+
+  //  Slot logic
+
+
+  // Open the popup for slot management
+  openSlotManagementPopup(): void {
+    console.log("click openSlotManagementPopup")
+    this.isSlotManagementPopupOpen = true;
+  }
+
+  // Close the slot management popup
+  closeSlotManagementPopup(): void {
+    console.log("click closeSlotManagementPopup")
+    this.loadAvailableSlots();
+    this.isSlotManagementPopupOpen = false;
+  }
+
+  // Load available slots from the backend service
+  loadAvailableSlots(): void {
+    this.bookingService.getAvailableSlots().subscribe(
+      (res: any) => {
+        if (res && res.data) {
+          this.availableSlots = res.data;
+        }
+      },
+      (error) => {
+        console.error('Error loading available slots', error);
+      }
+    );
+  }
+
+
+
+
+
+
+
+  editSlot(index: number): void {
+    this.editedSlotIndex = index;
+  }
+
+  saveSingleSlot(slot: any): void {
+    // Call your API to update this specific slot
+    this.updateSlotStatus(slot);
+
+    // Optionally show success message here
+    // this.snackbar.open('Slot saved!', 'Close', { duration: 2000 });
+   
+    this.editedSlotIndex = null;
+  }
+
+  updateSlotStatus(slot: any): void {
+    // Extract the necessary values from the slot
+    const { id, time, is_active } = slot;
   
+    // Prepare the data for the service call
+    let updateData: any = { time };
+  
+    // Add is_active to the request body only if it's provided, and make sure it's a boolean
+    if (is_active !== undefined) {
+      updateData.is_active = is_active === '1';  // Convert '1' to true, '0' to false
+    }
+  
+  
+    // Call the backend service to update the slot
+    this.bookingService.updateSlotStatus(id, updateData.is_active, updateData.time).subscribe({
+      next: (res) => {
+        console.log('Slot status updated successfully:', res);
+        this.loadAvailableSlots();
+      },
+      error: (err) => {
+        console.error('Failed to update slot status:', err);
+      }
+    });
+  
+
+  }
+  
+  
+  
+
+
+
+
+
+  saveSlotChanges(): void {
+    for (const slot of this.availableSlots) {
+      this.updateSlotStatus(slot);
+    }
+    this.loadAvailableSlots();
+    // Optionally show global success
+    // this.snackbar.open('All changes saved!', 'Close', { duration: 2000 });
+
+    this.editedSlotIndex = null;
+  }
+
+
+
+
 }
