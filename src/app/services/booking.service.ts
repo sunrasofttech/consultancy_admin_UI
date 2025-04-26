@@ -54,7 +54,7 @@ export class BookingService {
   
     console.log('Payload being sent:', payload);  // Log the payload to ensure it's correct
   
-    return this.http.post(`${this.baseUrl}/admin/updateSlotTime/${slotId}`, payload);
+    return this.http.post(`${this.baseUrl}/admin/updateSlotTime/${slotId}`, payload, { headers: this.getHeaders() });
   }
   
 
