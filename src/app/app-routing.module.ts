@@ -18,24 +18,30 @@ import { FooterPageSettingComponent } from './footer-page-setting/footer-page-se
 import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
 
 
+// Import the AuthGuard
+import { AuthGuard } from './auth.guard';
+
+
+
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Login route
-  { path: 'dashboard', component: DashboardComponent }, // Dashboard route
-  { path: 'navbarSetting', component: NavbarSettingsComponent }, // Dashboard route
-  { path: 'landing-page', component: LandingPageSettingsComponent }, // Dashboard route
-  { path: 'feature-page', component: FeaturePageSettingComponent }, // Dashboard route
-  { path: 'about-page', component: AboutPageSettingComponent }, // Dashboard route
-  { path: 'client-page', component: ClientPageSettingComponent }, // Dashboard route
-  { path: 'process-page', component: ProcessPageSettingComponent }, // Dashboard route
-  { path: 'case-study', component: CaseStudySettingComponent }, // Dashboard route
-  { path: 'contact-booking', component: ContactBookingSettingComponent }, // Dashboard route
-  { path: 'tech-page', component: TechPageSettingComponent }, // Dashboard route
-  { path: 'faqs-page', component: FaqsPageSettingComponent }, // Dashboard route
-  { path: 'booking', component: BookingComponent }, // Dashboard route
-  { path: 'supportSetting', component: SupportSubscriptionSettingsComponent }, // Dashboard route
+  { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'navbarSetting', component: NavbarSettingsComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'landing-page', component: LandingPageSettingsComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'feature-page', component: FeaturePageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'about-page', component: AboutPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'client-page', component: ClientPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'process-page', component: ProcessPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'case-study', component: CaseStudySettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'contact-booking', component: ContactBookingSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'tech-page', component: TechPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'faqs-page', component: FaqsPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'booking', component: BookingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'supportSetting', component: SupportSubscriptionSettingsComponent , canActivate: [AuthGuard] }, // Dashboard route
 
 
-  { path: 'footer-page', component: FooterPageSettingComponent }, // Dashboard route
+  { path: 'footer-page', component: FooterPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
 
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to login by default
   { path: '**', redirectTo: '/login' } // Handle undefined routes
