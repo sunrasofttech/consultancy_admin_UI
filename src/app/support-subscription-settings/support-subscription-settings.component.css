@@ -4,31 +4,34 @@
     border-radius: 25px;
     color: white;
     margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .feature-settings-container h2 {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     color: #e0d6f5;
+    font-size: 24px;
 }
 
 .feature-settings-container p {
     color: #c5b3e6;
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 .feature-item {
     background: #2e1d4d;
     border: 1px solid #5a2d85;
     border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 .row {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
 }
 
@@ -37,24 +40,27 @@
     font-weight: bold;
     color: #e0d6f5;
     margin-bottom: 6px;
+    font-size: 15px;
 }
 
 .text {
     flex: 1;
     color: #d3c0f2;
     margin-bottom: 6px;
+    font-size: 15px;
 }
 
 .edit-btn {
     background-color: #5a2d85;
     color: white;
-    padding: 5px 12px;
+    padding: 6px 14px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     margin-left: 10px;
     font-size: 14px;
-    height: 35px;
+    height: 36px;
+    transition: background-color 0.3s ease;
 }
 
 .edit-btn:hover {
@@ -63,20 +69,27 @@
 
 input[type="text"],
 input[type="number"] {
-    background: #2e1d4d;
-    border: 1px solid #5a2d85;
-    color: #d3c0f2;
+    background: #42265d;
+    border: 1px solid #7743b2;
+    color: #e0d6f5;
     border-radius: 6px;
     padding: 6px 10px;
     font-size: 14px;
     flex: 1;
-    width: 100%;
+    width: 80%;
     margin-top: 5px;
 }
 
 textarea {
     resize: vertical;
     min-height: 100px;
+    background: #42265d;
+    border: 1px solid #7743b2;
+    color: #e0d6f5;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    width: 80%;
 }
 
 input[type="file"] {
@@ -93,16 +106,234 @@ hr {
     border: 0;
     height: 1px;
     background: #5a2d85;
-    margin-top: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
+/* ---------- Pricing Popup Content Section ---------- */
+
+.price-popup-content {
+    background-color: #2e1d4d;
+    padding: 20px;
+    margin-bottom: 24px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #e0d6f5;
+    border: 1px solid #5a2d85;
+}
+
+.field-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.field-row label {
+    width: 140px;
+    font-weight: 600;
+    color: #c5b3e6;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.field-row span,
+.field-row input {
+    flex: 1;
+    color: #d3c0f2;
+    font-size: 14px;
+}
+
+.field-row input {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #7743b2;
+    background-color: #42265d;
+    margin-top: 5px;
+    width: 80%;
+}
+
+.icon {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.edit-icon:hover {
+    color: #42a5f5;
+}
+
+.save-icon:hover {
+    color: #66bb6a;
+}
+
+/* ---------- Features Section ---------- */
+
+.features-section {
+    margin-top: 14px;
+}
+
+.features-section label {
+    font-weight: 600;
+    color: #c5b3e6;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.features-section ul {
+    padding-left: 20px;
+    margin-top: 6px;
+}
+
+.features-section li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #d3c0f2;
+}
+
+/* ---------- Responsive Styles ---------- */
 
 @media screen and (max-width: 600px) {
     .edit-btn {
-        width: 100%;
+        width: 80%;
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+    .field-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .field-row label {
+        width: 80%;
+        margin-bottom: 4px;
+    }
+
+    .icon {
+        margin-top: 5px;
+        margin-left: 0;
     }
 
     input[type="text"],
     input[type="number"] {
-        width: 100%;
+        width: 80%;
     }
 }
+
+.custom-snackbar {
+    background-color: #5a2d85;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+
+
+  /* --- Container for the whole Add Feature UI --- */
+.add-feature-section {
+    margin-top: 1.5rem; /* Space above this section */
+    padding-top: 1rem; /* Space above the border */
+    border-top: 1px solid #eee; /* Light separator line */
+}
+
+/* --- Base styles for all buttons in this section --- */
+.add-btn,
+.save-btn,
+.cancel-btn {
+    padding: 8px 15px; /* Comfortable padding */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Slightly rounded corners */
+    cursor: pointer;
+    font-weight: 500; /* Medium weight */
+    font-size: 0.9em; /* Slightly smaller than base text */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    line-height: 1.5; /* Ensure text vertical alignment */
+}
+
+/* --- Style for the '+ Add Feature' button --- */
+.add-btn {
+    background-color: #007bff; /* Primary blue */
+    color: white;
+}
+.add-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Container for the input and save/cancel buttons --- */
+.add-feature-controls {
+    display: flex; /* Arrange items in a row */
+    align-items: center; /* Vertically align items */
+    gap: 10px; /* Space between input and buttons */
+    width: 100%; /* Take full available width */
+}
+
+/* --- Style for the text input field --- */
+.add-feature-input {
+    flex-grow: 1; /* Allow input to take up most space */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9em;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); /* Inner shadow for depth */
+}
+/* Style for when the input is focused */
+.add-feature-input:focus {
+    border-color: #80bdff; /* Highlight border */
+    outline: 0; /* Remove default outline */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 0 0.2rem rgba(0, 123, 255, .25); /* Focus ring */
+}
+
+/* --- Style for the 'Save Feature' button --- */
+.save-btn {
+    background-color: #28a745; /* Green for save/success */
+    color: white;
+    /* Prevent shrinking */
+    flex-shrink: 0;
+}
+.save-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+/* Style for when the save button is disabled (during saving) */
+.save-btn:disabled {
+    background-color: #a1d4a1; /* Lighter, faded green */
+    color: #f0f0f0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* --- Style for the 'Cancel' button --- */
+.cancel-btn {
+    background-color: #6c757d; /* Standard gray for cancel */
+    color: white;
+    /* Prevent shrinking */
+    flex-shrink: 0;
+}
+.cancel-btn:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+/* Style for when the cancel button is disabled (during saving) */
+.cancel-btn:disabled {
+    background-color: #adb5bd; /* Lighter gray */
+    color: #e9ecef;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ========================================= */
+
+.delete-icon {
+    color: rgb(221, 7, 7);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin-left: 5px;
+  }
+  .delete-icon:hover {
+    transform: scale(1.2);
+  }
+  

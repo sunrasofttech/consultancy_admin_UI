@@ -7,7 +7,7 @@
 
         <!-- Amount -->
         <div class="row" *ngFor="let plan of subscriptionPlans">
-            <span class="title">Amount:</span>
+            <span class="title">Subscription Amount:</span>
             <ng-container
                 *ngIf="editingField === 'amount' + plan.id; else showAmount">
                 <input type="number" [(ngModel)]="editableValue" />
@@ -20,12 +20,119 @@
                     (click)="editField('amount', plan.id, plan.amount)">Edit</button>
             </ng-template>
         </div>
-
-        <!-- <div class="row">
-            <button class="edit-btn" (click)="cancelEdit()">Cancel</button>
-        </div> -->
-
         <hr />
 
+        <h2 style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            Pricing Popup
+        </h2>
+
+
+        <div class="price-popup-content" *ngFor="let item of pricingPopupContent">
+            <!-- Title -->
+            <div class="field-row">
+              <label>Title:</label>
+              <ng-container *ngIf="editingField !== 'title' + item.id; else editTitle">
+                <span>{{ item.title }}</span>
+                <i class="icon edit-icon" (click)="editPopupField('title', item.id, item.title)">✏️</i>
+              </ng-container>
+              <ng-template #editTitle>
+                <input [(ngModel)]="editableValue" />
+                <i class="icon save-icon" (click)="savePopupEdit('title', item.id)">💾</i>
+              </ng-template>
+            </div>
+          
+            <!-- Subtitle -->
+            <div class="field-row">
+              <label>Subtitle:</label>
+              <ng-container *ngIf="editingField !== 'subtitle' + item.id; else editSubtitle">
+                <span>{{ item.subtitle }}</span>
+                <i class="icon edit-icon" (click)="editPopupField('subtitle', item.id, item.subtitle)">✏️</i>
+              </ng-container>
+              <ng-template #editSubtitle>
+                <input [(ngModel)]="editableValue" />
+                <i class="icon save-icon" (click)="savePopupEdit('subtitle', item.id)">💾</i>
+              </ng-template>
+            </div>
+          
+            <!-- Price -->
+            <div class="field-row">
+              <label>Price:</label>
+              <ng-container *ngIf="editingField !== 'price' + item.id; else editPrice">
+                <span>₹{{ item.price }}</span>
+                <i class="icon edit-icon" (click)="editPopupField('price', item.id, item.price)">✏️</i>
+              </ng-container>
+              <ng-template #editPrice>
+                <input type="number" [(ngModel)]="editableValue" />
+                <i class="icon save-icon" (click)="savePopupEdit('price', item.id)">💾</i>
+              </ng-template>
+            </div>
+          
+            <!-- Button Text -->
+            <div class="field-row">
+              <label>Button Text:</label>
+              <ng-container *ngIf="editingField !== 'button_text' + item.id; else editBtnText">
+                <span>{{ item.button_text }}</span>
+                <i class="icon edit-icon" (click)="editPopupField('button_text', item.id, item.button_text)">✏️</i>
+              </ng-container>
+              <ng-template #editBtnText>
+                <input [(ngModel)]="editableValue" />
+                <i class="icon save-icon" (click)="savePopupEdit('button_text', item.id)">💾</i>
+              </ng-template>
+            </div>
+          
+            <!-- Features -->
+            <div class="features-section">
+                <label>Features:</label>
+                <ul>
+                  <li *ngFor="let feature of item.features">
+                    <ng-container *ngIf="editingField !== 'feature' + feature.id; else editFeature">
+                      {{ feature.feature_name }}
+                      <i class="icon edit-icon" (click)="editPopupField('feature', feature.id, feature.feature_name)">✏️</i>
+                      <!-- **** ADD DELETE ICON **** -->
+                      <i class="fas fa-trash-alt delete-icon" (click)="deleteFeature(feature.id, feature.name)"></i>
+                 <!-- Use trash can or X icon -->
+                 <!-- **** END OF ADD DELETE ICON **** -->
+                    </ng-container>
+                    <ng-template #editFeature>
+                      <textarea [(ngModel)]="editableValue"></textarea>
+                      <i class="icon save-icon" (click)="savePopupFeatureEdit('feature', feature.id)">💾</i>
+                    </ng-template>
+                  </li>
+                </ul>
+              </div>
+
+
+              <div class="add-feature-section">
+
+                <!-- Show "Add Feature" button only when NOT adding to THIS specific plan -->
+                <button class="add-btn"
+                    *ngIf="addingFeatureToPlanId !== item.id"
+                    (click)="startAddingFeature(item.id)">
+                    + Add Feature
+                </button>
+
+                <!-- Show input/controls only when adding to THIS specific plan -->
+                <div *ngIf="addingFeatureToPlanId === item.id" class="add-feature-controls">
+                    <input type="text"
+                           class="add-feature-input"
+                           [(ngModel)]="newFeatureName"
+                           placeholder="Enter new feature name" />
+                    <button class="save-btn"
+                            (click)="saveNewFeature()"
+                            [disabled]="isAddingFeature">
+                        {{ isAddingFeature ? 'Saving...' : 'Save Feature' }}
+                    </button>
+                    <button class="cancel-btn"
+                            (click)="cancelAddFeature()"
+                            [disabled]="isAddingFeature">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+
+
+
+          </div>
     </div>
 </div>
