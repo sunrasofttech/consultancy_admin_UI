@@ -16,7 +16,7 @@ import { FaqsPageSettingComponent } from './faqs-page-setting/faqs-page-setting.
 import { BookingComponent } from './booking/booking.component';
 import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
 import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
-
+import { ClientComponent } from './client/client.component';
 
 // Import the AuthGuard
 import { AuthGuard } from './auth.guard';
@@ -39,6 +39,7 @@ const routes: Routes = [
   { path: 'faqs-page', component: FaqsPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
   { path: 'booking', component: BookingComponent , canActivate: [AuthGuard] }, // Dashboard route
   { path: 'supportSetting', component: SupportSubscriptionSettingsComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'clients', component: ClientComponent , canActivate: [AuthGuard] }, // Dashboard route
 
 
   { path: 'footer-page', component: FooterPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route

@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
       console.log('AuthGuard: Access denied, redirecting to login.');
 
       // Redirect to the login page, optionally pass the intended URL
-      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+      this.router.navigate(['/login']);
 
       // Prevent access to the originally requested route
       return false;

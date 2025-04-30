@@ -19,6 +19,11 @@
           class="icon">⚙️</span><span *ngIf="!isCollapsed">Plan Settings
         </span></a></li>
 
+    <li><a routerLink="/clients" routerLinkActive="active-link"
+        (click)="collapseSidebarOnLinkClick()"><span
+          class="icon">👥</span><span *ngIf="!isCollapsed">Clients
+        </span></a></li>
+
     <li><a routerLink="/navbarSetting" routerLinkActive="active-link"
         (click)="collapseSidebarOnLinkClick()"><span
           class="icon">⚙️</span><span *ngIf="!isCollapsed">Navbar Settings

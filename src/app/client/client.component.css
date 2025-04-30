@@ -1,0 +1,160 @@
+/* Container for the client purchases */
+.container {
+    padding: 20px;
+    background: linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 25px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.booking-header {
+    margin-bottom: 10px;
+    color: #e0d6f5;
+    text-align: left;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.search-bar {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.search-bar input {
+    background: #2e1d4d;
+    border: 1px solid #5a2d85;
+    color: #d3c0f2;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 15px;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Table Container */
+.table-container {
+    overflow-x: auto;
+}
+
+.booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.booking-table th,
+.booking-table td {
+    border: 1px solid #5a2d85;
+    padding: 12px;
+    font-size: 14px;
+    text-align: left;
+    color: #d3c0f2;
+}
+
+.booking-table th {
+    background-color: #2e1d4d;
+    color: #e0d6f5;
+}
+
+.booking-table tr:nth-child(even) {
+    background-color: #281742;
+}
+
+.booking-table tr:nth-child(odd) {
+    background-color: #2e1d4d;
+}
+
+/* Fallback for no purchases */
+.no-purchases {
+    text-align: center;
+    font-style: italic;
+    margin-top: 20px;
+    color: #c5b3e6;
+}
+
+/* Status color coding */
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+
+.status-completed {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.status-dropdown {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 130px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.status-dropdown:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+
+.status-completed { color: green; font-weight: bold; }
+.status-pending { color: orange; font-weight: bold; }
+.status-cancelled { color: red; font-weight: bold; }
+
+.status-converted { color: green; font-weight: bold; }
+.status-interested { color: blue; font-weight: bold; }
+.status-in-progress { color: orange; font-weight: bold; }
+.status-not-interested { color: red; font-weight: bold; }
+
+.status-active { color: rgb(9, 255, 0); font-weight: bold; }
+
+
+.booking-table td, .booking-table th {
+    vertical-align: top;
+    word-wrap: break-word;
+    max-width: 200px;
+    white-space: pre-wrap;
+  }
+
+  .action-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .action-button:hover {
+    background-color: #125ea8;
+  }
+
+  select, textarea {
+    width: 100%;
+    font-size: 13px;
+    padding: 4px;
+    border-radius: 4px;
+  }
+
+  .custom-snackbar {
+    background-color: #5a2d85;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }

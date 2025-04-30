@@ -1,0 +1,97 @@
+<div class="container">
+    <h2 class="booking-header">User Purchases</h2>
+
+    <!-- Search bar -->
+    <div class="search-bar">
+        <input
+            type="text"
+            [(ngModel)]="searchQuery"
+            placeholder="Search by name or email"
+            (input)="searchPurchases()" />
+    </div>
+
+    <!-- Purchases table -->
+    <div class="table-container">
+        <table class="booking-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Price</th>
+                <th>Project Name</th>
+                <th>Project Description</th>
+                <th>Payment Status</th>
+                <th>Client Status</th>
+                <th>Project Status</th>
+                <th>Purchase Date</th>
+                <th>FollowUp Notes</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          
+            <tbody>
+              <tr *ngFor="let purchase of userPurchases; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ purchase.name }}</td>
+                <td>{{ purchase.email }}</td>
+                <td>{{ purchase.phone }}</td>
+                <td>{{ purchase.price | currency: 'INR': 'symbol' }}</td>
+                <td>{{ purchase.project_name }}</td>
+                <td>{{ purchase.project_description }}</td>
+          
+                <!-- Payment Status -->
+                <td>
+                  <select
+                    [ngModel]="purchase.payment_status"
+                    (ngModelChange)="updateStatus(purchase, 'payment_status', $event)">
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="failed">Failed</option>
+                  </select>
+                </td>
+          
+                <!-- Client Status -->
+                <td>
+                  <select
+                    [ngModel]="purchase.client_status"
+                    (ngModelChange)="updateStatus(purchase, 'client_status', $event)">
+                    <option value="converted">Converted</option>
+                    <option value="interested">Interested</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="not_interested">Not Interested</option>
+                  </select>
+                </td>
+          
+                <!-- Project Status -->
+                <td>
+                  <select
+                    [ngModel]="purchase.project_status"
+                    (ngModelChange)="updateStatus(purchase, 'project_status', $event)">
+                    <option value="pending">Pending</option>
+                    <option value="active">Active</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </td>
+          
+                <td>{{ purchase.purchase_date | date: 'yyyy-MM-dd hh:mm:ss a' : 'UTC' }}</td>
+          
+                <!-- FollowUp Notes Editable -->
+                <td>
+                  <div *ngIf="!purchase.isEditing">{{ purchase.follow_up_notes }}</div>
+                  <input *ngIf="purchase.isEditing" [(ngModel)]="purchase.follow_up_notes" type="text" />
+                </td>
+          
+                <!-- Edit Button -->
+                <td>
+                  <button class="action-button" (click)="toggleEditMode(purchase)">
+                    {{ purchase.isEditing ? 'Save' : 'Edit' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+    </div>
+</div>
