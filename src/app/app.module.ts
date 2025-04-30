@@ -25,6 +25,7 @@ import { FaqsPageSettingComponent } from './faqs-page-setting/faqs-page-setting.
 import { BookingComponent } from './booking/booking.component';
 import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
 import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
+import { ClientComponent } from './client/client.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SupportSubscriptionSettingsComponent } from './support-subscription-set
     FaqsPageSettingComponent,
     BookingComponent,
     FooterPageSettingComponent,
-    SupportSubscriptionSettingsComponent
+    SupportSubscriptionSettingsComponent,
+    ClientComponent
   ],
   imports: [
     BrowserModule,

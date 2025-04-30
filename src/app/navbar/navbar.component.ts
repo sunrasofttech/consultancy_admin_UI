@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-// import { AuthService } from '../services/auth.service';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   @Output() toggleSidebarEvent = new EventEmitter<void>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,  private authService: AuthService,) {}
 
   toggleSidebar() {
     this.toggleSidebarEvent.emit(); // Trigger the event to toggle sidebar
   }
 
   logout() {
-    // this.authService.logout(); // Call the AuthService logout method
+    this.authService.logout(); // Call the AuthService logout method
     this.router.navigate(['/login']); // Redirect to the login page after logout
   }
 }

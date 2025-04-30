@@ -17,6 +17,16 @@ export class LandingPageSettingsComponent implements OnInit {
   bannerImages: any[] = [];
   bannerFile: File | null = null;
 
+
+  // --- NEW PROPERTIES FOR ADDING BANNERS ---
+  newBannerFile: File | null = null;
+  newBannerSortOrder: number = 1; // Default sort order, adjust as needed
+  isUploadingNewBanner = false; // Loading indicator for new banner upload
+  uploadError: string | null = null; // To display upload errors
+  uploadSuccess: string | null = null; // To display success messages
+  // --- END OF NEW PROPERTIES ---
+
+
   iconsList = [
     { key: 'icon_1', label: 'Icon 1' },
     { key: 'icon_2', label: 'Icon 2' },
@@ -24,7 +34,7 @@ export class LandingPageSettingsComponent implements OnInit {
     { key: 'icon_4', label: 'Icon 4' },
   ];
 
-  constructor(private landingService: LandingService, private snackBar: MatSnackBar) {}
+  constructor(private landingService: LandingService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.fetchLandingData();
@@ -224,4 +234,119 @@ export class LandingPageSettingsComponent implements OnInit {
       });
     }
   }
+
+
+  // --- NEW METHODS FOR ADDING BANNERS ---
+
+  onNewBannerFileSelected(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList && fileList.length > 0) {
+      this.newBannerFile = fileList[0];
+      this.uploadError = null; // Clear previous error
+      this.uploadSuccess = null; // Clear previous success message
+      console.log('New banner file selected:', this.newBannerFile.name);
+    } else {
+      this.newBannerFile = null;
+    }
+  }
+
+  uploadNewBanner(): void {
+    if (!this.newBannerFile) {
+      this.uploadError = 'Please select a banner file (image or video) first.';
+      return;
+    }
+
+    this.isUploadingNewBanner = true; // Show loading state
+    this.uploadError = null;
+    this.uploadSuccess = null;
+
+    const formData = new FormData();
+    formData.append('banner', this.newBannerFile, this.newBannerFile.name);
+
+    // Determine type based on MIME type
+    const fileType = this.newBannerFile.type;
+    let bannerType: 'image' | 'video' | null = null;
+    if (fileType.startsWith('image/')) {
+      bannerType = 'image';
+    } else if (fileType.startsWith('video/')) {
+      bannerType = 'video';
+    } else {
+      this.uploadError = 'Invalid file type. Please select an image or video.';
+      this.isUploadingNewBanner = false;
+      return; // Stop upload if type is invalid
+    }
+
+    formData.append('type', bannerType);
+    formData.append('sort_order', this.newBannerSortOrder.toString()); // Use the component property
+
+    // Call the service method to create the banner
+    this.landingService.createBanner(formData).subscribe({
+      next: (response) => {
+        this.uploadSuccess = 'New banner uploaded successfully!';
+        this.isUploadingNewBanner = false;
+        this.newBannerFile = null; // Clear the selected file
+        // Optionally reset the file input visually if needed (requires ViewChild)
+        // if (this.newBannerInput) this.newBannerInput.nativeElement.value = '';
+
+        this.fetchLandingData(); // Refresh the banner list to show the new one
+        this.fetchLandingBanners();
+      },
+      error: (err) => {
+        console.error('Error uploading new banner:', err);
+        this.uploadError = `Failed to upload banner: ${err.error?.message || 'Server error'}`;
+        this.isUploadingNewBanner = false;
+      }
+    });
+  }
+
+  // --- END OF NEW METHODS ---
+
+
+  updateSortOrder(bannerId: number, newSortOrder: number): void {
+    const formData = new FormData();
+    formData.append('sort_order', newSortOrder.toString());
+
+    this.landingService.updateBannerSortOrder(bannerId, formData).subscribe({
+      next: (response: any) => {
+        if (response?.status) {
+          this.showSnackbar('Sort order updated successfully!');
+          this.fetchLandingBanners(); // Refresh the list if needed
+        } else {
+          this.showSnackbar(response?.message || 'Failed to update sort order.');
+        }
+      },
+      error: (err) => {
+        console.error('Sort order update error:', err);
+        this.showSnackbar('Error updating sort order.');
+      }
+    });
+  }
+
+
+  toggleBannerStatus(bannerId: number, currentStatus: string): void {
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+  
+    this.landingService.updateBannerStatus(bannerId, {
+      status: newStatus
+    }).subscribe({
+      next: (res: any) => {
+        if (res?.status) {
+          this.showSnackbar(`Banner ${newStatus === 'active' ? 'activated' : 'deactivated'} successfully!`);
+          this.fetchLandingBanners();
+        } else {
+          this.showSnackbar(res?.message || 'Failed to update banner status.');
+        }
+      },
+      error: (err) => {
+        console.error('Status toggle error:', err);
+        this.showSnackbar('Error updating banner status.');
+      }
+    });
+  }
+  
+
+
+
+
 }

@@ -125,8 +125,49 @@
             </div>
         </div>
 
+        <!-- ========= ADD NEW BANNER SECTION ========= -->
+        <div class="add-banner-section">
+            <h3>Add New Banner</h3>
+            <div class="add-banner-form">
+                <div class="form-group">
+                    <label for="newBannerFile">Select Banner File (Image or
+                        Video):</label>
+                    <input type="file" id="newBannerFile"
+                        accept="image/*,video/*"
+                        (change)="onNewBannerFileSelected($event)">
+                    <!-- Optional: Display selected filename -->
+                    <span *ngIf="newBannerFile"
+                        class="selected-filename">Selected: {{
+                        newBannerFile.name }}</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="newBannerSortOrder">Sort Order:</label>
+                    <input type="number" id="newBannerSortOrder"
+                        [(ngModel)]="newBannerSortOrder" min="1">
+                </div>
+
+                <button style="background-color: #5a2d85;"
+                    (click)="uploadNewBanner()"
+                    [disabled]="!newBannerFile || isUploadingNewBanner">
+                    <span *ngIf="!isUploadingNewBanner">Upload New Banner</span>
+                    <span *ngIf="isUploadingNewBanner">Uploading...</span>
+                </button>
+
+                <!-- Display Success/Error Messages -->
+                <div *ngIf="uploadSuccess" class="message success-message">
+                    {{ uploadSuccess }}
+                </div>
+                <div *ngIf="uploadError" class="message error-message">
+                    {{ uploadError }}
+                </div>
+            </div>
+        </div>
+        <!-- ========= END OF ADD NEW BANNER SECTION ========= -->
+
         <!-- Banner Section -->
-        <div class="banner-section">
+        <div class="banner-section"
+            style="background-color: #2e1d4d; padding: 10px; border-radius: 15px;">
             <h3>Landing Page Banners</h3>
             <div class="banner-grid">
                 <div *ngFor="let banner of bannerImages" class="banner-item">
@@ -146,8 +187,40 @@
                         <button
                             (click)="updateBanner(banner.id)">Update</button>
                         <button
-                            (click)="deleteBanner(banner.id)" style="background-color: red;">Delete</button>
+                            (click)="deleteBanner(banner.id)"
+                            style="background-color: red;">Delete</button>
                     </div>
+
+                    <!-- Sort Order Field -->
+                    <div class="sort-order-field">
+                        <label for="sortOrder-{{ banner.id }}">Sort
+                            Order:</label>
+                        <input
+                            type="number"
+                            id="sortOrder-{{ banner.id }}"
+                            [(ngModel)]="banner.sort_order" />
+                        <button
+                            (click)="updateSortOrder(banner.id, banner.sort_order)">
+                            Save
+                        </button>
+                    </div>
+
+                    <!-- Active Status Field -->
+
+                    <div class="status-field">
+                        <label>Status:</label>
+                        <span
+                            [style.color]="banner.status === 'active' ? 'green' : 'red'">
+                            {{ banner.status === 'active' ? 'Active' :
+                            'Inactive' }}
+                        </span>
+                        <button
+                            (click)="toggleBannerStatus(banner.id, banner.status)">
+                            {{ banner.status === 'active' ? 'Deactivate' :
+                            'Activate' }}
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>

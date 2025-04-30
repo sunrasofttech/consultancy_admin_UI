@@ -58,6 +58,12 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     // Optional: Clear other user data
-    this.router.navigate(['/login']); // Redirect to login after logout
+    // this.router.navigate(['/login']); // Redirect to login after logout
+
+    this.router.navigate(['/login'], { replaceUrl: true }); // <<<--- ADD { replaceUrl: true }
+
+    console.log('AuthService: Navigated to /login with history replacement.');
   }
+
+  
 }

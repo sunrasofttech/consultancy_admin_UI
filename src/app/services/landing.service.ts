@@ -32,7 +32,7 @@ export class LandingService {
   }
 
   getLandingPageBanners(): Observable<any> {
-    return this.http.post(`${this.baseUrl}/admin/getLandingPageBanners`, {});
+    return this.http.post(`${this.baseUrl}/admin/getLandingPageBannersForAdmin`, {});
   }
 
 
@@ -46,6 +46,31 @@ export class LandingService {
 
   updateBanner(bannerId: number, formData: FormData) {
     return this.http.post<any>(`${this.baseUrl}/admin/updateLandingPageBanners/${bannerId}`, formData, { headers: this.getHeaders() });
+  }
+
+
+
+  // --- NEW SERVICE METHOD ---
+  createBanner(formData: FormData): Observable<any> {
+    // const headers = this.getAuthHeaders(); // Use headers if API is protected
+    // IMPORTANT: When sending FormData, DO NOT manually set the Content-Type header.
+    // HttpClient handles it correctly, including the boundary.
+    // return this.http.post(`${this.apiUrl}/createLandingPageBanner`, formData, { headers });
+    return this.http.post(`${this.baseUrl}/admin/createLandingPageBanner`, formData, { headers: this.getHeaders() }); // Adjust endpoint if needed
+  }
+  // --- END OF NEW SERVICE METHOD ---
+
+
+  updateBannerSortOrder(bannerId: number, formData: FormData) {
+    return this.http.post<any>(`${this.baseUrl}/admin/updateLandingPageBanners/${bannerId}`, formData, { headers: this.getHeaders() });
+  }
+
+  updateBannerStatus(bannerId: number, data: { status: string }) {
+    return this.http.post<any>(
+      `${this.baseUrl}/admin/update-banner-status/${bannerId}`,
+      data,
+      { headers: this.getHeaders() }
+    );
   }
 
 }

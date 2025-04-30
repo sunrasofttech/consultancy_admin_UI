@@ -188,3 +188,141 @@ input[type="file"] {
     background-color: #f44336; /* Red */
     color: white;
   }
+
+
+
+
+  .add-banner-section {
+    background-color: #2e1d4d;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.add-banner-form .form-group {
+    margin-bottom: 15px;
+}
+
+.add-banner-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.add-banner-form input[type="file"] {
+    display: block; /* Make it block to show filename below */
+    margin-bottom: 5px;
+}
+
+.add-banner-form input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80px; /* Adjust as needed */
+}
+
+.add-banner-form button {
+    padding: 10px 15px;
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-banner-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.add-banner-form button:not(:disabled):hover {
+    background-color: #218838;
+}
+
+.selected-filename,
+.selected-filename-update {
+    display: inline-block; /* Or block */
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Styling for file input label button */
+.banner-actions .file-input-label {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 5px; /* Space before filename */
+    font-size: 0.9em;
+}
+
+.banner-actions .file-input-label:hover {
+    background-color: #0056b3;
+}
+
+.banner-actions button {
+     padding: 5px 10px; /* Match label somewhat */
+     font-size: 0.9em;
+     margin-left: 5px; /* Space between buttons */
+}
+
+.banner-info {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 5px;
+}
+
+
+
+.sort-order-field {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .sort-order-field label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #ffffff;
+  }
+  
+  .sort-order-field input[type="number"] {
+    width: 60px;
+    padding: 4px 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .status-field {
+    margin-top: 10px;
+  }
+  
+  .status-field span {
+    margin-right: 10px;
+    font-weight: bold;
+  }
