@@ -22,14 +22,17 @@ export class ClientService {
 
   //Get all user purchases
   getAllUserPurchases() {
-    return this.http.post(`${this.baseUrl}/userPurchase/getAllUserPurchase`, {
+    return this.http.post(`${this.baseUrl}/userPurchase/getAllUserPurchase`,{}, {
       headers: this.getHeaders()
     });
   }
 
   updateUserPurchaseByAdmin(id: number, body: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/userPurchase/updateUserPurchaseByAdmin/${id}`, body);
+    return this.http.post(
+      `${this.baseUrl}/userPurchase/updateUserPurchaseByAdmin/${id}`,
+      body,
+      { headers: this.getHeaders() }
+    );
   }
-  
 
 }

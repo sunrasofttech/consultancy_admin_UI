@@ -245,7 +245,7 @@ export class LandingPageSettingsComponent implements OnInit {
       this.newBannerFile = fileList[0];
       this.uploadError = null; // Clear previous error
       this.uploadSuccess = null; // Clear previous success message
-      console.log('New banner file selected:', this.newBannerFile.name);
+      // console.log('New banner file selected:', this.newBannerFile.name);
     } else {
       this.newBannerFile = null;
     }

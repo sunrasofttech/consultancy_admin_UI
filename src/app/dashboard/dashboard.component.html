@@ -1,55 +1,160 @@
-<div
-    style="background: linear-gradient(135deg, #1e0627, #33093b); padding: 10px; border-radius: 25px;">
+<div class="dashboard-wrapper">
 
-    <h2>Dashboard</h2>
-    <p style="color: white;">Welcome to the Ludo Game Admin Panel. Here you can
-        view statistics about
-        the game.</p>
-
-    <div class="dashboard-container">
-        <div class="dashboard-card" [routerLink]="['/player-list']">
-            <i class="fas fa-book-open dashboard-icon"></i>
-            <h3>Total Booking</h3>
-            <p>{{totalBookings}}</p>
-        </div>
-
-
-        <div class="dashboard-card" [routerLink]="['/contest-list']">
-            <i class="fas fa-hourglass-half dashboard-icon"></i>
-            <h3>Total Pending Bookings</h3>
-            <p>{{totalPendingBookings}}</p>
-        </div>
-
-        <div class="dashboard-card" [routerLink]="['/running-game']">
-            <i class="fas fa-check-circle dashboard-icon"></i>
-            <h3>Total Completed Bookings</h3>
-            <p>{{ totalCompletedBookings }}</p>
-        </div>
-       
-        <div class="dashboard-card">
-            <i class="fas fa-times-circle dashboard-icon"></i>
-            <h3>Total Canceled Bookings</h3>
-            <p>₹ {{ totalCanceledBookings }} </p>
-        </div>
-
-        <div class="dashboard-card">
-            <i class="fas fa-clipboard-list dashboard-icon"></i>
-            <h3>Today's Total Bookings</h3>
-            <p>₹ {{todayTotalBookings}}</p>
-        </div>
-
-        <!-- <div class="dashboard-card">
-            <i class="fas fa-money-check-alt dashboard-icon"></i>
-            <h3>Total Profit/Loss</h3>
-            <p>₹ {{totalProfit}} </p>
-        </div>
-
-        <div class="dashboard-card" [routerLink]="['/reports']">
-            <i class="fas fa-rupee-sign dashboard-icon"></i>
-            <h3>Today's Total Profit/Loss</h3>
-            <p>₹ {{todayProfit}}</p>
-        </div> -->
-
+    <!-- Header -->
+    <div class="dashboard-header" style="background: linear-gradient(135deg, #1e0627, #33093b); padding: 15px 25px; border-radius: 15px; margin-bottom: 25px; color: white;">
+      <h2>Dashboard</h2>
+      <p style="color: white;margin-bottom: 10px;">Overview of platform activity, bookings, and Clients Plan Purchases.</p>
+    
+  
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-indicator">
+      Loading dashboard data... <i class="fas fa-spinner fa-spin"></i>
     </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage && !isLoading" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Dashboard Content (Show only when loaded and no error) -->
+    <!-- Using ng-container to avoid extra div if only one condition is met -->
+    <ng-container *ngIf="!isLoading && !errorMessage">
+  
+      <!-- Top Row Cards Grid: Key Metrics (Old & New Data) -->
+      <div class="dashboard-grid">
+  
+        <!-- Booking Related Cards (Old Data) -->
+        <div class="dashboard-card info" [routerLink]="['/booking']">
+          <i class="fas fa-book-open dashboard-icon"></i>
+          <h3>Total Bookings</h3>
+          <p>{{ totalBookings }}</p>
+        </div>
+  
+        <div class="dashboard-card warning" [routerLink]="['/booking']">
+          <i class="fas fa-hourglass-half dashboard-icon"></i>
+          <h3>Pending Bookings</h3>
+          <p>{{ totalPendingBookings }}</p>
+        </div>
+  
+        <div class="dashboard-card success" [routerLink]="['/booking']">
+          <i class="fas fa-check-circle dashboard-icon"></i>
+          <h3>Completed Bookings</h3>
+          <p>{{ totalCompletedBookings }}</p>
+        </div>
+  
+        <div class="dashboard-card danger" [routerLink]="['/booking']"> <!-- Changed theme to danger -->
+          <i class="fas fa-times-circle dashboard-icon"></i>
+          <h3>Canceled Bookings</h3>
+          <p>{{ totalCanceledBookings }}</p> <!-- Removed ₹ -->
+        </div>
+  
+        <div class="dashboard-card secondary" [routerLink]="['/booking']"> <!-- Changed theme -->
+          <i class="fas fa-clipboard-list dashboard-icon"></i>
+          <h3>Today's Bookings</h3>
+          <p>{{ todayTotalBookings }}</p> <!-- Removed ₹ -->
+        </div>
+  
 
-</div>
+        <!-- New Data Cards (check if dashboardData exists) -->
+        <ng-container *ngIf="dashboardData">
+          <div class="dashboard-card primary" [routerLink]="['/clients']">
+            <i class="fas fa-users dashboard-icon"></i>
+            <h3>Total Clients</h3>
+            <p>{{ dashboardData.totalUsers }}</p>
+          </div>
+  
+          <!-- <div class="dashboard-card success-alt" [routerLink]="['/purchases']">
+            <i class="fas fa-shopping-cart dashboard-icon"></i>
+            <h3>Total Purchases</h3>
+            <p>{{ dashboardData.totalPurchases }}</p>
+          </div> -->
+  
+          <div class="dashboard-card info-alt" [routerLink]="['/clients']"> <!-- Alt theme -->
+            <i class="fas fa-dollar-sign dashboard-icon"></i>
+            <h3>Total Revenue</h3>
+            <p>{{ dashboardData.totalRevenue | currency:'INR':'symbol':'1.2-2' }}</p>
+            <!-- Adjust currency code 'INR' if needed -->
+          </div>
+  
+          <div class="dashboard-card warning-alt" [routerLink]="['/clients']"> <!-- Alt theme -->
+            <i class="fas fa-file-invoice-dollar dashboard-icon"></i>
+            <h3>Pending Payments</h3>
+            <p>{{ dashboardData.pendingPayments }}</p>
+          </div>
+  
+          <div class="dashboard-card secondary-alt" [routerLink]="['/clients']"> <!-- Alt theme -->
+            <i class="fas fa-tasks dashboard-icon"></i>
+            <h3>Pending Projects</h3>
+            <p>{{ getCountFromBreakdown(dashboardData.projectStatusBreakdown, 'project_status', 'pending') }}</p>
+          </div>
+  
+          <!-- <div class="dashboard-card accent" [routerLink]="['/clients/interested']"> 
+              <i class="fas fa-user-tie dashboard-icon"></i>
+              <h3>Interested Clients</h3>
+              <p>{{ getCountFromBreakdown(dashboardData.clientStatusBreakdown, 'client_status', 'interested') }}</p>
+          </div> -->
+        </ng-container>
+  
+      </div> <!-- End .dashboard-grid -->
+  
+      <!-- Second Row: Detailed Sections (Only if new data exists) -->
+      <div class="dashboard-details-grid" *ngIf="dashboardData">
+  
+        <!-- Plan Popularity Section -->
+        <div class="dashboard-list-section">
+          <h3><i class="fas fa-fire-alt"></i> Plan Popularity</h3>
+          <ul class="popularity-list" *ngIf="dashboardData.planPopularity && dashboardData.planPopularity.length > 0; else noPlans">
+            <li *ngFor="let plan of dashboardData.planPopularity | slice:0:5"> <!-- Show top 5 -->
+              <span class="plan-title">{{ plan.title }}</span>
+              <span class="plan-count">{{ plan.purchase_count }} Purchases</span>
+            </li>
+            <li *ngIf="dashboardData.planPopularity.length > 5" class="view-all">
+               <a [routerLink]="['/reports/plans']">View All...</a> <!-- Example Link -->
+            </li>
+          </ul>
+          <ng-template #noPlans>
+            <p class="empty-state">No plan purchase data available.</p>
+          </ng-template>
+        </div>
+  
+        <!-- Latest Purchases Section -->
+        <div class="dashboard-table-section">
+          <h3><i class="fas fa-history"></i> Latest Purchases</h3>
+          <div class="table-responsive" *ngIf="dashboardData.latestPurchases && dashboardData.latestPurchases.length > 0; else noPurchases">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <!-- <th>Email</th> --> <!-- Optional: Removed for space, can add back -->
+                  <th>Price</th>
+                  <th>Date</th>
+                  <th>Project Status</th>
+                  <th>Payment Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Show latest 5 purchases -->
+                <tr *ngFor="let purchase of dashboardData.latestPurchases | slice:0:5">
+                  <td style="color: rgb(71, 70, 70);">{{ purchase.name }}</td>
+                  <!-- <td>{{ purchase.email }}</td> -->
+                  <td style="color: rgb(71, 70, 70);">{{ purchase.price | currency:'INR':'symbol':'1.2-2' }}</td>
+                  <td style="color: rgb(71, 70, 70);">{{ purchase.purchase_date | date:'shortDate' }}</td> <!-- Shorter date format -->
+                  <td><span class="status-badge status-{{purchase.project_status | lowercase}}">{{ purchase.project_status }}</span></td>
+                  <td><span class="status-badge status-{{purchase.payment_status | lowercase}}">{{ purchase.payment_status }}</span></td>
+                </tr>
+              </tbody>
+            </table>
+             <div *ngIf="dashboardData.latestPurchases.length > 5" class="view-all-table">
+                   <a [routerLink]="['/purchases']">View All Purchases...</a> <!-- Example Link -->
+             </div>
+          </div>
+           <ng-template #noPurchases>
+            <p class="empty-state">No recent purchases found.</p>
+          </ng-template>
+        </div>
+  
+      </div> <!-- End .dashboard-details-grid -->
+  
+   </ng-container> <!-- End *ngIf="!isLoading && !errorMessage" -->
+  
+  </div> <!-- End .dashboard-wrapper -->

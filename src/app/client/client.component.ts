@@ -41,25 +41,26 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  // Search functionality
   searchPurchases(): void {
-    if (this.searchQuery.trim() === '') {
-      this.userPurchases = [...this.originalPurchases];  // Reset to original data
+    const query = this.searchQuery.toLowerCase().trim();
+  
+    if (query === '') {
+      this.userPurchases = [...this.originalPurchases]; // Reset to original data
     } else {
-      const query = this.searchQuery.toLowerCase();
-      this.userPurchases = this.originalPurchases.filter(purchase =>
-        purchase.name.toLowerCase().includes(query) || purchase.email.toLowerCase().includes(query)
-      );
+      this.userPurchases = this.originalPurchases.filter(purchase => {
+        return Object.values(purchase).some(value =>
+          value && value.toString().toLowerCase().includes(query)
+        );
+      });
     }
   }
+  
 
 
   updateStatus(purchase: any, field: string, value: string) {
     const payload: any = {};
     payload[field] = value;
   
-
-    console.log("purchase-->",purchase)
 
     this.clientService.updateUserPurchaseByAdmin(purchase.purchase_id, payload).subscribe({
       next: () => {
