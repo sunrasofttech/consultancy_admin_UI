@@ -1,12 +1,12 @@
 <div class="container">
-    <h2 class="booking-header">User Purchases</h2>
+    <h2 class="booking-header">Clients Package Purchases List</h2>
 
     <!-- Search bar -->
     <div class="search-bar">
         <input
             type="text"
             [(ngModel)]="searchQuery"
-            placeholder="Search by name or email"
+            placeholder="Search..."
             (input)="searchPurchases()" />
     </div>
 
@@ -80,7 +80,7 @@
                 <!-- FollowUp Notes Editable -->
                 <td>
                   <div *ngIf="!purchase.isEditing">{{ purchase.follow_up_notes }}</div>
-                  <input *ngIf="purchase.isEditing" [(ngModel)]="purchase.follow_up_notes" type="text" />
+                  <textarea *ngIf="purchase.isEditing" [(ngModel)]="purchase.follow_up_notes" rows="3" cols="30"></textarea>
                 </td>
           
                 <!-- Edit Button -->

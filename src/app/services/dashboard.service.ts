@@ -26,5 +26,10 @@ export class DashboardService {
     return this.http.post<any>(url, {}, { headers: this.getHeaders() });
   }
 
+  getDashboardMetrics():Observable<any> {
+    const url = `${this.baseUrl}/admin/getDashboardMetrics`;
+    return this.http.post<any>(url, {}, { headers: this.getHeaders() });
+  }
+
 
 }
