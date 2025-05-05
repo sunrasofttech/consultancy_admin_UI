@@ -17,6 +17,8 @@ import { BookingComponent } from './booking/booking.component';
 import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
 import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
 import { ClientComponent } from './client/client.component';
+import { VideoSectionSettingComponent } from './video-section-setting/video-section-setting.component';
+
 
 // Import the AuthGuard
 import { AuthGuard } from './auth.guard';
@@ -41,6 +43,7 @@ const routes: Routes = [
   { path: 'supportSetting', component: SupportSubscriptionSettingsComponent , canActivate: [AuthGuard] }, // Dashboard route
   { path: 'clients', component: ClientComponent , canActivate: [AuthGuard] }, // Dashboard route
 
+  { path: 'video-section', component: VideoSectionSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
 
   { path: 'footer-page', component: FooterPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
 
