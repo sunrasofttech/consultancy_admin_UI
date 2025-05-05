@@ -26,6 +26,7 @@ import { BookingComponent } from './booking/booking.component';
 import { FooterPageSettingComponent } from './footer-page-setting/footer-page-setting.component';
 import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
 import { ClientComponent } from './client/client.component';
+import { VideoSectionSettingComponent } from './video-section-setting/video-section-setting.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ClientComponent } from './client/client.component';
     BookingComponent,
     FooterPageSettingComponent,
     SupportSubscriptionSettingsComponent,
-    ClientComponent
+    ClientComponent,
+    VideoSectionSettingComponent
   ],
   imports: [
     BrowserModule,

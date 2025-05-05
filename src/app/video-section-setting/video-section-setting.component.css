@@ -1,0 +1,397 @@
+/* --- Base Container --- */
+.feature-settings-container {
+    padding: 30px;
+    /* background: linear-gradient(135deg, #1e0627, #33093b); */
+    /* background-color: #261c33; */
+    background:linear-gradient(135deg, #1e0627, #33093b);
+    border-radius: 15px; /* Softened radius */
+    color: #ffffff; /* Default text color for light bg */
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    transition: all 0.3s ease-in-out;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Example font */
+}
+
+.feature-settings-container h2 {
+    margin-bottom: 15px;
+    /* color: #e0d6f5; */
+    color: #ffffff; /* Darker heading color */
+    font-size: 24px; /* Adjusted size */
+    font-weight: 600; /* Slightly lighter weight */
+    border-bottom: 1px solid #dee2e6; /* Lighter border */
+    padding-bottom: 10px;
+}
+.feature-settings-container h3 {
+    margin-bottom: 20px;
+    color: #ffffff; /* Sub-heading color */
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+.feature-settings-container p {
+    /* color: #c5b3e6; */
+    color: #ffffff; /* Standard paragraph color */
+    font-size: 16px;
+    margin-bottom: 30px; /* More space after intro */
+}
+
+/* --- Cards (Create Section and Feature Items) --- */
+.card {
+    /* background: #2e1d4d; */
+    background: #2e1d4d; /* White cards */
+    /* border: 1px solid #5a2d85; */
+    border: 1px solid #5a2d85; /* Light border for cards */
+    border-radius: 10px; /* Consistent radius */
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Forms --- */
+.form-grid, .edit-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px; /* Increased gap */
+    margin-bottom: 25px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.input-group label {
+    margin-bottom: 8px; /* More space below label */
+    font-weight: 500; /* Medium weight */
+    font-size: 14px; /* Slightly smaller label */
+    /* color: #c5b3e6; */
+    color: #ffffff; /* Dark grey label */
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"],
+.input-group input[type="url"],
+.input-group select,
+.input-group input[type="file"] {
+    /* background-color: #3d2a5d; */
+    background-color: #fff; /* White input background */
+    /* border: 1px solid #7743b2; */
+    border: 1px solid #ced4da; /* Standard input border */
+    /* color: white; */
+    color: #495057; /* Dark input text */
+    padding: 10px 12px; /* Slightly taller inputs */
+    border-radius: 6px;
+    font-size: 15px; /* Slightly larger input font */
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-group input[type="file"] {
+    padding: 5px; /* Adjust file input padding */
+    border: 1px dashed #ced4da; /* Dashed border for file input */
+    background-color: #f8f9fa; /* Slightly off-white */
+}
+
+/* File input button styling (browser dependent, basic override) */
+.input-group input[type="file"]::file-selector-button {
+    /* background-color: #5a2d85; */
+    background-color: #6c757d; /* Grey button */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.2s ease;
+}
+.input-group input[type="file"]::file-selector-button:hover {
+    /* background-color: #7743b2; */
+    background-color: #5a6268;
+}
+
+
+.input-group input:focus,
+.input-group select:focus {
+    /* border-color: #c77dff; */
+    border-color: #80bdff; /* Standard Bootstrap focus blue */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Standard Bootstrap focus glow */
+}
+
+.input-group input:disabled,
+.input-group select:disabled {
+    background-color: #e9ecef; /* Standard disabled background */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.file-name {
+    font-size: 13px; /* Smaller file name */
+    /* color: #d3c0f2; */
+    color: #6c757d; /* Grey file name */
+    margin-top: 8px;
+    display: block;
+}
+
+.required {
+    color: #dc3545; /* Standard Bootstrap danger color */
+    margin-left: 3px;
+}
+
+.button-row {
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* --- Feature Item List --- */
+.feature-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Wrap actions below content on small screens */
+    gap: 20px; /* Gap between content and actions */
+}
+
+.item-content {
+    flex-grow: 1;
+    min-width: 300px; /* Prevent content from becoming too narrow */
+}
+.item-content h4 {
+    font-size: 18px;
+    /* color: #e0d6f5; */
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+.item-content p {
+    font-size: 15px;
+    /* color: #d3c0f2; */
+    color: #ffffff;
+    margin-bottom: 15px; /* Space below status */
+    line-height: 1.5;
+}
+
+
+.item-actions {
+    flex-shrink: 0;
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    align-items: center; /* Align buttons vertically */
+}
+
+.item-actions .action-btn {
+    padding: 6px 16px;
+    font-size: 14px;
+    min-width: 80px; /* Minimum button width */
+    text-align: center;
+}
+
+
+/* --- Video Player --- */
+.video-player-container {
+    margin-top: 15px; /* Space above player */
+    margin-bottom: 15px;
+    max-width: 360px; /* Slightly larger max width */
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+    /* background-color: #3d2a5d; */
+    background-color: #f0f0f0; /* Light placeholder background */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Clip content like iframe */
+    border: 1px solid #dee2e6; /* Light border */
+    position: relative;
+}
+
+.video-embed {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove iframe border */
+}
+
+.video-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* color: #a394c9; */
+    color: #6c757d; /* Grey text */
+    /* background-color: #2e1d4d; */
+    background-color: #e9ecef; /* Lighter placeholder background */
+    /* border: 1px dashed #5a2d85; */
+    border: 1px dashed #ced4da;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px; /* Match container */
+}
+
+.source-info {
+    font-size: 13px;
+    /* color: #bca9e0; */
+    color: #6c757d;
+    word-break: break-all;
+    margin-top: 10px;
+}
+.source-info a {
+    /* color: #c77dff; */
+    color: #007bff; /* Standard link color */
+    text-decoration: none;
+}
+.source-info a:hover {
+    text-decoration: underline;
+}
+
+/* --- Status Indicators --- */
+.status-active {
+    /* color: #6fcf97; Bright Green */
+    color: #28a745; /* Bootstrap success green */
+    font-weight: 500;
+    background-color: rgba(40, 167, 69, 0.1); /* Light green background */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.status-inactive {
+    /* color: #bdbdbd; */
+    color: #6c757d; /* Bootstrap secondary grey */
+    font-weight: 500;
+     background-color: rgba(108, 117, 125, 0.1); /* Light grey background */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* --- Dividers --- */
+hr.section-divider {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid #dee2e6; /* Lighter divider */
+}
+
+hr.item-divider {
+    display: none; /* Hide dividers between items, card separation is enough */
+}
+
+/* --- Buttons --- */
+button {
+  padding: 8px 18px; /* Slightly more padding */
+  border: none;
+  border-radius: 6px; /* Consistent radius */
+  cursor: pointer;
+  font-size: 14px; /* Consistent font size */
+  font-weight: 500;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+button:hover:not(:disabled) {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    transform: translateY(-1px);
+}
+button:active:not(:disabled) {
+    transform: translateY(0px);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+button:disabled {
+  opacity: 0.65; /* Standard opacity */
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Specific Button Colors (Using standard Bootstrap-like colors) */
+.create-btn, .save-btn {
+  /* background-color: #7743b2; */
+  background-color: #28a745; /* Green */
+  color: white;
+}
+.create-btn:hover:not(:disabled), .save-btn:hover:not(:disabled) {
+  /* background-color: #5a2d85; */
+  background-color: #218838; /* Darker Green */
+}
+
+.edit-btn {
+  /* background-color: #5a2d85; */
+  background-color: #007bff; /* Blue */
+  color: white;
+}
+.edit-btn:hover:not(:disabled) {
+  /* background-color: #7743b2; */
+  background-color: #0056b3; /* Darker Blue */
+}
+
+.delete-btn {
+  /* background-color: #a72845; /* Adjusted Red/Purple */
+  background-color: #dc3545; /* Red */
+  color: white;
+}
+.delete-btn:hover:not(:disabled) {
+  /* background-color: #882138; */
+  background-color: #c82333; /* Darker Red */
+}
+
+.cancel-btn {
+  /* background-color: #4a4a6a; /* Adjusted Grey/Purple */
+  background-color: #6c757d; /* Grey */
+  color: white;
+}
+.cancel-btn:hover:not(:disabled) {
+  /* background-color: #3a3a5a; */
+  background-color: #5a6268; /* Darker Grey */
+}
+
+
+/* --- Loading Indicator --- */
+.loading-indicator {
+  text-align: center;
+  padding: 30px;
+  font-style: italic;
+  /* color: #c5b3e6; */
+  color: #6c757d;
+  font-size: 16px;
+}
+
+/* --- No Items Message --- */
+.no-items-message {
+  text-align: center;
+  padding: 30px;
+  /* color: #a394c9; */
+  color: #6c757d;
+  border: 1px dashed #dee2e6; /* Light dashed border */
+  border-radius: 8px;
+  background-color: #f8f9fa; /* Very light background */
+}
+
+/* --- Snackbar Override (place in global styles.css/scss for broader effect) --- */
+/* Make sure MatSnackBarModule is imported */
+.custom-snackbar.success-snackbar { /* Example for success */
+  background-color: #28a745;
+  color: white;
+}
+
+.custom-snackbar.error-snackbar { /* Example for error */
+  background-color: #dc3545;
+  color: white;
+}
+.custom-snackbar.info-snackbar { /* Example for info */
+  background-color: #17a2b8;
+  color: white;
+}
+
+/* Add styles to the .mat-mdc-snack-bar-container directly if needed globally */
+/* .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    border-radius: 6px !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
+} */
