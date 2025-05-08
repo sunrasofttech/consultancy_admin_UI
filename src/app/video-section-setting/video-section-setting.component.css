@@ -395,3 +395,31 @@ button:disabled {
     border-radius: 6px !important;
     box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
 } */
+
+
+.video-preview-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    /* margin-top: 16px; */
+  }
+  
+  .video-preview-block {
+    flex: 1 1 320px;
+    max-width: 340px;
+    padding: 0px;
+    /* border: 1px solid #3a1774; */
+    border-radius: 8px;
+    background:transparent;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .source-info {
+    font-size: 14px;
+    margin: 4px 0;
+  }
+  
+  .error-text {
+    color: red;
+  }
+  

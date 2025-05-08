@@ -1,146 +1,347 @@
 <div class="feature-settings-container">
-    <h2>Video Section Management</h2>
-    <p>Manage and update the videos displayed on the website.</p>
-  
-    <!-- Loading Indicator -->
-    <div *ngIf="isLoading" class="loading-indicator">Loading...</div>
-  
-    <!-- ========= Create New Video Section ========= -->
-    <div class="create-video-section card"> <!-- Added card class for styling -->
-      <h3>Create New Video Section</h3>
-  
-      <div class="form-grid"> <!-- Use grid for better alignment -->
-          <div class="input-group">
-            <label for="newTitle">Title <span class="required">*</span></label>
-            <input type="text" id="newTitle" [(ngModel)]="newVideo.title" placeholder="Enter video title" required />
+  <h2>Video Section Management</h2>
+  <p>Manage and update the videos displayed on the website. Provide YouTube
+    links OR upload video files for different languages.</p>
+
+  <div *ngIf="isLoading" class="loading-indicator">Loading...</div>
+
+  <!-- ========= Create New Video Section ========= -->
+  <div class="create-video-section card">
+    <h3>Create New Video Section</h3>
+    <form #createForm="ngForm"> <!-- Optional: Add form tag if needed -->
+      <div class="form-grid">
+        <!-- Title, Sort Order, Status -->
+        <div class="input-group">
+          <label for="newTitle">Title <span class="required">*</span></label>
+          <input id="newTitle" name="newTitle" [(ngModel)]="newVideo.title"
+            placeholder="Enter video title" required />
+        </div>
+        <div class="input-group">
+          <label for="newSortOrder">Sort Order</label>
+          <input id="newSortOrder" name="newSortOrder" type="number"
+            [(ngModel)]="newVideo.sort_order" placeholder="1" />
+        </div>
+        <div class="input-group">
+          <label for="newStatus">Status</label>
+          <select id="newStatus" name="newStatus" [(ngModel)]="newVideo.status">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+        <hr class="form-divider full-width">
+        <h4 class="full-width section-header">Fallback / Default Sources</h4>
+        <!-- Fallback Sources -->
+        <div class="input-group full-width source-pair">
+          <label for="newYoutubeLink">Fallback YouTube Link</label>
+          <input id="newYoutubeLink" name="newYoutubeLink" type="url"
+            [(ngModel)]="newVideo.youtube_link" placeholder="https://..."
+            [disabled]="!!newVideoFiles.video_file" />
+        </div>
+        <div class="input-group full-width source-pair">
+          <label for="newVideoFile">Fallback Upload File</label>
+          <input #newVideoFileInput id="newVideoFile" name="newVideoFile"
+            type="file" accept="video/*"
+            (change)="onFileSelectedNew($event, 'video_file')"
+            [disabled]="!!newVideo.youtube_link" />
+          <span *ngIf="newVideoFiles.video_file" class="file-name">Selected: {{
+            newVideoFiles.video_file.name }}</span>
+        </div>
+
+        <hr class="form-divider full-width">
+        <h4 class="full-width section-header">English Version Sources</h4>
+        <!-- English Sources -->
+        <div class="input-group full-width source-pair">
+          <label for="newYoutubeLinkEn">English YouTube Link</label>
+          <input id="newYoutubeLinkEn" name="newYoutubeLinkEn" type="url"
+            [(ngModel)]="newVideo.youtube_link_en" placeholder="https://..."
+            [disabled]="!!newVideoFiles.video_file_en" />
+        </div>
+        <div class="input-group full-width source-pair">
+          <label for="newVideoFileEn">English Upload File</label>
+          <input #newVideoFileEnInput id="newVideoFileEn" name="newVideoFileEn"
+            type="file" accept="video/*"
+            (change)="onFileSelectedNew($event, 'video_file_en')"
+            [disabled]="!!newVideo.youtube_link_en" />
+          <span *ngIf="newVideoFiles.video_file_en" class="file-name">Selected:
+            {{ newVideoFiles.video_file_en.name }}</span>
+        </div>
+
+        <hr class="form-divider full-width">
+        <h4 class="full-width section-header">Hindi Version Sources</h4>
+        <!-- Hindi Sources -->
+        <div class="input-group full-width source-pair">
+          <label for="newYoutubeLinkHi">Hindi YouTube Link</label>
+          <input id="newYoutubeLinkHi" name="newYoutubeLinkHi" type="url"
+            [(ngModel)]="newVideo.youtube_link_hi" placeholder="https://..."
+            [disabled]="!!newVideoFiles.video_file_hi" />
+        </div>
+        <div class="input-group full-width source-pair">
+          <label for="newVideoFileHi">Hindi Upload File</label>
+          <input #newVideoFileHiInput id="newVideoFileHi" name="newVideoFileHi"
+            type="file" accept="video/*"
+            (change)="onFileSelectedNew($event, 'video_file_hi')"
+            [disabled]="!!newVideo.youtube_link_hi" />
+          <span *ngIf="newVideoFiles.video_file_hi" class="file-name">Selected:
+            {{ newVideoFiles.video_file_hi.name }}</span>
+        </div>
+
+      </div>
+      <div class="button-row">
+        <button type="button" class="create-btn" (click)="createNewVideo()"
+          [disabled]="isLoading || createForm.invalid">Create Video</button>
+        <!-- Button type="button" if inside a form -->
+      </div>
+    </form>
+  </div>
+  <!-- ========= End Create New Video Section ========= -->
+
+  <hr class="section-divider" />
+
+  <!-- ========= List and Edit Existing Videos ========= -->
+  <h2>Existing Videos</h2>
+  <div *ngIf="!isLoading && videoSections.length === 0"
+    class="no-items-message">
+    No video sections found.
+  </div>
+
+  <div *ngFor="let video of videoSections; let i = index"
+    class="feature-item card">
+    <div class="item-content">
+      <!-- Display Mode -->
+      <ng-container *ngIf="editingVideoId !== video.id">
+        <h4>{{ video.title }} (Order: {{ video.sort_order }})</h4>
+        <p>Status:
+          <span
+            [ngClass]="{ 'status-active': video.status === 'active', 'status-inactive': video.status === 'inactive' }">
+            {{ video.status }}
+          </span>
+        </p>
+      
+        <!-- Display all available sources -->
+        <div class="source-display">
+          <p class="source-info" *ngIf="video.youtube_link_en">YT (EN): 
+            <a [href]="video.youtube_link_en" target="_blank" rel="noopener noreferrer">
+              {{ video.youtube_link_en }}
+            </a>
+          </p>
+          <p class="source-info" *ngIf="video.youtube_link_hi">YT (HI): 
+            <a [href]="video.youtube_link_hi" target="_blank" rel="noopener noreferrer">
+              {{ video.youtube_link_hi }}
+            </a>
+          </p>
+          <p class="source-info" *ngIf="video.youtube_link">YT (Fallback): 
+            <a [href]="video.youtube_link" target="_blank" rel="noopener noreferrer">
+              {{ video.youtube_link }}
+            </a>
+          </p>
+          <p class="source-info" *ngIf="video.video_file_en">File (EN): {{ video.video_file_en }}</p>
+          <p class="source-info" *ngIf="video.video_file_hi">File (HI): {{ video.video_file_hi }}</p>
+          <p class="source-info" *ngIf="video.video_file">File (Fallback): {{ video.video_file }}</p>
+      
+          <p class="source-info error-text"
+             *ngIf="!video.youtube_link_en && !video.youtube_link_hi && !video.youtube_link && !video.video_file_en && !video.video_file_hi && !video.video_file">
+            (!) No video sources defined for this item.
+          </p>
+        </div>
+      
+        <!-- Video Previews for All Sources -->
+        <div class="video-preview-grid">
+          <div *ngIf="video.youtube_link_en" class="video-preview-block">
+            <h5>YT (EN):</h5>
+            <iframe [src]="sanitizeYoutubeUrl(video.youtube_link_en)"
+                    width="320" height="180" frameborder="0" allowfullscreen></iframe>
           </div>
-  
-          <div class="input-group">
-            <label for="newSortOrder">Sort Order</label>
-            <input type="number" id="newSortOrder" [(ngModel)]="newVideo.sort_order" placeholder="1" />
+      
+          <div *ngIf="video.youtube_link_hi" class="video-preview-block">
+            <h5>YT (HI):</h5>
+            <iframe [src]="sanitizeYoutubeUrl(video.youtube_link_hi)"
+                    width="320" height="180" frameborder="0" allowfullscreen></iframe>
           </div>
-  
-          <div class="input-group">
-              <label for="newStatus">Status</label>
-              <select id="newStatus" [(ngModel)]="newVideo.status">
+      
+          <div *ngIf="video.youtube_link" class="video-preview-block">
+            <h5>YT (Fallback):</h5>
+            <iframe [src]="sanitizeYoutubeUrl(video.youtube_link)"
+                    width="320" height="180" frameborder="0" allowfullscreen></iframe>
+          </div>
+      
+          <div *ngIf="video.video_file_en" class="video-preview-block">
+            <h5>File (EN):</h5>
+            <video width="320" height="180" controls>
+              <source [src]="baseApiUrl + video.video_file_en" type="video/mp4" />
+            </video>
+          </div>
+      
+          <div *ngIf="video.video_file_hi" class="video-preview-block">
+            <h5>File (HI):</h5>
+            <video width="320" height="180" controls>
+              <source [src]="baseApiUrl + video.video_file_hi" type="video/mp4" />
+            </video>
+          </div>
+      
+          <div *ngIf="video.video_file" class="video-preview-block">
+            <h5>File (Fallback):</h5>
+            <video width="320" height="180" controls>
+              <source [src]="baseApiUrl + video.video_file" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </ng-container>
+      
+
+      <!-- Edit Mode -->
+      <ng-container *ngIf="editingVideoId === video.id">
+        <h4>Editing: {{ editableVideoData.title }}</h4>
+        <!-- Add the form tag here -->
+        <form #editForm="ngForm">
+          <div class="edit-form-grid">
+            <!-- Title, Sort, Status inputs -->
+            <div class="input-group">
+              <label [attr.for]="'editTitle' + video.id">Title <span
+                  class="required">*</span></label>
+              <input [id]="'editTitle' + video.id" name="editTitle{{video.id}}"
+                type="text" [(ngModel)]="editableVideoData.title" required />
+            </div>
+            <div class="input-group">
+              <label [attr.for]="'editSortOrder' + video.id">Sort Order</label>
+              <input [id]="'editSortOrder' + video.id"
+                name="editSortOrder{{video.id}}" type="number"
+                [(ngModel)]="editableVideoData.sort_order" />
+            </div>
+            <div class="input-group">
+              <label [attr.for]="'editStatus' + video.id">Status</label>
+              <select [id]="'editStatus' + video.id"
+                name="editStatus{{video.id}}"
+                [(ngModel)]="editableVideoData.status">
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
+            </div>
+
+            <hr class="form-divider full-width">
+            <h5 class="full-width section-header">Fallback / Default
+              Sources</h5>
+            <!-- Fallback -->
+            <div class="input-group full-width source-pair">
+              <label [attr.for]="'editYoutubeLink' + video.id">Fallback YT
+                Link</label>
+              <input [id]="'editYoutubeLink' + video.id"
+                name="editYoutubeLink{{video.id}}" type="url"
+                [(ngModel)]="editableVideoData.youtube_link"
+                (ngModelChange)="onLinkChanged('youtube_link')"
+                [disabled]="!!filesForUpdate.video_file || (!!editableVideoData.video_file && !filesForUpdate.video_file)" />
+            </div>
+            <div class="input-group full-width source-pair">
+              <label [attr.for]="'editVideoFile' + video.id">Fallback Upload
+                File</label>
+              <input [id]="'editVideoFile' + video.id"
+                name="editVideoFile{{video.id}}" type="file" accept="video/*"
+                (change)="onFileSelectedEdit($event, video.id, 'video_file')"
+                [disabled]="!!editableVideoData.youtube_link" />
+              <span *ngIf="filesForUpdate.video_file" class="file-name">New: {{
+                filesForUpdate.video_file.name }}</span>
+              <span
+                *ngIf="!filesForUpdate.video_file && editableVideoData.video_file"
+                class="file-name">
+                Current: {{ editableVideoData.video_file }}
+                <button type="button" class="clear-file-btn"
+                  (click)="clearExistingFile('video_file')">Remove</button>
+                <!-- type="button" added -->
+              </span>
+            </div>
+
+            <hr class="form-divider full-width">
+            <h5 class="full-width section-header">English Version Sources</h5>
+            <!-- English -->
+            <div class="input-group full-width source-pair">
+              <label [attr.for]="'editYoutubeLinkEn' + video.id">English YT
+                Link</label>
+              <input [id]="'editYoutubeLinkEn' + video.id"
+                name="editYoutubeLinkEn{{video.id}}" type="url"
+                [(ngModel)]="editableVideoData.youtube_link_en"
+                (ngModelChange)="onLinkChanged('youtube_link_en')"
+                [disabled]="!!filesForUpdate.video_file_en || (!!editableVideoData.video_file_en && !filesForUpdate.video_file_en)" />
+            </div>
+            <div class="input-group full-width source-pair">
+              <label [attr.for]="'editVideoFileEn' + video.id">English Upload
+                File</label>
+              <input [id]="'editVideoFileEn' + video.id"
+                name="editVideoFileEn{{video.id}}" type="file" accept="video/*"
+                (change)="onFileSelectedEdit($event, video.id, 'video_file_en')"
+                [disabled]="!!editableVideoData.youtube_link_en" />
+              <span *ngIf="filesForUpdate.video_file_en" class="file-name">New:
+                {{ filesForUpdate.video_file_en.name }}</span>
+              <span
+                *ngIf="!filesForUpdate.video_file_en && editableVideoData.video_file_en"
+                class="file-name">
+                Current: {{ editableVideoData.video_file_en }}
+                <button type="button" class="clear-file-btn"
+                  (click)="clearExistingFile('video_file_en')">Remove</button>
+                <!-- type="button" added -->
+              </span>
+            </div>
+
+            <hr class="form-divider full-width">
+            <h5 class="full-width section-header">Hindi Version Sources</h5>
+            <!-- Hindi -->
+            <div class="input-group full-width source-pair">
+              <label [attr.for]="'editYoutubeLinkHi' + video.id">Hindi YT
+                Link</label>
+              <input [id]="'editYoutubeLinkHi' + video.id"
+                name="editYoutubeLinkHi{{video.id}}" type="url"
+                [(ngModel)]="editableVideoData.youtube_link_hi"
+                (ngModelChange)="onLinkChanged('youtube_link_hi')"
+                [disabled]="!!filesForUpdate.video_file_hi || (!!editableVideoData.video_file_hi && !filesForUpdate.video_file_hi)" />
+            </div>
+            <div class="input-group full-width source-pair">
+              <label [attr.for]="'editVideoFileHi' + video.id">Hindi Upload
+                File</label>
+              <input [id]="'editVideoFileHi' + video.id"
+                name="editVideoFileHi{{video.id}}" type="file" accept="video/*"
+                (change)="onFileSelectedEdit($event, video.id, 'video_file_hi')"
+                [disabled]="!!editableVideoData.youtube_link_hi" />
+              <span *ngIf="filesForUpdate.video_file_hi" class="file-name">New:
+                {{ filesForUpdate.video_file_hi.name }}</span>
+              <span
+                *ngIf="!filesForUpdate.video_file_hi && editableVideoData.video_file_hi"
+                class="file-name">
+                Current: {{ editableVideoData.video_file_hi }}
+                <button type="button" class="clear-file-btn"
+                  (click)="clearExistingFile('video_file_hi')">Remove</button>
+                <!-- type="button" added -->
+              </span>
+            </div>
+
           </div>
-  
-          <div class="input-group full-width"> <!-- Span full width -->
-            <label for="newYoutubeLink">YouTube Link (Provide Link OR Upload File)</label>
-            <input type="url" id="newYoutubeLink" [(ngModel)]="newVideo.youtube_link" placeholder="https://www.youtube.com/watch?v=..." [disabled]="!!newVideoFile"/> <!-- Disable if file selected -->
+
+          <!-- *** MOVE ACTION BUTTONS INSIDE THE FORM *** -->
+          <div class="item-actions button-row">
+            <!-- Use button-row for alignment -->
+            <button type="button" class="action-btn save-btn"
+              (click)="saveEdit()"
+              [disabled]="isLoading || editForm.invalid">Save Changes</button>
+            <!-- type="button" -->
+            <button type="button" class="action-btn cancel-btn"
+              (click)="cancelEdit()" [disabled]="isLoading">Cancel</button>
+            <!-- type="button" -->
           </div>
-  
-          <div class="input-group full-width"> <!-- Span full width -->
-            <label for="newVideoFile">Upload Video File (Provide Link OR Upload File)</label>
-            <input type="file" id="newVideoFile" accept="video/*" (change)="onFileSelectedNewVideo($event)" [disabled]="!!newVideo.youtube_link"/> <!-- Disable if link entered -->
-            <span *ngIf="newVideoFile" class="file-name">Selected: {{ newVideoFile.name }}</span>
-          </div>
+          <!-- ****************************************** -->
+
+        </form> <!-- End of form -->
+      </ng-container>
+
+      <!-- Action Buttons for Display Mode (Edit/Delete) -->
+      <!-- These should remain OUTSIDE the edit form's ng-container -->
+      <div class="item-actions" *ngIf="editingVideoId !== video.id">
+        <button class="action-btn edit-btn" (click)="editVideo(video)"
+          [disabled]="isLoading">Edit</button>
+        <button class="action-btn delete-btn" (click)="deleteVideo(video)"
+          [disabled]="isLoading">Delete</button>
       </div>
-  
-      <div class="button-row">
-        <button class="create-btn" (click)="createNewVideo()" [disabled]="isLoading">Create Video</button>
-      </div>
-    </div>
-    <!-- ========= End Create New Video Section ========= -->
-  
-  
-    <hr class="section-divider"/>
-  
-  
-    <!-- ========= List and Edit Existing Videos ========= -->
-    <h2>Existing Videos</h2>
-    <div *ngIf="!isLoading && videoSections.length === 0" class="no-items-message">
-      No video sections found.
-    </div>
-  
-    <div *ngFor="let video of videoSections; let i = index" class="feature-item card"> <!-- Added card class -->
-      <div class="item-content"> <!-- Wrapper for content -->
-          <!-- Display Mode -->
-          <ng-container *ngIf="editingVideoId !== video.id">
-              <h4>{{ video.title }} (Order: {{ video.sort_order }})</h4>
-              <p>Status: <span [ngClass]="{'status-active': video.status === 'active', 'status-inactive': video.status === 'inactive'}">{{ video.status }}</span></p>
-  
-              <!-- Video Player -->
-              <div class="video-player-container">
-                  <ng-container *ngIf="video.youtube_link; else showUploadedVideo">
-                      <iframe *ngIf="sanitizeYoutubeUrl(video.youtube_link) as safeUrl"
-                          class="video-embed"
-                          width="320" height="180" [src]="safeUrl"
-                          frameborder="0" allowfullscreen></iframe>
-                       <div *ngIf="!sanitizeYoutubeUrl(video.youtube_link)" class="video-placeholder">
-                          Invalid YouTube link
-                       </div>
-                  </ng-container>
-                  <ng-template #showUploadedVideo>
-                      <video *ngIf="video.video_file"
-                          class="video-embed"
-                          width="320" height="180" controls>
-                          <source [src]="video.video_file" type="video/mp4" /> <!-- Use potentially prefixed URL -->
-                          Your browser does not support the video tag. ({{ video.video_file }})
-                      </video>
-                      <div *ngIf="!video.video_file && !video.youtube_link" class="video-placeholder">
-                         No video source provided.
-                      </div>
-                  </ng-template>
-              </div>
-               <!-- Display link/file path -->
-               <p class="source-info" *ngIf="video.youtube_link">Source: <a [href]="video.youtube_link" target="_blank" rel="noopener noreferrer">{{ video.youtube_link }}</a></p>
-               <p class="source-info" *ngIf="video.video_file">Source: {{ video.video_file }}</p> <!-- Show path -->
-  
-          </ng-container>
-  
-          <!-- Edit Mode -->
-          <ng-container *ngIf="editingVideoId === video.id">
-              <h4>Editing: {{ editableVideoData.title }}</h4>
-              <div class="edit-form-grid">
-                  <div class="input-group">
-                      <label [attr.for]="'editTitle' + video.id">Title <span class="required">*</span></label>
-                      <input [id]="'editTitle' + video.id" type="text" [(ngModel)]="editableVideoData.title" required />
-                  </div>
-                  <div class="input-group">
-                      <label [attr.for]="'editSortOrder' + video.id">Sort Order</label>
-                      <input [id]="'editSortOrder' + video.id" type="number" [(ngModel)]="editableVideoData.sort_order" />
-                  </div>
-                   <div class="input-group">
-                      <label [attr.for]="'editStatus' + video.id">Status</label>
-                      <select [id]="'editStatus' + video.id" [(ngModel)]="editableVideoData.status">
-                          <option value="active">Active</option>
-                          <option value="inactive">Inactive</option>
-                      </select>
-                  </div>
-  
-                   <div class="input-group full-width">
-                      <label [attr.for]="'editYoutubeLink' + video.id">YouTube Link</label>
-                      <input [id]="'editYoutubeLink' + video.id" type="url" [(ngModel)]="editableVideoData.youtube_link" placeholder="https://..." [disabled]="!!fileForUpdate"/>
-                   </div>
-  
-                   <div class="input-group full-width">
-                      <label [attr.for]="'editVideoFile' + video.id">Upload New Video File (Optional)</label>
-                      <input [id]="'editVideoFile' + video.id" type="file" accept="video/*" (change)="onFileSelected($event, video.id)" [disabled]="!!editableVideoData.youtube_link"/>
-                       <span *ngIf="fileForUpdate" class="file-name">Selected: {{ fileForUpdate.name }}</span>
-                       <span *ngIf="!fileForUpdate && editableVideoData.video_file" class="file-name">Current File: {{ editableVideoData.video_file }}</span>
-                   </div>
-              </div>
-          </ng-container>
-      </div> <!-- End item-content -->
-  
-      <!-- Action Buttons -->
-      <div class="item-actions">
-          <ng-container *ngIf="editingVideoId !== video.id">
-              <button class="action-btn edit-btn" (click)="editVideo(video)" [disabled]="isLoading">Edit</button>
-              <button class="action-btn delete-btn" (click)="deleteVideo(video)" [disabled]="isLoading">Delete</button>
-          </ng-container>
-          <ng-container *ngIf="editingVideoId === video.id">
-              <button class="action-btn save-btn" (click)="saveEdit()" [disabled]="isLoading">Save Changes</button>
-              <button class="action-btn cancel-btn" (click)="cancelEdit()" [disabled]="isLoading">Cancel</button>
-          </ng-container>
-      </div>
-  
-      <hr *ngIf="i < videoSections.length - 1" class="item-divider">
-    </div>
-    <!-- ========= End List Existing Videos ========= -->
-  
+
+    </div> <!-- End item-content -->
+    <hr *ngIf="i < videoSections.length - 1" class="item-divider">
   </div>
+  <!-- ========= End List Existing Videos ========= -->
+
+</div>
