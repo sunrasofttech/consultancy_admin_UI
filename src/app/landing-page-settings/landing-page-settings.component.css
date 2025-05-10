@@ -326,3 +326,327 @@ input[type="file"] {
     margin-right: 10px;
     font-weight: bold;
   }
+
+
+
+
+ /* ========= STYLES FOR ADD NEW BANNER SECTION (Dark Theme Consistent - Streamlined) ========= */
+.add-banner-section {
+  background-color: #2e1d4d; /* Matches .landing-row */
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #5a2d85; /* Consistent border */
+  color: #e0d6f5;           /* Default light text for the section */
+  margin-top: 30px;
+}
+
+.add-banner-section h3 {
+  color: #ffffff;
+  font-size: 1.5em;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #5a2d85;
+}
+
+.add-banner-form .form-group {
+  margin-bottom: 18px;
+}
+
+.add-banner-form .form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #cbbcea;
+  font-size: 0.9em;
+}
+
+/* Radio button styling (minimal overrides) */
+.add-banner-form .form-group input[type="radio"] {
+  margin-right: 5px;
+  vertical-align: middle; /* Good for alignment */
+  cursor: pointer;
+  accent-color: #7743b2; /* Themes the radio dot if browser supports */
+}
+.add-banner-form .form-group input[type="radio"]:focus-visible {
+  outline: 2px solid #7743b2;
+  outline-offset: 2px;
+}
+.add-banner-form .form-group div label[for^="bannerMode"] {
+  font-weight: normal; /* Ensure these labels aren't overly bold if global label is */
+  color: #e0d6f5;
+  margin-right: 15px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+
+/* Common styles for form inputs in this section (text, number, select, file) */
+.add-banner-form .form-control, /* Apply this class to your text, number, select */
+.add-banner-form input[type="text"],
+.add-banner-form input[type="number"],
+.add-banner-form select,
+.add-banner-form input[type="file"] {
+  width: 100%;
+  padding: 9px 12px;
+  background-color: #1e0627; /* Darker input background */
+  color: #e0d6f5;           /* Light text for input */
+  border: 1px solid #5a2d85; /* Themed border */
+  border-radius: 5px;
+  box-sizing: border-box;    /* Important for layout */
+  font-size: 0.95em;
+  transition: border-color 0.2s ease-in-out; /* Subtle focus transition */
+}
+
+.add-banner-form .form-control:focus,
+.add-banner-form input[type="text"]:focus,
+.add-banner-form input[type="number"]:focus,
+.add-banner-form select:focus,
+.add-banner-form input[type="file"]:focus {
+  border-color: #7743b2; /* Brighter purple on focus */
+  outline: none; /* Remove default browser outline if border is clear enough */
+}
+
+/* File input 'button' styling */
+.add-banner-form input[type="file"]::file-selector-button {
+  background-color: #5a2d85; /* Your primary button color */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+.add-banner-form input[type="file"]::file-selector-button:hover {
+  background-color: #7743b2; /* Your button hover color */
+}
+
+.add-banner-form .selected-filename {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.85em;
+  color: #cbbcea;
+  font-style: italic;
+}
+
+/* Button specific to "Add New Banner" form - primarily for disabled state */
+/* Assumes your global 'button' and 'button:hover' styles are sufficient */
+.add-banner-form button:disabled {
+  background-color: #3c2a52 !important; /* Darker, muted purple (use !important if global styles override too strongly) */
+  color: #8c7ca7 !important;          /* Muted text */
+  cursor: not-allowed;
+}
+
+/* Message styling (Dark Theme Consistent) */
+.add-banner-form .message {
+  padding: 10px 15px;
+  margin-top: 15px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.add-banner-form .success-message {
+  background-color: rgba(40, 167, 69, 0.15);
+  border-color: #28a745;
+  color: #d4edda;
+}
+
+.add-banner-form .error-message {
+  background-color: rgba(220, 53, 69, 0.15);
+  border-color: #dc3545;
+  color: #f8d7da;
+}
+
+
+
+
+
+/* ========= STYLES FOR BANNER MANAGEMENT TABLE ========= */
+.banner-table-section {
+  background-color: #27103a; /* Slightly lighter than main rows for distinction */
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  color: #e0d6f5;
+  border: 1px solid #5a2d85;
+}
+
+.banner-table-section h3 {
+  color: #ffffff;
+  font-size: 1.5em;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #5a2d85;
+}
+
+.table-responsive-wrapper {
+  overflow-x: auto; /* Allows horizontal scrolling on small screens */
+}
+
+.banner-manage-table {
+  width: 100%;
+  border-collapse: separate; /* Use separate for border-radius on cells */
+  border-spacing: 0 8px; /* Vertical spacing between rows */
+  text-align: left;
+  font-size: 0.9em;
+}
+
+.banner-manage-table th,
+.banner-manage-table td {
+  padding: 10px 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid #3c2a52; /* Subtle line between cells in a row */
+}
+.banner-manage-table td:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.banner-manage-table td:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+
+.banner-manage-table thead tr {
+    background-color: transparent; /* Header can be transparent */
+}
+.banner-manage-table thead th {
+  color: #ffffff;
+  font-weight: 600;
+  border-bottom: 2px solid #5a2d85; /* Stronger line under headers */
+  white-space: nowrap;
+}
+
+.banner-manage-table tbody tr.banner-row {
+    background-color: #1e0627; /* Darker row background */
+    transition: background-color 0.2s ease;
+}
+.banner-manage-table tbody tr.banner-row:hover {
+    background-color: #2a0d3a;
+}
+
+.banner-preview-table,
+.youtube-embed-container-table iframe {
+  max-width: 120px; /* Max width for preview in table */
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block; /* To control margin/padding properly */
+  background-color: #000; /* Placeholder */
+}
+
+.url-column a, .url-column span {
+  display: inline-block;
+  max-width: 200px; /* Limit width of URL/filename display */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  color: #a480dd;
+  text-decoration: none;
+}
+.url-column a:hover {
+  text-decoration: underline;
+}
+
+.form-control-table {
+  padding: 6px 8px;
+  font-size: 0.9em;
+  background-color: #2e1d4d; /* Input background in table */
+  color: #e0d6f5;
+  border: 1px solid #5a2d85;
+  border-radius: 4px;
+  box-sizing: border-box;
+  max-width: 80px; /* For select and sort */
+}
+.form-control-table.sort-input {
+  width: 65px; /* Specific width for sort input */
+}
+.form-control-table:focus {
+  border-color: #7743b2;
+  outline: none;
+}
+
+.actions-column .btn-small {
+  margin-right: 5px;
+  margin-bottom: 5px; /* For wrapping on small screens */
+}
+.actions-column .btn-small:last-child {
+  margin-right: 0;
+}
+
+.status-active { color: #4CAF50; font-weight: bold; }
+.status-inactive { color: #f44336; font-weight: bold; }
+.btn-link-style {
+    background: none;
+    border: none;
+    color: #a480dd;
+    cursor: pointer;
+    padding: 0 5px;
+    text-decoration: underline;
+    font-size: 0.9em;
+}
+.btn-link-style:hover {
+    color: #cbbcea;
+}
+
+
+/* Collapsible Update Section in Table */
+.update-details-row td {
+  background-color: #2a0d3a; /* Slightly different background for the expanded row */
+  padding: 15px;
+  border-bottom: 1px solid #5a2d85; /* Stronger bottom border for this row */
+}
+.update-media-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.update-media-form .action-group-title {
+  font-size: 1.1em;
+  color: #fff;
+  margin-bottom: 5px;
+}
+.input-with-button-table {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.input-with-button-table .themed-file-input,
+.input-with-button-table .form-control {
+  flex-grow: 1;
+}
+.input-with-button-table .btn-small {
+  flex-shrink: 0;
+}
+.switch-to-yt-option, .switch-to-file-option {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #5a2d85;
+}
+.switch-to-yt-option p, .switch-to-file-option p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #cbbcea;
+}
+
+/* Responsive Table: Simple horizontal scroll is provided by .table-responsive-wrapper.
+   For more complex responsive tables (stacking rows), more CSS would be needed.
+   The data-label attributes are for potential future CSS for stacked mobile views. */
+
+.sr-only { /* For accessible labels that are visually hidden */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

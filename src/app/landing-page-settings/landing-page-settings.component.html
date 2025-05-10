@@ -4,70 +4,24 @@
 
     <!-- Color Picker for Table Background -->
     <div class="color-picker">
-        <label for="tableColor">Here You Can Change Table Background
-            Color:</label>
+        <label for="tableColor">Table Background Color:</label>
         <input type="color" id="tableColor" (change)="changeTableColor($event)">
     </div>
 
     <div class="landing-section">
-        <div class="landing-row">
+        <!-- Icon Sections -->
+        <div class="landing-row" *ngFor="let icon of iconsList">
             <div class="landing-column">
-                <strong>Icon_1:</strong>
+                <strong>{{ icon.label }}:</strong>
             </div>
             <div class="landing-column">
-                <img [src]="landingData.icon_1 || 'default-logo.png'"
-                    alt="Landing Logo" class="landing-logo-preview">
+                <img [src]="landingData[icon.key] || 'default-logo.png'"
+                    alt="{{ icon.label }} Preview" class="landing-logo-preview">
             </div>
             <div class="landing-column actions">
-                <input type="file" accept="image/*"
-                    (change)="onFileSelected($event, 'icon_1')">
-                <button (click)="uploadIcon('icon_1')">Update</button>
-
-            </div>
-        </div>
-
-        <div class="landing-row">
-            <div class="landing-column">
-                <strong>Icon_2:</strong>
-            </div>
-            <div class="landing-column">
-                <img [src]="landingData.icon_2 || 'default-logo.png'"
-                    alt="Landing Logo" class="landing-logo-preview">
-            </div>
-            <div class="landing-column actions">
-                <input type="file" accept="image/*"
-                    (change)="onFileSelected($event, 'icon_2')">
-                <button (click)="uploadIcon('icon_2')">Update</button>
-            </div>
-        </div>
-
-        <div class="landing-row">
-            <div class="landing-column">
-                <strong>Icon_3:</strong>
-            </div>
-            <div class="landing-column">
-                <img [src]="landingData.icon_3 || 'default-logo.png'"
-                    alt="Landing Logo" class="landing-logo-preview">
-            </div>
-            <div class="landing-column actions">
-                <input type="file" accept="image/*"
-                    (change)="onFileSelected($event, 'icon_3')">
-                <button (click)="uploadIcon('icon_3')">Update</button>
-            </div>
-        </div>
-
-        <div class="landing-row">
-            <div class="landing-column">
-                <strong>Icon_4:</strong>
-            </div>
-            <div class="landing-column">
-                <img [src]="landingData.icon_4 || 'default-logo.png'"
-                    alt="Landing Logo" class="landing-logo-preview">
-            </div>
-            <div class="landing-column actions">
-                <input type="file" accept="image/*"
-                    (change)="onFileSelected($event, 'icon_4')">
-                <button (click)="uploadIcon('icon_4')">Update</button>
+                <input type="file" id="file-{{icon.key}}" accept="image/*"
+                    (change)="onFileSelected($event, icon.key)">
+                <button (click)="uploadIcon(icon.key)" [disabled]="!selectedFiles[icon.key]">Update</button>
             </div>
         </div>
 
@@ -76,25 +30,16 @@
             <div class="landing-column">
                 <strong>Heading:</strong>
             </div>
-            <div class="landing-column">
-                <ng-container
-                    *ngIf="editingField === 'heading'; else showHeading">
-                    <textarea
-                        [(ngModel)]="landingData.heading"
-                        rows="3"
-                        cols="60"
-                        class="large-textarea"></textarea>
+            <div class="landing-column text-content-column">
+                <ng-container *ngIf="editingField === 'heading'; else showHeading">
+                    <textarea [(ngModel)]="landingData.heading" rows="3" class="large-textarea"></textarea>
                 </ng-container>
-                <ng-template #showHeading>{{ landingData.heading
-                    }}</ng-template>
+                <ng-template #showHeading><div class="display-text">{{ landingData.heading }}</div></ng-template>
             </div>
             <div class="landing-column actions">
-                <button *ngIf="editingField !== 'heading'"
-                    (click)="editField('heading')">Edit</button>
-                <button *ngIf="editingField === 'heading'"
-                    (click)="saveField('heading')">Save</button>
-                <button class="btn-danger"
-                    (click)="deleteField('heading')">Delete</button>
+                <button *ngIf="editingField !== 'heading'" (click)="editField('heading')">Edit</button>
+                <button *ngIf="editingField === 'heading'" (click)="saveField('heading')">Save</button>
+                <button class="btn-danger" (click)="deleteField('heading')">Delete</button>
             </div>
         </div>
 
@@ -103,25 +48,16 @@
             <div class="landing-column">
                 <strong>Sub Heading:</strong>
             </div>
-            <div class="landing-column">
-                <ng-container
-                    *ngIf="editingField === 'subheading'; else showSubHeading">
-                    <textarea
-                        [(ngModel)]="landingData.subheading"
-                        rows="3"
-                        cols="60"
-                        class="large-textarea"></textarea>
+            <div class="landing-column text-content-column">
+                <ng-container *ngIf="editingField === 'subheading'; else showSubHeading">
+                    <textarea [(ngModel)]="landingData.subheading" rows="3" class="large-textarea"></textarea>
                 </ng-container>
-                <ng-template #showSubHeading>{{ landingData.subheading
-                    }}</ng-template>
+                <ng-template #showSubHeading><div class="display-text">{{ landingData.subheading }}</div></ng-template>
             </div>
             <div class="landing-column actions">
-                <button *ngIf="editingField !== 'subheading'"
-                    (click)="editField('subheading')">Edit</button>
-                <button *ngIf="editingField === 'subheading'"
-                    (click)="saveField('subheading')">Save</button>
-                <button class="btn-danger"
-                    (click)="deleteField('subheading')">Delete</button>
+                <button *ngIf="editingField !== 'subheading'" (click)="editField('subheading')">Edit</button>
+                <button *ngIf="editingField === 'subheading'" (click)="saveField('subheading')">Save</button>
+                <button class="btn-danger" (click)="deleteField('subheading')">Delete</button>
             </div>
         </div>
 
@@ -130,100 +66,187 @@
             <h3>Add New Banner</h3>
             <div class="add-banner-form">
                 <div class="form-group">
-                    <label for="newBannerFile">Select Banner File (Image or
-                        Video):</label>
-                    <input type="file" id="newBannerFile"
-                        accept="image/*,video/*"
-                        (change)="onNewBannerFileSelected($event)">
-                    <!-- Optional: Display selected filename -->
-                    <span *ngIf="newBannerFile"
-                        class="selected-filename">Selected: {{
-                        newBannerFile.name }}</span>
+                    <label>Banner Source:</label>
+                    <div>
+                        <input type="radio" id="bannerModeFile" name="bannerInputMode" value="file" [(ngModel)]="bannerInputMode">
+                        <label for="bannerModeFile">Upload Video File</label>
+                        <input type="radio" id="bannerModeYoutube" name="bannerInputMode" value="youtube" [(ngModel)]="bannerInputMode">
+                        <label for="bannerModeYoutube">YouTube URL</label>
+                    </div>
+                </div>
+
+                <div *ngIf="bannerInputMode === 'file'" class="form-group">
+                    <label for="newBannerFile">Select Video File:</label>
+                    <input type="file" id="newBannerFile" #newBannerFileInput class="form-control" accept="video/*" (change)="onNewBannerFileSelected($event)">
+                    <span *ngIf="newBannerFile" class="selected-filename">Selected: {{ newBannerFile.name }}</span>
+                </div>
+
+                <div *ngIf="bannerInputMode === 'youtube'" class="form-group">
+                    <label for="newBannerYoutubeUrl">YouTube Video URL:</label>
+                    <input type="text" id="newBannerYoutubeUrl" class="form-control" [(ngModel)]="newBannerYoutubeUrl" placeholder="e.g., https://www.youtube.com/watch?v=...">
+                </div>
+
+                <div class="form-group">
+                    <label for="newBannerLangType">Language:</label>
+                    <select id="newBannerLangType" [(ngModel)]="newBannerLangType" class="form-control">
+                        <option value="en">English (en)</option>
+                        <option value="hi">Hindi (hi)</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label for="newBannerSortOrder">Sort Order:</label>
-                    <input type="number" id="newBannerSortOrder"
-                        [(ngModel)]="newBannerSortOrder" min="1">
+                    <input type="number" id="newBannerSortOrder" [(ngModel)]="newBannerSortOrder" min="1" class="form-control">
                 </div>
 
-                <button style="background-color: #5a2d85;"
-                    (click)="uploadNewBanner()"
-                    [disabled]="!newBannerFile || isUploadingNewBanner">
-                    <span *ngIf="!isUploadingNewBanner">Upload New Banner</span>
+                <button (click)="uploadNewBanner()" [disabled]="isUploadingNewBanner || (bannerInputMode === 'file' && !newBannerFile) || (bannerInputMode === 'youtube' && !newBannerYoutubeUrl.trim())">
+                    <span *ngIf="!isUploadingNewBanner">Add New Banner</span>
                     <span *ngIf="isUploadingNewBanner">Uploading...</span>
                 </button>
-
-                <!-- Display Success/Error Messages -->
-                <div *ngIf="uploadSuccess" class="message success-message">
-                    {{ uploadSuccess }}
-                </div>
-                <div *ngIf="uploadError" class="message error-message">
-                    {{ uploadError }}
-                </div>
             </div>
         </div>
         <!-- ========= END OF ADD NEW BANNER SECTION ========= -->
 
-        <!-- Banner Section -->
-        <div class="banner-section"
-            style="background-color: #2e1d4d; padding: 10px; border-radius: 15px;">
-            <h3>Landing Page Banners</h3>
-            <div class="banner-grid">
-                <div *ngFor="let banner of bannerImages" class="banner-item">
-                    <ng-container [ngSwitch]="banner.type">
-                        <!-- If it's an image -->
-                        <img *ngSwitchCase="'image'" [src]="banner.file_url"
-                            alt="Banner Image" class="banner-preview" />
+       <!-- ========= LANDING PAGE BANNERS TABLE SECTION ========= -->
+<div class="banner-table-section">
+    <h3>Landing Page Banners</h3>
+    <div class="table-responsive-wrapper">
+        <table class="banner-manage-table" *ngIf="bannerImages && bannerImages.length > 0; else noBannersFoundInTable">
+            <thead>
+                <tr>
+                    <th>Preview</th>
+                    <th>Type</th>
+                    <th>URL / File</th>
+                    <th>Lang</th>
+                    <th>Sort</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let banner of bannerImages; let i = index">
+                    <tr class="banner-row">
+                        <!-- Preview Column -->
+                        <td data-label="Preview">
+                            <ng-container *ngIf="banner.youtube_url && banner.safeYoutubeUrl; else fileVideoPreview">
+                                <div class="youtube-embed-container-table">
+                                    <iframe width="120" height="70" [src]="banner.safeYoutubeUrl" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </ng-container>
+                            <ng-template #fileVideoPreview>
+                                <ng-container *ngIf="banner.file_url">
+                                    <video [src]="banner.file_url" controls class="banner-preview-table" width="120" height="70"></video>
+                                </ng-container>
+                            </ng-template>
+                            <ng-container *ngIf="!banner.youtube_url && !banner.file_url">
+                                <span class="error-text">No Media</span>
+                            </ng-container>
+                        </td>
 
-                        <!-- If it's a video -->
-                        <video *ngSwitchCase="'video'" [src]="banner.file_url"
-                            controls class="banner-preview"></video>
-                    </ng-container>
+                        <!-- Type Column -->
+                        <td data-label="Type">
+                            {{ banner.youtube_url ? 'YouTube' : (banner.file_url ? 'Uploaded' : 'N/A') }}
+                        </td>
 
-                    <div class="banner-actions">
-                        <input type="file" accept="image/*,video/*"
-                            (change)="onBannerFileSelected($event, banner.id)" />
-                        <button
-                            (click)="updateBanner(banner.id)">Update</button>
-                        <button
-                            (click)="deleteBanner(banner.id)"
-                            style="background-color: red;">Delete</button>
-                    </div>
+                        <!-- URL / File Column -->
+                        <td data-label="URL/File" class="url-column">
+                            <ng-container *ngIf="banner.youtube_url">
+                                <a [href]="banner.youtube_url" target="_blank" rel="noopener noreferrer" title="{{banner.youtube_url}}">
+                                    {{ banner.youtube_url | slice:0:30 }}{{ banner.youtube_url.length > 30 ? '...' : '' }}
+                                </a>
+                            </ng-container>
+                            <ng-container *ngIf="banner.file_url && !banner.youtube_url">
+                                <span title="{{banner.file_url}}">
+                                    {{ (banner.file_url.split('/').pop()) | slice:0:30 }}{{ (banner.file_url.split('/').pop() || '').length > 30 ? '...' : '' }}
+                                </span>
+                            </ng-container>
+                        </td>
 
-                    <!-- Sort Order Field -->
-                    <div class="sort-order-field">
-                        <label for="sortOrder-{{ banner.id }}">Sort
-                            Order:</label>
-                        <input
-                            type="number"
-                            id="sortOrder-{{ banner.id }}"
-                            [(ngModel)]="banner.sort_order" />
-                        <button
-                            (click)="updateSortOrder(banner.id, banner.sort_order)">
-                            Save
-                        </button>
-                    </div>
+                        <!-- Language Column -->
+                        <td data-label="Lang">
+                            <select [(ngModel)]="banner.lang_type" class="form-control-table">
+                                <option value="en">EN</option>
+                                <option value="hi">HI</option>
+                            </select>
+                        </td>
 
-                    <!-- Active Status Field -->
+                        <!-- Sort Order Column -->
+                        <td data-label="Sort">
+                            <input type="number" [(ngModel)]="banner.sort_order" min="1" class="form-control-table sort-input">
+                        </td>
 
-                    <div class="status-field">
-                        <label>Status:</label>
-                        <span
-                            [style.color]="banner.status === 'active' ? 'green' : 'red'">
-                            {{ banner.status === 'active' ? 'Active' :
-                            'Inactive' }}
-                        </span>
-                        <button
-                            (click)="toggleBannerStatus(banner.id, banner.status)">
-                            {{ banner.status === 'active' ? 'Deactivate' :
-                            'Activate' }}
-                        </button>
-                    </div>
+                        <!-- Status Column -->
+                        <td data-label="Status">
+                            <span [class.status-active]="banner.status === 'active'"
+                                  [class.status-inactive]="banner.status !== 'active'">
+                                {{ banner.status === 'active' ? 'Active' : 'Inactive' }}
+                            </span>
+                            <button class="btn-small btn-link-style" (click)="toggleBannerStatus(banner.id, banner.status)">
+                                {{ banner.status === 'active' ? 'Deactive' : 'Activate' }}
+                            </button>
+                        </td>
 
-                </div>
-            </div>
-        </div>
-
+                        <!-- Actions Column -->
+                        <td data-label="Actions" class="actions-column">
+                            <button class="btn-small" (click)="banner.showUpdateSection = !banner.showUpdateSection" title="Update Media">
+                                {{ banner.showUpdateSection ? 'Close Update' : 'Update Media' }}
+                            </button>
+                            <button class="btn-small" (click)="saveBannerDetails(banner)" title="Save Lang/Sort Changes">
+                                Save Details
+                            </button>
+                            <button (click)="deleteBanner(banner.id)" class="btn-small btn-danger" title="Delete Banner">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Collapsible Update Section Row -->
+                    <tr *ngIf="banner.showUpdateSection" class="update-details-row">
+                        <td colspan="7">
+                            <div class="update-media-form">
+                                <strong class="action-group-title">Update Media for Banner ID: {{banner.id}}</strong>
+                                <div *ngIf="banner.file_url && !banner.youtube_url" class="input-with-button-table">
+                                    <label for="updateBannerFileTable-{{banner.id}}" class="sr-only">New Video File:</label>
+                                    <input type="file" id="updateBannerFileTable-{{banner.id}}" class="themed-file-input"
+                                           accept="video/*" (change)="onBannerFileSelected($event, banner.id)" />
+                                    <button class="btn-small" (click)="updateBannerFile(banner)" [disabled]="!selectedFiles[banner.id.toString()]">
+                                        Save New Video
+                                    </button>
+                                </div>
+                                <div *ngIf="banner.youtube_url" class="input-with-button-table">
+                                    <label for="updateYoutubeUrlTable-{{banner.id}}" class="sr-only">New YouTube URL:</label>
+                                    <input type="text" id="updateYoutubeUrlTable-{{banner.id}}" class="form-control full-width"
+                                           [(ngModel)]="banner.editingYoutubeUrl" placeholder="New YouTube URL (or empty to clear)" />
+                                    <button class="btn-small" (click)="updateBannerUrl(banner)">
+                                        Save New URL
+                                    </button>
+                                </div>
+                                 <!-- Option to switch type -->
+                                <div *ngIf="!banner.youtube_url && banner.file_url" class="switch-to-yt-option">
+                                     <p>Or switch to YouTube URL:</p>
+                                     <div class="input-with-button-table">
+                                        <input type="text" [(ngModel)]="banner.editingYoutubeUrl" placeholder="Enter YouTube URL to switch" class="form-control full-width">
+                                        <button class="btn-small" (click)="updateBannerUrl(banner)" [disabled]="!banner.editingYoutubeUrl?.trim()">Switch to URL</button>
+                                     </div>
+                                </div>
+                                <div *ngIf="banner.youtube_url && !banner.file_url" class="switch-to-file-option">
+                                     <p>Or switch to Uploaded File:</p>
+                                     <div class="input-with-button-table">
+                                        <input type="file" id="switchToFileTable-{{banner.id}}" class="themed-file-input"
+                                           accept="video/*" (change)="onBannerFileSelected($event, banner.id)" />
+                                        <button class="btn-small" (click)="updateBannerFile(banner)" [disabled]="!selectedFiles[banner.id.toString()]">Switch to File</button>
+                                     </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noBannersFoundInTable>
+        <p style="text-align: center; padding: 20px; color: #cbbcea;">No banners have been added yet.</p>
+    </ng-template>
+</div>
+<!-- ========= END OF LANDING PAGE BANNERS TABLE SECTION ========= -->
     </div>
 </div>

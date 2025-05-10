@@ -20,6 +20,38 @@
                     (click)="editField('amount', plan.id, plan.amount)">Edit</button>
             </ng-template>
         </div>
+
+
+        <div class="row" *ngFor="let plan of subscriptionPlans">
+            <span class="title">Subscription Amount English:</span>
+            <ng-container
+                *ngIf="editingField === 'amount_en' + plan.id; else showAmount">
+                <input type="number" [(ngModel)]="editableValue" />
+                <button class="edit-btn"
+                    (click)="saveEdit('amount_en', plan.id)">Save</button>
+            </ng-container>
+            <ng-template #showAmount>
+                <span class="text">{{ plan.amount_en || 'N/A' }}</span>
+                <button class="edit-btn"
+                    (click)="editField('amount_en', plan.id, plan.amount_en)">Edit</button>
+            </ng-template>
+        </div>
+
+        <div class="row" *ngFor="let plan of subscriptionPlans">
+            <span class="title">Subscription Amount Hindi:</span>
+            <ng-container
+                *ngIf="editingField === 'amount_hi' + plan.id; else showAmount">
+                <input type="number" [(ngModel)]="editableValue" />
+                <button class="edit-btn"
+                    (click)="saveEdit('amount_hi', plan.id)">Save</button>
+            </ng-container>
+            <ng-template #showAmount>
+                <span class="text">{{ plan.amount_hi || 'N/A' }}</span>
+                <button class="edit-btn"
+                    (click)="editField('amount_hi', plan.id, plan.amount_hi)">Edit</button>
+            </ng-template>
+        </div>
+
         <hr />
 
         <h2 style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
@@ -66,6 +98,37 @@
                 <i class="icon save-icon" (click)="savePopupEdit('price', item.id)">💾</i>
               </ng-template>
             </div>
+
+
+          <!-- facebook_price_en -->
+            <div class="field-row">
+              <label>Price English Language:</label>
+              <ng-container *ngIf="editingField !== 'facebook_price_en' + item.id; else editfacebook_price_en">
+                <span>₹{{ item.facebook_price_en }}</span>
+                <i class="icon edit-icon" (click)="editPopupField('facebook_price_en', item.id, item.facebook_price_en)">✏️</i>
+              </ng-container>
+              <ng-template #editfacebook_price_en>
+                <input type="number" [(ngModel)]="editableValue" />
+                <i class="icon save-icon" (click)="savePopupEdit('facebook_price_en', item.id)">💾</i>
+              </ng-template>
+            </div>
+
+
+            <!-- facebook_price_hi -->
+            <div class="field-row">
+              <label>Price Hindi Language:</label>
+              <ng-container *ngIf="editingField !== 'facebook_price_hi' + item.id; else editfacebook_price_hi">
+                <span>₹{{ item.facebook_price_hi }}</span>
+                <i class="icon edit-icon" (click)="editPopupField('facebook_price_hi', item.id, item.facebook_price_hi)">✏️</i>
+              </ng-container>
+              <ng-template #editfacebook_price_hi>
+                <input type="number" [(ngModel)]="editableValue" />
+                <i class="icon save-icon" (click)="savePopupEdit('facebook_price_hi', item.id)">💾</i>
+              </ng-template>
+            </div>
+
+
+
           
             <!-- Button Text -->
             <div class="field-row">
