@@ -46,6 +46,7 @@ export class SupportSubscriptionSettingsComponent implements OnInit {
       (response) => {
         if (response.status) {
           this.subscriptionPlans = response.data;  // Assuming response.data contains the subscription data
+          console.log("this.subscriptionPlans-->",this.subscriptionPlans)
         } else {
           console.error('Failed to fetch subscription plans');
           this.showSnackbar('Failed to fetch subscription plans', 3000);
@@ -65,31 +66,60 @@ export class SupportSubscriptionSettingsComponent implements OnInit {
   }
 
   // Save the edited subscription plan
-  saveEdit(field: string, planId: any): void {
-    // Ensure editableValue is a number before sending it to the API
-    const valueToSave = typeof this.editableValue === 'string' ? parseFloat(this.editableValue) : this.editableValue;
+  // saveEdit(field: string, planId: any): void {
+  //   // Ensure editableValue is a number before sending it to the API
+  //   const valueToSave = typeof this.editableValue === 'string' ? parseFloat(this.editableValue) : this.editableValue;
 
-    // Check if the value is a valid number
-    if (!isNaN(valueToSave)) {
-      this.supSubService.updateSubscriptionPlan(planId, valueToSave).subscribe(
-        (response) => {
-          if (response.status) {
-            this.loadSubscriptionPlans();  // Refresh the list after updating
-            this.cancelEdit();  // Clear edit state
-            this.showSnackbar('Subscription plan updated successfully', 3000);
-          } else {
-            this.showSnackbar('Failed to update subscription plan', 3000);
-          }
-        },
-        (error) => {
-          console.error('Error updating subscription plan:', error);
-          this.showSnackbar('Error updating subscription plan', 3000);
-        }
-      );
-    } else {
-      this.showSnackbar('Please enter a valid number', 3000);
-    }
+  //   // Check if the value is a valid number
+  //   if (!isNaN(valueToSave)) {
+  //     this.supSubService.updateSubscriptionPlan(planId, valueToSave).subscribe(
+  //       (response) => {
+  //         if (response.status) {
+  //           this.loadSubscriptionPlans();  // Refresh the list after updating
+  //           this.cancelEdit();  // Clear edit state
+  //           this.showSnackbar('Subscription plan updated successfully', 3000);
+  //         } else {
+  //           this.showSnackbar('Failed to update subscription plan', 3000);
+  //         }
+  //       },
+  //       (error) => {
+  //         console.error('Error updating subscription plan:', error);
+  //         this.showSnackbar('Error updating subscription plan', 3000);
+  //       }
+  //     );
+  //   } else {
+  //     this.showSnackbar('Please enter a valid number', 3000);
+  //   }
+  // }
+
+  saveEdit(field: string, planId: any): void {
+  const valueToSave = typeof this.editableValue === 'string' ? this.editableValue.trim() : this.editableValue;
+
+  if (valueToSave === '' || valueToSave === null || valueToSave === undefined) {
+    this.showSnackbar('Please enter a valid value', 3000);
+    return;
   }
+
+  const payload: any = {};
+  payload[field] = valueToSave;
+
+  this.supSubService.updateSubscriptionPlan(planId, payload).subscribe(
+    (response) => {
+      if (response.status) {
+        this.loadSubscriptionPlans();  // Refresh the list after updating
+        this.cancelEdit();             // Clear edit state
+        this.showSnackbar('Subscription plan updated successfully', 3000);
+      } else {
+        this.showSnackbar('Failed to update subscription plan', 3000);
+      }
+    },
+    (error) => {
+      console.error('Error updating subscription plan:', error);
+      this.showSnackbar('Error updating subscription plan', 3000);
+    }
+  );
+}
+
 
 
   // Cancel the edit action

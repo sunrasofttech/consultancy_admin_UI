@@ -27,9 +27,16 @@ export class SupSubSettingsService {
   }
 
   // Update subscription plan
-  updateSubscriptionPlan(id: number, amount: number): Observable<any> {
-    const body = { amount: amount };
-    return this.http.post(`${this.baseUrl}/admin/updateSubscriptionPlan/${id}`, body, { headers: this.getHeaders() });
+  // updateSubscriptionPlan(id: number, amount: number): Observable<any> {
+  //   const body = { amount: amount };
+  //   return this.http.post(`${this.baseUrl}/admin/updateSubscriptionPlan/${id}`, body, { headers: this.getHeaders() });
+  // }
+
+  // Update subscription plan with dynamic fields
+  updateSubscriptionPlan(id: number, data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/admin/updateSubscriptionPlan/${id}`, data, {
+      headers: this.getHeaders()
+    });
   }
 
   // Get pricing popup content with features
@@ -59,10 +66,10 @@ export class SupSubSettingsService {
   }
 
   // --- NEW DELETE METHOD ---
-  
+
   deletePricePopupFeature(featureId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/admin/deletePricePopupFeature/${featureId}`, {}, { headers: this.getHeaders() });
   }
 
-  
+
 }
