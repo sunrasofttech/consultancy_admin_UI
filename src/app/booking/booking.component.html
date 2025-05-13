@@ -1,27 +1,26 @@
-
 <div class="container">
   <h2 class="booking-header">Bookings</h2>
 
   <!-- Filter buttons -->
   <div class="filters">
     <button class="open-slot-management-btn"
-      (click)="openSlotManagementPopup()">Manage Slots</button>
-    <button (click)="applyFilter('today')">Today</button>
-    <button (click)="applyFilter('yesterday')">Yesterday</button>
-    <button (click)="applyFilter('tomorrow')">Tomorrow</button>
-    <button (click)="applyFilter('pending')">Pending</button>
+      (click)="openSlotManagementPopup()" [disabled]="isLoading">Manage Slots</button>
+    <button (click)="applyFilter('today')" [class.active]="filter === 'today'" [disabled]="isLoading">Today</button>
+    <button (click)="applyFilter('yesterday')" [class.active]="filter === 'yesterday'" [disabled]="isLoading">Yesterday</button>
+    <button (click)="applyFilter('tomorrow')" [class.active]="filter === 'tomorrow'" [disabled]="isLoading">Tomorrow</button>
+    <button (click)="applyFilter('pending')" [class.active]="filter === 'pending'" [disabled]="isLoading">Pending</button>
 
     <!-- Reset Filter Button -->
-    <button (click)="resetFilters()">
+    <button (click)="resetFilters()" [disabled]="isLoading">
       <i class="fa fa-refresh"></i> Reset Filters
     </button>
   </div>
 
   <!-- Date range -->
   <div class="date-range">
-    <label>From: <input type="date" [(ngModel)]="fromDate"></label>
-    <label>To: <input type="date" [(ngModel)]="toDate"></label>
-    <button (click)="applyDateRange()">Apply</button>
+    <label>From: <input type="date" [(ngModel)]="fromDate" [disabled]="isLoading"></label>
+    <label>To: <input type="date" [(ngModel)]="toDate" [disabled]="isLoading"></label>
+    <button (click)="applyDateRange()" [disabled]="isLoading">Apply</button>
   </div>
 
   <!-- Search bar -->
@@ -29,12 +28,13 @@
     <input
       type="text"
       [(ngModel)]="searchQuery"
-      placeholder="Search by name or email"
-      (input)="searchBookings()" />
+      placeholder="Search by name, email, phone, or message"
+      (input)="searchBookings()"
+      [disabled]="isLoading" />
   </div>
 
   <!-- Booking table -->
-  <div class="table-container" *ngIf="bookings.length > 0; else noBookings">
+  <div class="table-container" *ngIf="!isLoading && bookings.length > 0; else noBookingsOrLoading">
     <table class="booking-table">
       <thead>
         <tr>
@@ -46,76 +46,173 @@
           <th>Time</th>
           <th>Status</th>
           <th>Message</th>
+          <th>Mail Status</th>
+          <th>Next Mail Date</th>
+          <th>Mail Sender</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let booking of bookings; let i = index">
-          <td>{{ i + 1 + (currentPage - 1) * perPage }}</td>
-          <td>{{ booking.name }}</td>
-          <td>{{ booking.email }}</td>
-          <td>{{ booking.phone }}</td>
-          <td>{{ booking.date | date: 'shortDate' }}</td>
-          <td>{{ formatTime(booking.time) }}</td>
+        <ng-container *ngFor="let booking of bookings; let i = index">
+          <tr>
+            <td>{{ i + 1 + (currentPage - 1) * perPage }}</td>
+            <td>{{ booking.name }}</td>
+            <td>{{ booking.email }}</td>
+            <td>{{ booking.phone }}</td>
+            <td>{{ booking.date | date: 'shortDate' }}</td>
+            <td>{{ formatTime(booking.time) }}</td>
+            <td>
+              <select
+                [(ngModel)]="booking.status"
+                (change)="onStatusChange(booking)"
+                [disabled]="isLoading"
+                [ngClass]="{
+                  'status-dropdown': true,
+                  'status-pending': booking.status === 'pending',
+                  'status-completed': booking.status === 'completed',
+                  'status-cancelled': booking.status === 'cancelled',
+                  'status-interested': booking.status === 'interested',
+                  'status-not_interested': booking.status === 'not_interested'
+                }">
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="interested">Interested</option>
+                <option value="not_interested">Not Interested</option>
+              </select>
+            </td>
+            <td>{{ booking.message }}</td>
+            <td>
+              <span *ngIf="booking.scheduleId !== null && booking.scheduleIsActive !== null">
+                {{ (booking.scheduleIsActive === 1 || booking.scheduleIsActive === true) ? 'Active' : 'Inactive' }}
+              </span>
+              <span *ngIf="booking.scheduleId === null || booking.scheduleIsActive === null">-</span>
+            </td>
+            <td>
+               <span *ngIf="booking.next_scheduled_at">
+                 {{ booking.next_scheduled_at | date: 'MMM d, y, h:mm a' }}
+               </span>
+               <span *ngIf="!booking.next_scheduled_at">-</span>
+            </td>
+            <td>
+              <button class="email-btn" (click)="toggleEmailEditor(booking.id)" [disabled]="isLoading">
+                {{ openedEmailEditorRowId === booking.id ? 'Close Editor' : (booking.scheduleId ? 'Edit Schedule' : 'Schedule Email') }}
+              </button>
+            </td>
+          </tr>
 
-          <!-- <td>{{ booking.status }}</td> -->
+          <!-- ================== EMAIL EDITOR ROW ================== -->
+          <tr *ngIf="openedEmailEditorRowId === booking.id">
+             <td colspan="11"> <!-- Colspan should match the number of <th> elements -->
+               <div class="email-editor-box">
+                 <label for="emailSubject-{{booking.id}}">Subject:</label>
+                 <input
+                   id="emailSubject-{{booking.id}}"
+                   type="text"
+                   [(ngModel)]="booking.emailSubject"
+                   placeholder="Enter subject"
+                   [disabled]="isLoading" />
 
-          <td>
-            <select
-              [(ngModel)]="booking.status"
-              (change)="onStatusChange(booking)"
-              [ngClass]="{
-                'status-dropdown': true,
-                'status-pending': booking.status === 'pending',
-                'status-completed': booking.status === 'completed',
-                'status-cancelled': booking.status === 'cancelled',
-                'status-interested': booking.status === 'interested',
-                'status-not_interested': booking.status === 'not_interested'
+                 <label for="emailBody-{{booking.id}}">Message:</label>
+                 <textarea
+                   id="emailBody-{{booking.id}}"
+                   [(ngModel)]="booking.emailBody"
+                   placeholder="Hello {{ booking.name }}, ..."
+                   rows="5"
+                   [disabled]="isLoading"></textarea>
 
-              }">
-              <option value="pending">Pending</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
-              <option value="interested">Interested</option>
-              <option value="not_interested">Not Interested</option>
+                 <label for="scheduleFrequency-{{booking.id}}">Send Every (Days):</label>
+                 <input
+                   id="scheduleFrequency-{{booking.id}}"
+                   type="number"
+                   [(ngModel)]="booking.scheduleFrequency"
+                   placeholder="e.g., 7"
+                   min="1"
+                   [disabled]="isLoading" />
 
-            </select>
-          </td>
+                 <div class="checkbox-container">
+                   <label for="scheduleIsActive-{{booking.id}}">
+                     <input
+                       id="scheduleIsActive-{{booking.id}}"
+                       type="checkbox"
+                       [(ngModel)]="booking.scheduleIsActiveForEdit"
+                       [disabled]="isLoading" />
+                     Schedule Active?
+                   </label>
+                 </div>
 
-          <td>{{ booking.message }}</td>
-        </tr>
+                 <label for="scheduleImage-{{booking.id}}">Attach/Replace Image (Optional):</label>
+                 <input
+                   id="scheduleImage-{{booking.id}}"
+                   type="file"
+                   (change)="onFileSelected($event, booking)"
+                   accept="image/*" #fileInputRef
+                   [disabled]="isLoading" />
+
+                 <!-- Image Preview Area -->
+                 <div *ngIf="booking.previewImageUrl || (booking.scheduleImageUrl && !booking.removeExistingImage)" class="image-preview-container">
+                   <p>Image Preview:</p>
+                   <img
+                     [src]="booking.previewImageUrl || booking.scheduleImageUrl"
+                     alt="Image Preview"
+                     class="image-preview"
+                     (error)="onImageError($event)" />
+                   <button *ngIf="booking.previewImageUrl || booking.scheduleImageUrl"
+                           (click)="removeImage(booking, fileInputRef)" class="remove-image-btn" type="button" [disabled]="isLoading">
+                      Remove Image
+                   </button>
+                 </div>
+                 <!-- Message if image is marked for removal -->
+                 <div *ngIf="booking.removeExistingImage && !booking.previewImageUrl && booking.scheduleImageUrl" class="image-preview-container image-removal-notice">
+                    <p><i>Existing image will be removed upon saving.</i></p>
+                 </div>
+
+                 <div class="mailButton">
+                   <button (click)="scheduleEmailForUser(booking, fileInputRef)" [disabled]="isLoading">
+                     {{ booking.scheduleId ? 'Update Schedule' : 'Create Schedule' }}
+                   </button>
+                   <button (click)="toggleEmailEditor(null)" [disabled]="isLoading">Cancel</button>
+                   <!-- Optional: Delete Schedule Button
+                   <button *ngIf="booking.scheduleId" (click)="deleteSchedule(booking.scheduleId!)" [disabled]="isLoading || !booking.scheduleId" class="delete-btn">
+                       Delete Schedule
+                   </button>
+                   -->
+                 </div>
+               </div>
+             </td>
+           </tr>
+          <!-- ================== END EMAIL EDITOR ROW ================== -->
+        </ng-container>
       </tbody>
     </table>
   </div>
 
+  <!-- Loading Indicator -->
   <div class="fullscreen-loader" *ngIf="isLoading">
     <div class="loader-content">
       <div class="spinner"></div>
-      <p>Updating booking status...</p>
+      <p>Loading...</p>
     </div>
   </div>
 
   <!-- No bookings fallback -->
-  <ng-template #noBookings>
-    <p class="no-bookings">No bookings found.</p>
+  <ng-template #noBookingsOrLoading>
+    <p class="no-bookings" *ngIf="!isLoading && bookings.length === 0">No bookings found matching your criteria.</p>
   </ng-template>
 
   <!-- Pagination -->
-  <div class="pagination">
-    <button (click)="changePage(currentPage - 1)"
-      [disabled]="currentPage === 1">Previous</button>
+  <div class="pagination" *ngIf="!isLoading && totalBookings > 0 && totalPages > 0">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1 || isLoading">Previous</button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button (click)="changePage(currentPage + 1)"
-      [disabled]="currentPage === totalPages">Next</button>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages || isLoading">Next</button>
   </div>
-</div>
+</div> <!-- End container -->
 
-<!-- Slot Management Popup -->
+
+<!-- ================== SLOT MANAGEMENT POPUP ================== -->
 <div class="popup-container" *ngIf="isSlotManagementPopupOpen">
   <div class="popup-overlay" (click)="closeSlotManagementPopup()"></div>
-
   <div class="popup-content">
     <h2>Manage Available Slots</h2>
-
     <table class="slot-table">
       <thead>
         <tr>
@@ -128,40 +225,33 @@
       <tbody>
         <tr *ngFor="let slot of availableSlots; let i = index">
           <td>{{ i + 1 }}</td>
-
-          <!-- Editable slot time -->
           <td>
             <ng-container *ngIf="editedSlotIndex === i; else viewSlot">
-              <input [(ngModel)]="slot.time" />
+              <input [(ngModel)]="slot.time" type="time" [disabled]="isLoading" />
             </ng-container>
             <ng-template #viewSlot>
-              {{ slot.time }}
+              {{ formatTime(slot.time) }}
             </ng-template>
           </td>
-
-          <!-- Slot status dropdown -->
           <td>
-            <!-- Set default value based on 'is_active' (1 = Active, 0 = Inactive) -->
-            <select [(ngModel)]="slot.is_active" (change)="updateSlotStatus(slot)">
-              <option [value]="1" [selected]="slot.is_active === 1">Active</option>
-              <option [value]="0" [selected]="slot.is_active === 0">Inactive</option>
+            <select [(ngModel)]="slot.is_active" (change)="updateSlotStatus(slot)" [disabled]="isLoading">
+              <option [ngValue]="1">Active</option>
+              <option [ngValue]="0">Inactive</option>
             </select>
           </td>
-          
-
-          <!-- Action buttons -->
           <td>
             <ng-container *ngIf="editedSlotIndex === i; else editButton">
-              <button (click)="saveSingleSlot(slot)">Save</button>
-              <button (click)="editedSlotIndex = null">Cancel</button>
+              <button (click)="saveSingleSlot(slot)" [disabled]="isLoading">Save</button>
+              <button (click)="editedSlotIndex = null" [disabled]="isLoading">Cancel</button>
             </ng-container>
             <ng-template #editButton>
-              <button (click)="editSlot(i)">Edit</button>
+              <button (click)="editSlot(i)" [disabled]="isLoading">Edit</button>
             </ng-template>
           </td>
         </tr>
       </tbody>
     </table>
-
+    <button class="close-popup-btn" (click)="closeSlotManagementPopup()" [disabled]="isLoading">Close</button>
   </div>
 </div>
+<!-- ================== END SLOT MANAGEMENT POPUP ================== -->

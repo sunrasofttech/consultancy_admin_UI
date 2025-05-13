@@ -158,3 +158,224 @@
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   }
+
+
+  .email-editor-box {
+  background-color: #1d102e;
+  padding: 16px;
+  border: 1px solid #7047b5;
+  border-radius: 10px;
+  color: #f5eaff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-editor-box input,
+.email-editor-box textarea {
+  background: #2e1d4d;
+  border: 1px solid #5a2d85;
+  color: #d3c0f2;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.email-editor-box button {
+  background-color: #5a2d85;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  width: fit-content;
+}
+
+.email-editor-box button:hover {
+  background-color: #7c3dbb;
+}
+
+.booking-table tr {
+  transition: background-color 0.3s ease, border-left 0.3s ease;
+}
+
+.mailButton{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.fullscreen-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 2, 20, 0.9); /* dark transparent backdrop */
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+}
+
+.loader-content {
+  text-align: center;
+  color: #d3c0f2;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 8px solid rgba(90, 45, 133, 0.2); /* faded border */
+  border-top: 8px solid #7c3dbb; /* accent color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+.email-editor-box {
+  background-color: #1d102e;
+  padding: 16px;
+  border: 1px solid #7047b5;
+  border-radius: 10px;
+  color: #f5eaff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.email-editor-box input,
+.email-editor-box textarea {
+  background: #2e1d4d;
+  border: 1px solid #5a2d85;
+  color: #d3c0f2;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.email-editor-box button {
+  background-color: #5a2d85;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  width: fit-content;
+}
+
+.email-editor-box button:hover {
+  background-color: #7c3dbb;
+}
+
+.booking-table tr {
+  transition: background-color 0.3s ease, border-left 0.3s ease;
+}
+
+.mailButton{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.email-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.email-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* --- Image Preview Styles --- */
+.image-preview-container {
+  margin-top: 15px;
+  margin-bottom: 15px; /* Consistent spacing */
+  padding: 10px;
+  border: 1px dashed #adb5bd; /* Slightly darker dashed border */
+  display: inline-block; /* Adjust as needed, block might be better */
+  text-align: center;
+  background-color: #e9ecef; /* Slightly different background */
+  max-width: 95%;
+  border-radius: 4px;
+}
+
+.image-preview-container p {
+  margin: 0 0 8px 0; /* Space below text */
+  font-size: 0.9em;
+  color: #495057;
+  font-weight: bold;
+}
+
+.image-preview {
+  display: block;
+  max-width: 250px; /* Adjust max width */
+  max-height: 200px; /* Adjust max height */
+  width: auto;
+  height: auto;
+  margin: 0 auto 10px auto; /* Center image and add space below */
+  border: 1px solid #dee2e6; /* Subtle border */
+}
+
+.remove-image-btn {
+  background-color: #dc3545; /* Bootstrap danger red */
+  color: white;
+  border-color: #dc3545;
+  font-size: 0.85em; /* Slightly smaller */
+  padding: 4px 8px; /* Adjust padding */
+}
+
+.remove-image-btn:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+
+ .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .pagination button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #5a2d85;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .pagination button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
