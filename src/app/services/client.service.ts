@@ -57,9 +57,7 @@ export class ClientService {
       page: page,
       search: search
     };
-    // If you add other filters (like date range) for clients, they would be added to 'body' here.
-    // e.g., if (fromDate) body.fromDate = fromDate;
-
+   
     return this.http.post<any>(`${this.baseUrl}/userPurchase/getAllUserPurchase`, body, {
       headers: this.getHeaders() 
     });
