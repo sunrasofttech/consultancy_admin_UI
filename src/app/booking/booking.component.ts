@@ -52,6 +52,7 @@ export class BookingComponent implements OnInit {
   toDate: string = '';
 
   isLoading: boolean = false;
+  totalCount: Number = 0 ;
 
   isSlotManagementPopupOpen: boolean = false;
   availableSlots: any[] = []; // Consider defining an interface for Slot
@@ -144,6 +145,7 @@ export class BookingComponent implements OnInit {
                 this.totalBookings = response.pagination.totalCount;
                 this.totalPages = response.pagination.totalPages;
                 this.perPage = response.pagination.perPage || 10; // Use API perPage or default
+                this.totalCount = response.pagination.totalCount || 0;
             } else { // Fallback if pagination object is missing or malformed
                 this.totalBookings = this.bookings.length;
                 this.totalPages = this.bookings.length > 0 ? Math.ceil(this.bookings.length / this.perPage) : 1;

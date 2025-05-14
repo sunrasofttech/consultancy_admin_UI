@@ -202,7 +202,8 @@
   <!-- Pagination -->
   <div class="pagination" *ngIf="!isLoading && totalBookings > 0 && totalPages > 0">
     <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1 || isLoading">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <!-- <span>Page {{ currentPage }} of {{ totalPages }}</span> -->
+      <span>Page {{ currentPage }} of {{ totalPages }} (Total: {{ totalCount }})</span>
     <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages || isLoading">Next</button>
   </div>
 </div> <!-- End container -->
