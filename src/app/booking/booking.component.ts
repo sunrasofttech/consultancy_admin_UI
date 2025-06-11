@@ -78,18 +78,45 @@ export class BookingComponent implements OnInit {
     });
   }
 
+  // formatTime(time: string): string {
+  //   if (!time || !time.includes(':')) return time; // Basic validation
+  //   try {
+  //       const [hours, minutes] = time.split(':').map(Number);
+  //       const date = new Date(); // Use a temporary date object for formatting
+  //       date.setHours(hours, minutes); // Set hours and minutes on it
+  //       return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+  //   } catch (e) {
+  //       console.error("Error formatting time:", time, e);
+  //       return time; // Return original time on error
+  //   }
+  // }
+
+
+
   formatTime(time: string): string {
-    if (!time || !time.includes(':')) return time; // Basic validation
+    // Basic validation
+    if (!time) {
+        return '';
+    }
+
+    // If the time already includes AM or PM, it's already formatted. Return it as is.
+    if (time.toUpperCase().includes('AM') || time.toUpperCase().includes('PM')) {
+        return time;
+    }
+
+    // Otherwise, assume it's a 24-hour format string like "10:30" and format it.
     try {
         const [hours, minutes] = time.split(':').map(Number);
-        const date = new Date(); // Use a temporary date object for formatting
-        date.setHours(hours, minutes); // Set hours and minutes on it
+        const date = new Date();
+        date.setHours(hours, minutes);
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
     } catch (e) {
         console.error("Error formatting time:", time, e);
         return time; // Return original time on error
     }
-  }
+}
+
+
 
   fetchBookings(): void {
     // this.isLoading = true;

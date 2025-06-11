@@ -38,7 +38,7 @@
     <table class="booking-table">
       <thead>
         <tr>
-          <th>#</th>
+          <th>Id</th>
           <th>Name</th>
           <th>Email</th>
           <th>Phone</th>
@@ -54,7 +54,8 @@
       <tbody>
         <ng-container *ngFor="let booking of bookings; let i = index">
           <tr>
-            <td>{{ i + 1 + (currentPage - 1) * perPage }}</td>
+            <!-- <td>{{ i + 1 + (currentPage - 1) * perPage }}</td> -->
+            <td>{{ booking.id }}</td>
             <td>{{ booking.name }}</td>
             <td>{{ booking.email }}</td>
             <td>{{ booking.phone }}</td>
@@ -89,7 +90,8 @@
             </td>
             <td>
                <span *ngIf="booking.next_scheduled_at">
-                 {{ booking.next_scheduled_at | date: 'MMM d, y, h:mm a' }}
+                 <!-- {{ booking.next_scheduled_at | date: 'MMM d, y, h:mm a' }} -->
+                    {{ booking.next_scheduled_at | date: 'MMM d, y, h:mm a' : 'UTC' }}
                </span>
                <span *ngIf="!booking.next_scheduled_at">-</span>
             </td>

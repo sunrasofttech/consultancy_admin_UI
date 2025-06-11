@@ -166,3 +166,11 @@ input[type="file"] {
     background-color: #f44336; /* Red */
     color: white;
   }
+
+  .icon-btn.delete {
+    color: #ff4d4d; /* A reddish color for delete actions */
+}
+
+.icon-btn.delete:hover {
+    color: #ff1a1a; /* A darker red on hover */
+}
