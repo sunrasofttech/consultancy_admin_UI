@@ -21,11 +21,15 @@
   </div>
 
   <!-- Purchases table -->
-  <div class="table-container">
+  <div class="table-container"  #tableContainer
+     (mousedown)="onMouseDown($event, tableContainer)"
+     (mouseleave)="onMouseLeave(tableContainer)"
+     (mouseup)="onMouseUp(tableContainer)"
+     (mousemove)="onMouseMove($event, tableContainer)">
     <table class="booking-table">
       <thead>
         <tr>
-          <th>#</th>
+          <th>Id</th>
           <th>Name</th>
           <th>Email</th>
           <th>Phone</th>
@@ -54,7 +58,8 @@
         <ng-container *ngFor="let purchase of userPurchases; let i = index">
           <!-- Data Row -->
           <tr>
-            <td>{{ i + 1 }}</td>
+            <!-- <td>{{ i + 1 }}</td> -->
+            <td>{{ purchase.purchase_id }}</td>
             <td>{{ purchase.name }}</td>
             <td>{{ purchase.email }}</td>
             <td>{{ purchase.phone }}</td>

@@ -243,5 +243,29 @@ export class TechPageSettingComponent implements OnInit {
     });
   }
 
+   // +++ ADD THIS NEW METHOD +++
+  deleteTechItem(id: number): void {
+    // Use a confirmation dialog to prevent accidental deletes
+    const isConfirmed = confirm('Are you sure you want to delete this tech item? This action cannot be undone.');
+
+    if (isConfirmed) {
+      this.techService.deleteTech(id).subscribe({
+        next: (res: any) => {
+          if (res.status) {
+            this.showSnackbar('Tech item deleted successfully', 'success');
+            // Refresh the list to remove the deleted item from the view
+            this.getTechList();
+          } else {
+            this.showSnackbar(res.message || 'Failed to delete tech item', 'error');
+          }
+        },
+        error: (err) => {
+          console.error('Error deleting tech item:', err);
+          this.showSnackbar('An error occurred while deleting the item.', 'error');
+        }
+      });
+    }
+  }
+
 
 }

@@ -42,5 +42,10 @@ export class TechPageService {
     return this.http.post(`${this.baseUrl}/updateTechMainPage/${id}`, data, { headers: this.getHeaders() });
   }
 
+  // +++ ADD THIS NEW METHOD +++
+  deleteTech(id: number) {
+    return this.http.post(`${this.baseUrl}/deleteTech/${id}`, {}, { headers: this.getHeaders() });
+  }
+
 
 }

@@ -56,6 +56,10 @@ export class ClientComponent implements OnInit {
   totalPages: number = 0;
   // --- END PAGINATION PROPERTIES ---
 
+  isDown = false;
+  startX = 0;
+  scrollLeft = 0;
+
   constructor(private clientService: ClientService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -77,19 +81,19 @@ export class ClientComponent implements OnInit {
     const preservedEditorStates = new Map<number, Partial<UserPurchase>>();
 
     if (previouslyOpenedEditorId !== null) {
-        const openPurchase = this.userPurchases.find(p => p.purchase_id === previouslyOpenedEditorId);
-        if (openPurchase) {
-            preservedEditorStates.set(openPurchase.purchase_id, {
-                emailSubject: openPurchase.emailSubject,
-                emailBody: openPurchase.emailBody,
-                scheduleFrequency: openPurchase.scheduleFrequency,
-                scheduleIsActiveForEdit: openPurchase.scheduleIsActiveForEdit,
-                previewImageUrl: openPurchase.previewImageUrl,
-                selectedFile: openPurchase.selectedFile,
-                removeExistingImage: openPurchase.removeExistingImage, // Preserve this
-                isEditing: openPurchase.isEditing
-            });
-        }
+      const openPurchase = this.userPurchases.find(p => p.purchase_id === previouslyOpenedEditorId);
+      if (openPurchase) {
+        preservedEditorStates.set(openPurchase.purchase_id, {
+          emailSubject: openPurchase.emailSubject,
+          emailBody: openPurchase.emailBody,
+          scheduleFrequency: openPurchase.scheduleFrequency,
+          scheduleIsActiveForEdit: openPurchase.scheduleIsActiveForEdit,
+          previewImageUrl: openPurchase.previewImageUrl,
+          selectedFile: openPurchase.selectedFile,
+          removeExistingImage: openPurchase.removeExistingImage, // Preserve this
+          isEditing: openPurchase.isEditing
+        });
+      }
     }
 
     // Pass currentPage and searchQuery to the service.
@@ -103,9 +107,9 @@ export class ClientComponent implements OnInit {
             const backendRelativeImageUrl = purchaseData.scheduleImageUrl;
             let fullImageUrl = null;
             if (backendRelativeImageUrl && backendRelativeImageUrl.startsWith('/')) {
-                fullImageUrl = `${environment.image_url}${backendRelativeImageUrl}`;
+              fullImageUrl = `${environment.image_url}${backendRelativeImageUrl}`;
             } else {
-                fullImageUrl = backendRelativeImageUrl;
+              fullImageUrl = backendRelativeImageUrl;
             }
             return {
               purchase_id: purchaseData.purchase_id,
@@ -177,7 +181,7 @@ export class ClientComponent implements OnInit {
     });
   }
 
-   changePage(page: number): void {
+  changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages && page !== this.currentPage && !this.isLoading) {
       this.currentPage = page;
       this.loadUserPurchases();
@@ -219,8 +223,8 @@ export class ClientComponent implements OnInit {
           const originalIndex = this.originalPurchases.findIndex(p => p.purchase_id === purchase.purchase_id);
           if (originalIndex > -1) (this.originalPurchases[originalIndex] as any)[field] = value;
         } else {
-           this.showSnackbar(res?.message || 'Failed to update status.');
-           (purchase as any)[field] = originalValue;
+          this.showSnackbar(res?.message || 'Failed to update status.');
+          (purchase as any)[field] = originalValue;
         }
       },
       error: (err) => {
@@ -235,7 +239,7 @@ export class ClientComponent implements OnInit {
     if (purchase.isEditing && !this.isLoading) {
       this.updateFollowUpNotes(purchase);
     } else if (!this.isLoading) {
-       purchase.isEditing = !purchase.isEditing;
+      purchase.isEditing = !purchase.isEditing;
     }
   }
 
@@ -297,21 +301,21 @@ export class ClientComponent implements OnInit {
   }
 
   private populateEditorFields(purchase: UserPurchase): void {
-     if (purchase.scheduleId) {
-        if (purchase.emailSubject === undefined || purchase.emailSubject === '') purchase.emailSubject = purchase.scheduleSubject || `Follow-up: ${purchase.project_name || 'Your Purchase'}`;
-        if (purchase.emailBody === undefined || purchase.emailBody === '') purchase.emailBody = purchase.scheduleHtmlContent ? purchase.scheduleHtmlContent.replace(/<br\s*\/?>/gi, '\n') : `This is a follow-up regarding your purchase of "${purchase.project_name || 'our service'}".`;
-        purchase.scheduleFrequency = purchase.scheduleFrequency ?? purchase.frequency_days ?? 7; // Default to 7 if not set
-        purchase.scheduleIsActiveForEdit = purchase.scheduleIsActiveForEdit ?? (purchase.scheduleIsActive !== null ? (purchase.scheduleIsActive === 1 || purchase.scheduleIsActive === true) : true);
-     } else {
-        if (purchase.emailSubject === undefined || purchase.emailSubject === '') purchase.emailSubject = `Regarding your purchase: ${purchase.project_name || 'Service'}`;
-        if (purchase.emailBody === undefined || purchase.emailBody === '') {
-            const purchaseDateFormatted = purchase.purchase_date ? new Date(purchase.purchase_date).toLocaleDateString() : 'your recent purchase';
-            purchase.emailBody = `Hello ${purchase.name || 'Client'},\n\nThis email concerns your purchase of "${purchase.project_name || 'our service'}" made around ${purchaseDateFormatted}.\n\nWe hope you are enjoying it! Please let us know if you have any questions or need assistance.\n\nBest regards,\nSunra Softech Pvt Ltd`; // Replace placeholder
-        }
-        purchase.scheduleFrequency = purchase.scheduleFrequency ?? 7; // Default to 7
-        purchase.scheduleIsActiveForEdit = purchase.scheduleIsActiveForEdit ?? true; // Default to active
-     }
-     purchase.removeExistingImage = false; // Always reset this flag when opening/populating
+    if (purchase.scheduleId) {
+      if (purchase.emailSubject === undefined || purchase.emailSubject === '') purchase.emailSubject = purchase.scheduleSubject || `Follow-up: ${purchase.project_name || 'Your Purchase'}`;
+      if (purchase.emailBody === undefined || purchase.emailBody === '') purchase.emailBody = purchase.scheduleHtmlContent ? purchase.scheduleHtmlContent.replace(/<br\s*\/?>/gi, '\n') : `This is a follow-up regarding your purchase of "${purchase.project_name || 'our service'}".`;
+      purchase.scheduleFrequency = purchase.scheduleFrequency ?? purchase.frequency_days ?? 7; // Default to 7 if not set
+      purchase.scheduleIsActiveForEdit = purchase.scheduleIsActiveForEdit ?? (purchase.scheduleIsActive !== null ? (purchase.scheduleIsActive === 1 || purchase.scheduleIsActive === true) : true);
+    } else {
+      if (purchase.emailSubject === undefined || purchase.emailSubject === '') purchase.emailSubject = `Regarding your purchase: ${purchase.project_name || 'Service'}`;
+      if (purchase.emailBody === undefined || purchase.emailBody === '') {
+        const purchaseDateFormatted = purchase.purchase_date ? new Date(purchase.purchase_date).toLocaleDateString() : 'your recent purchase';
+        purchase.emailBody = `Hello ${purchase.name || 'Client'},\n\nThis email concerns your purchase of "${purchase.project_name || 'our service'}" made around ${purchaseDateFormatted}.\n\nWe hope you are enjoying it! Please let us know if you have any questions or need assistance.\n\nBest regards,\nSunra Softech Pvt Ltd`; // Replace placeholder
+      }
+      purchase.scheduleFrequency = purchase.scheduleFrequency ?? 7; // Default to 7
+      purchase.scheduleIsActiveForEdit = purchase.scheduleIsActiveForEdit ?? true; // Default to active
+    }
+    purchase.removeExistingImage = false; // Always reset this flag when opening/populating
   }
 
   onFileSelected(event: Event, purchase: UserPurchase): void {
@@ -319,27 +323,27 @@ export class ClientComponent implements OnInit {
     const file = element.files?.[0];
 
     if (file) {
-        if (!file.type.startsWith('image/')) {
-            this.showSnackbar('Please select a valid image file (PNG, JPG, GIF).');
-            this.clearFileInput(purchase, element);
-            return;
-        }
-        if (file.size > 5 * 1024 * 1024) {
-            this.showSnackbar('Image size should not exceed 5MB.');
-            this.clearFileInput(purchase, element);
-            return;
-        }
-        purchase.selectedFile = file;
-        purchase.removeExistingImage = false; // New file selected, so not "just removing"
-        const reader = new FileReader();
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-            purchase.previewImageUrl = e.target?.result ?? null;
-        };
-        reader.onerror = () => {
-            this.showSnackbar("Could not read file for preview.");
-            this.clearFileInput(purchase, null);
-        };
-        reader.readAsDataURL(file);
+      if (!file.type.startsWith('image/')) {
+        this.showSnackbar('Please select a valid image file (PNG, JPG, GIF).');
+        this.clearFileInput(purchase, element);
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        this.showSnackbar('Image size should not exceed 5MB.');
+        this.clearFileInput(purchase, element);
+        return;
+      }
+      purchase.selectedFile = file;
+      purchase.removeExistingImage = false; // New file selected, so not "just removing"
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        purchase.previewImageUrl = e.target?.result ?? null;
+      };
+      reader.onerror = () => {
+        this.showSnackbar("Could not read file for preview.");
+        this.clearFileInput(purchase, null);
+      };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -372,10 +376,10 @@ export class ClientComponent implements OnInit {
     if (!subject) { this.showSnackbar('Email subject is required.'); return; }
     if (!body) { this.showSnackbar('Email message is required.'); return; }
     if (frequency === undefined || frequency === null || Number(frequency) < 1) {
-        this.showSnackbar('Valid frequency (in days, minimum 1) is required.'); return;
+      this.showSnackbar('Valid frequency (in days, minimum 1) is required.'); return;
     }
     if (isActive === undefined || isActive === null) {
-        this.showSnackbar('Schedule status (Active/Inactive) is required.'); return;
+      this.showSnackbar('Schedule status (Active/Inactive) is required.'); return;
     }
 
     this.isLoading = true;
@@ -416,45 +420,84 @@ export class ClientComponent implements OnInit {
         imageFile: imageFile
       };
       this.clientService.createScheduledClientEmail(createPayload).subscribe({
-         next: (response) => this.handleScheduleApiResponse(response, purchase, fileInput, false),
-         error: (err) => this.handleApiError(err, 'create schedule')
+        next: (response) => this.handleScheduleApiResponse(response, purchase, fileInput, false),
+        error: (err) => this.handleApiError(err, 'create schedule')
       });
     }
   }
 
   private handleScheduleApiResponse(response: any, purchase: UserPurchase, fileInput: HTMLInputElement | null, isUpdate: boolean): void {
-      this.isLoading = false;
-      const actionVerb = isUpdate ? 'updated' : 'created';
-      if (response && response.status === true) {
-        this.showSnackbar(`Email schedule ${actionVerb} successfully!`);
+    this.isLoading = false;
+    const actionVerb = isUpdate ? 'updated' : 'created';
+    if (response && response.status === true) {
+      this.showSnackbar(`Email schedule ${actionVerb} successfully!`);
 
-        if (fileInput) this.clearFileInput(purchase, fileInput);
-        purchase.removeExistingImage = false; // Reset flag
+      if (fileInput) this.clearFileInput(purchase, fileInput);
+      purchase.removeExistingImage = false; // Reset flag
 
-        if (this.openedEmailEditorRowId === purchase.purchase_id) {
-            this.openedEmailEditorRowId = null; // Close editor for this purchase
-        }
-        this.loadUserPurchases(); // Refresh list
-      } else {
-        this.showSnackbar(response?.message || `Failed to ${actionVerb} email schedule. Please try again.`);
+      if (this.openedEmailEditorRowId === purchase.purchase_id) {
+        this.openedEmailEditorRowId = null; // Close editor for this purchase
       }
+      this.loadUserPurchases(); // Refresh list
+    } else {
+      this.showSnackbar(response?.message || `Failed to ${actionVerb} email schedule. Please try again.`);
+    }
   }
 
   private handleApiError(err: any, actionContext: string): void {
-     this.isLoading = false;
-     console.error(`API Error during ${actionContext}:`, err);
-     const backendMessage = err?.error?.message || err?.error?.error || err?.message;
-     const defaultMessage = `An error occurred during ${actionContext}. Please check console or try again.`;
-     this.showSnackbar(backendMessage || defaultMessage);
+    this.isLoading = false;
+    console.error(`API Error during ${actionContext}:`, err);
+    const backendMessage = err?.error?.message || err?.error?.error || err?.message;
+    const defaultMessage = `An error occurred during ${actionContext}. Please check console or try again.`;
+    this.showSnackbar(backendMessage || defaultMessage);
   }
 
   onImageError(event: Event) {
     console.warn('Image failed to load:', (event.target as HTMLImageElement).src);
-     (event.target as HTMLImageElement).style.display = 'none';
+    (event.target as HTMLImageElement).style.display = 'none';
   }
 
   // Optional: deleteClientSchedule method (if you add a delete button)
   // ...
+
+  // ADD THESE NEW METHODS FOR DRAG-TO-SCROLL
+  // ==========================================================
+
+  onMouseDown(e: MouseEvent, slider: HTMLElement) {
+    this.isDown = true;
+    slider.classList.add('active-drag');
+    // Get the initial horizontal position of the cursor
+    this.startX = e.pageX - slider.offsetLeft;
+    // Get the initial scroll position of the container
+    this.scrollLeft = slider.scrollLeft;
+  }
+
+  onMouseLeave(slider: HTMLElement) {
+    this.isDown = false;
+    slider.classList.remove('active-drag');
+  }
+
+  onMouseUp(slider: HTMLElement) {
+    this.isDown = false;
+    slider.classList.remove('active-drag');
+  }
+
+  onMouseMove(e: MouseEvent, slider: HTMLElement) {
+    // Only move the slider if the mouse button is held down
+    if (!this.isDown) return;
+
+    // Prevent the default browser action (like selecting text)
+    e.preventDefault();
+
+    // Calculate the new cursor position
+    const x = e.pageX - slider.offsetLeft;
+    // Calculate how far the cursor has moved from the start
+    const walk = (x - this.startX) * 2; // The '* 2' makes the scroll faster. You can adjust this number.
+
+    // Update the scroll position of the container
+    slider.scrollLeft = this.scrollLeft - walk;
+  }
+  // ==========================================================
 
 
 }

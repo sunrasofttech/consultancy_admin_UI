@@ -35,6 +35,11 @@
 /* Table Container */
 .table-container {
     overflow-x: auto;
+    cursor: grab;
+}
+
+.table-container.active-drag {
+  cursor: grabbing; /* Shows a "closed hand" cursor while dragging */
 }
 
 .booking-table {
