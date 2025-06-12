@@ -403,7 +403,7 @@ export class BookingComponent implements OnInit {
        if (booking.emailBody === undefined || booking.emailBody === '') {
          const bookingDateFormatted = booking.date ? new Date(booking.date).toLocaleDateString() : 'your scheduled date';
          const bookingTimeFormatted = booking.time ? this.formatTime(booking.time) : 'the scheduled time';
-         booking.emailBody = `Hello ${booking.name || 'Customer'},\n\nThis is a reminder for your booking scheduled for ${bookingDateFormatted} at ${bookingTimeFormatted}.\n\nPlease let us know if you need to reschedule.\n\nBest regards,\n[Your Company Name]`; // Replace placeholder
+         booking.emailBody = `Hello ${booking.name || 'Customer'},\n\nThis is a reminder for your booking scheduled for ${bookingDateFormatted} at ${bookingTimeFormatted}.\n\nPlease let us know if you need to reschedule.\n\nBest regards,\n[Sunra Softech Pvt Ltd]`; // Replace placeholder
        }
        booking.scheduleFrequency = booking.scheduleFrequency ?? 7; // Default frequency
        booking.scheduleIsActiveForEdit = booking.scheduleIsActiveForEdit ?? true; // Default to active for new
