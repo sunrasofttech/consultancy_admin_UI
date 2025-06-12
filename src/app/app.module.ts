@@ -27,7 +27,8 @@ import { FooterPageSettingComponent } from './footer-page-setting/footer-page-se
 import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
 import { ClientComponent } from './client/client.component';
 import { VideoSectionSettingComponent } from './video-section-setting/video-section-setting.component';
-
+import { PaymentGatewayComponent } from './payment-gateway/payment-gateway.component';
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { VideoSectionSettingComponent } from './video-section-setting/video-sect
     FooterPageSettingComponent,
     SupportSubscriptionSettingsComponent,
     ClientComponent,
-    VideoSectionSettingComponent
+    VideoSectionSettingComponent,
+    PaymentGatewayComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ import { VideoSectionSettingComponent } from './video-section-setting/video-sect
     MatSnackBarModule,
     MatDialogModule,
     ToastrModule.forRoot(),  // And this
+    ReactiveFormsModule 
   ],
   bootstrap: [AppComponent]
 })
