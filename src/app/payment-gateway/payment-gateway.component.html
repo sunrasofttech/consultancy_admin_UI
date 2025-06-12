@@ -1,0 +1,113 @@
+<div class="page-container">
+  <h1>Payment Gateway Management</h1>
+
+  <!-- Alerts for success/error messages -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div class="gateway-container">
+    <!-- Add/Edit Gateway Form Column -->
+    <div class="form-column">
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ editingGateway ? 'Edit Gateway' : 'Add New Gateway' }}</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="gatewayForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="gateway_name">Gateway Name</label>
+              <input type="text" id="gateway_name" class="form-control" formControlName="gateway_name" placeholder="e.g., razorpay">
+              <div *ngIf="gatewayForm.get('gateway_name')?.invalid && gatewayForm.get('gateway_name')?.touched" class="error-text">
+                Gateway name is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="config">Configuration (in JSON format)</label>
+              <textarea id="config" class="form-control" rows="6" formControlName="config" placeholder='{ "key_id": "...", "secret": "..." }'></textarea>
+              <div *ngIf="gatewayForm.get('config')?.hasError('required') && gatewayForm.get('config')?.touched" class="error-text">
+                Configuration is required.
+              </div>
+              <div *ngIf="gatewayForm.get('config')?.hasError('invalidJson')" class="error-text">
+                Please enter valid JSON.
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" [disabled]="gatewayForm.invalid">
+                {{ editingGateway ? 'Save Changes' : 'Add Gateway' }}
+              </button>
+              <button *ngIf="editingGateway" type="button" class="btn btn-cancel" (click)="cancelEdit()">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Configured Gateways List Column -->
+    <div class="list-column">
+      <h2>Configured Gateways</h2>
+
+      <div *ngIf="isLoading" class="spinner-container">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+      </div>
+
+      <div *ngIf="!isLoading && gateways.length > 0" class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Gateway Name</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gateway of gateways">
+              <td data-label="Gateway Name">
+                <div class="td-content-wrapper" style="color: white;">{{ gateway.gateway_name | titlecase }}</div>
+              </td>
+              <td data-label="Status">
+                <div class="td-content-wrapper">
+                  <span *ngIf="gateway.is_active" class="badge badge-success">Active</span>
+                  <span *ngIf="!gateway.is_active" class="badge badge-secondary">Inactive</span>
+                </div>
+              </td>
+              <td data-label="Actions">
+                <div class="td-content-wrapper action-buttons">
+                  <button class="btn btn-view" (click)="showConfig(gateway)">View</button>
+                  <button class="btn btn-edit" (click)="startEdit(gateway)">Edit</button>
+                  <button class="btn btn-activate" (click)="onActivate(gateway.id)" [disabled]="gateway.is_active">
+                    Activate
+                  </button>
+                  <button class="btn btn-delete" (click)="onDelete(gateway.id)">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="!isLoading && gateways.length === 0" class="alert alert-info">
+        No payment gateways have been configured yet. Use the form to add one.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Configuration Modal -->
+<div *ngIf="selectedGatewayForView" class="modal-overlay" (click)="closeConfigModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ selectedGatewayForView.gateway_name | titlecase }} Config</h3>
+      <button class="modal-close-btn" (click)="closeConfigModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <pre>{{ selectedGatewayForView.config | json }}</pre>
+    </div>
+  </div>
+</div>

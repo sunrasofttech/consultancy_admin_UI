@@ -18,6 +18,7 @@ import { FooterPageSettingComponent } from './footer-page-setting/footer-page-se
 import { SupportSubscriptionSettingsComponent } from './support-subscription-settings/support-subscription-settings.component';
 import { ClientComponent } from './client/client.component';
 import { VideoSectionSettingComponent } from './video-section-setting/video-section-setting.component';
+import { PaymentGatewayComponent } from './payment-gateway/payment-gateway.component';
 
 
 // Import the AuthGuard
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'video-section', component: VideoSectionSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
 
   { path: 'footer-page', component: FooterPageSettingComponent , canActivate: [AuthGuard] }, // Dashboard route
+  { path: 'payment-gateway', component: PaymentGatewayComponent , canActivate: [AuthGuard] }, // Dashboard route
 
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to login by default
   { path: '**', redirectTo: '/login' } // Handle undefined routes
