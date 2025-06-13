@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 // Define an interface for type safety
 export interface PaymentGateway {
@@ -15,8 +16,9 @@ export interface PaymentGateway {
 })
 export class PaymentGatewayService {
 
-  private apiUrl = 'http://localhost:3000/api/payment';
+  private apiUrl = `${environment.baseurl}/payment`;
 
+  
   constructor(private http: HttpClient) { }
 
   /**
