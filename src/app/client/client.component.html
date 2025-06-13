@@ -11,14 +11,39 @@
   <h2 class="booking-header">Clients Package Purchases List</h2>
 
   <!-- Search bar -->
-  <div class="search-bar">
+  <!-- <div class="search-bar">
     <input
       type="text"
       [(ngModel)]="searchQuery"
       placeholder="Search Name, Email, Project..."
       (input)="searchPurchases()"
       [disabled]="isLoading" />
+  </div> -->
+
+   <div class="controls-bar">
+    <div class="search-bar">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          placeholder="Search Name, Email, Project..."
+          (input)="applyFiltersAndPagination()"
+          [disabled]="isLoading" />
+    </div>
+
+    <!-- === NEW ITEMS PER PAGE DROPDOWN === -->
+    <div class="items-per-page-selector">
+        <label for="itemsPerPage">Show:</label>
+        <select id="itemsPerPage" [(ngModel)]="itemsPerPage" (ngModelChange)="onItemsPerPageChange()">
+            <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+                {{ option }}
+            </option>
+        </select>
+        <span>entries</span>
+    </div>
   </div>
+
+
+
 
   <!-- Purchases table -->
   <div class="table-container"  #tableContainer
@@ -120,7 +145,8 @@
             </td>
             <td>
                <span *ngIf="purchase.next_scheduled_at">
-                 {{ purchase.next_scheduled_at | date: 'MMM d, y, h:mm a' }}
+                 <!-- {{ purchase.next_scheduled_at | date: 'MMM d, y, h:mm a' }} -->
+                   {{  purchase.next_scheduled_at | date: 'MMM d, y, h:mm a' : 'UTC' }}
                </span>
                <span *ngIf="!purchase.next_scheduled_at">-</span>
             </td>

@@ -52,14 +52,24 @@ export class ClientService {
   }
 
   // MODIFIED: Fetch all user purchases with pagination and search parameters
-  getAllUserPurchases(page: number = 1, search: string = ''): Observable<any> {
-    const body: any = {
-      page: page,
-      search: search
-    };
+  // getAllUserPurchases(page: number = 1, search: string = ''): Observable<any> {
+  //   const body: any = {
+  //     page: page,
+  //     search: search
+  //   };
    
-    return this.http.post<any>(`${this.baseUrl}/userPurchase/getAllUserPurchase`, body, {
-      headers: this.getHeaders() 
+  //   return this.http.post<any>(`${this.baseUrl}/userPurchase/getAllUserPurchase`, body, {
+  //     headers: this.getHeaders() 
+  //   });
+  // }
+
+
+    // === MODIFIED METHOD ===
+  // Removed page and search parameters as they are now handled on the frontend.
+  getAllUserPurchases(): Observable<any> {
+    // The backend endpoint still expects a POST, so we send an empty body.
+    return this.http.post<any>(`${this.baseUrl}/userPurchase/getAllUserPurchase`, {}, {
+      headers: this.getHeaders()
     });
   }
 
