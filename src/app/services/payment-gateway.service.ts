@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -18,8 +18,15 @@ export class PaymentGatewayService {
 
   private apiUrl = `${environment.baseurl}/payment`;
 
-  
+
   constructor(private http: HttpClient) { }
+
+  private getHeaders() {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Correctly formatted Bearer token
+    });
+  }
 
   /**
    * Fetches all configured payment gateways from the backend.
@@ -34,7 +41,9 @@ export class PaymentGatewayService {
    */
   addGateway(gatewayData: { gateway_name: string, config: any }): Observable<any> {
     const payload = { ...gatewayData, is_active: false };
-    return this.http.post(`${this.apiUrl}/save-gateway`, payload);
+    return this.http.post(`${this.apiUrl}/save-gateway`, payload, {
+      headers: this.getHeaders()
+    });
   }
 
   /**
@@ -44,7 +53,9 @@ export class PaymentGatewayService {
    */
   patchGateway(id: number, gatewayData: Partial<PaymentGateway>): Observable<any> {
     // Note: We use Partial<PaymentGateway> to indicate that not all fields are required.
-    return this.http.patch(`${this.apiUrl}/updateGateways/${id}`, gatewayData);
+    return this.http.patch(`${this.apiUrl}/updateGateways/${id}`, gatewayData, {
+      headers: this.getHeaders()
+    });
   }
 
   /**
@@ -54,7 +65,9 @@ export class PaymentGatewayService {
   activateGateway(gatewayId: number): Observable<any> {
     // This dedicated endpoint is still useful for a simple "Activate" button click.
     // The new patchGateway method can also handle this, but this is more explicit.
-    return this.http.post(`${this.apiUrl}/activate-gateway/${gatewayId}`, {});
+    return this.http.post(`${this.apiUrl}/activate-gateway/${gatewayId}`, {}, {
+      headers: this.getHeaders()
+    });
   }
 
   /**
