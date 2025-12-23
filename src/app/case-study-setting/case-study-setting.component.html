@@ -19,6 +19,11 @@
         </div>
     </div>
 
+      <div class="header-with-btn">
+        <h2>Case Study Page Management</h2>
+        <button class="add-btn" (click)="openCreateModal()">+ Add New Case Study</button>
+    </div>
+
     <hr />
 
     <h2>Uploaded Case Study Images</h2>
@@ -46,4 +51,38 @@
         </div>
     </div>
 
+</div>
+
+
+<!-- POPUP MODAL -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3>Add New Case Study</h3>
+        
+        <div class="input-group">
+            <label>Title</label>
+            <input type="text" [(ngModel)]="newCaseStudy.title" placeholder="Enter title">
+        </div>
+
+        <div class="input-group">
+            <label>Sub Title</label>
+            <textarea [(ngModel)]="newCaseStudy.subTitle" placeholder="Enter brief subtitle"></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Paragraph</label>
+            <!-- Added class here -->
+            <textarea class="paragraph-area" [(ngModel)]="newCaseStudy.paragraph" placeholder="Enter description"></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Upload Image</label>
+            <input type="file" (change)="onNewFileSelected($event)">
+        </div>
+
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="closeModal()">Cancel</button>
+            <button class="save-btn" (click)="createCaseStudy()">Save Case Study</button>
+        </div>
+    </div>
 </div>
