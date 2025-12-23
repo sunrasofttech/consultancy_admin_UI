@@ -151,3 +151,145 @@ hr {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
+
+
+
+.header-with-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 10px; /* Padding for mobile safety */
+}
+
+/* Modal Content - Tightened vertical spacing */
+.modal-content {
+    background: linear-gradient(145deg, #2e1d4d, #1e0627);
+    padding: 25px 30px; /* Reduced from 40px */
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 95vh; /* Allow it to take up most of the screen */
+    overflow-y: auto; /* Adds scrollbar if screen is very small */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    border: 1px solid #5a2d85;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modal Header - Compact */
+.modal-content h3 {
+    margin: 0 0 15px 0; /* Tight margins */
+    color: #e0d6f5;
+    font-size: 22px;
+    text-align: center;
+    border-bottom: 1px solid #5a2d85;
+    padding-bottom: 10px;
+}
+
+/* Input Groups - Reduced margin */
+.modal-content .input-group {
+    margin-bottom: 12px; /* Reduced from 20px */
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content label {
+    color: #c5b3e6;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+/* Standardizing inputs inside the modal */
+.modal-content input[type="text"],
+.modal-content textarea,
+.modal-content input[type="file"] {
+    width: 100% !important;
+    background: #1e0627;
+    border: 1px solid #7743b2;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 0 !important; /* Removes global margin */
+}
+
+/* Specific heights to save space */
+.modal-content textarea {
+    min-height: 60px !important; /* Smaller textareas */
+    height: 60px;
+}
+
+/* Paragraph can be slightly taller if needed, but sub-title should be small */
+.modal-content .paragraph-area {
+    height: 80px;
+}
+
+/* Actions Area - Brought closer to content */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.save-btn {
+    background: #007bff;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.cancel-btn {
+    background: #4a3a63;
+    color: #c5b3e6;
+}
+
+/* Custom scrollbar for small screens */
+.modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background: #5a2d85;
+    border-radius: 10px;
+}

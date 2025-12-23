@@ -34,7 +34,9 @@ export class CaseStudyService {
     return this.http.post<any>(`${this.apiUrl}/updateCaseStudyImage/${id}`, formData , { headers: this.getHeaders() });
   }
 
-
+createCaseStudyImage(formData: FormData) {
+  return this.http.post<any>(`${this.apiUrl}/createCaseStudyImage`, formData, { headers: this.getHeaders() });
+}
 
 
 }
